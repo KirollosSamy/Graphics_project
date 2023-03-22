@@ -243,12 +243,12 @@ int our::Application::run(int run_for_frames) {
     while(!glfwWindowShouldClose(window)){
         if(run_for_frames != 0 && current_frame >= run_for_frames) break;
         glfwPollEvents(); // Read all the user events and call relevant callbacks.
-glClearColor(
-            ((id /   1) % 16) / 16.0,
-            ((id /  16) % 16) / 16.0,
-            ((id / 256) % 16) / 16.0,
-        1);
-        glClear(GL_COLOR_BUFFER_BIT);
+// glClearColor(
+//             ((id /   1) % 16) / 16.0,
+//             ((id /  16) % 16) / 16.0,
+//             ((id / 256) % 16) / 16.0,
+//         1);
+//         glClear(GL_COLOR_BUFFER_BIT);
         // Start a new ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();

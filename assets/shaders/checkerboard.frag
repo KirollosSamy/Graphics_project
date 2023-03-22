@@ -28,12 +28,12 @@ uniform vec3 colors[2];
 
 void main(){
 
-    // Calculate the pixel's position in the checkerboard pattern
-    vec2 pos = floor(gl_FragCoord.xy / size);
+   // Calculate the pixel's position in the checkerboard pattern
+   vec2 pos = floor(gl_FragCoord.xy / size);
 
-    // Alternate between two colors based on the position
-    if (mod(pos.x + pos.y, 2.0) == 0.0)
-        FragColor = vec4(colors[0], 1.0);
+   // Alternate between two colors based on the position
+   if (mod(pos.x + pos.y, 2.0) == 0.0)
+       frag_color = vec4(colors[0], 1.0);
     else
-        FragColor = vec4(colors[1], 1.0);
+       frag_color = vec4(colors[1], 1.0);
 }
