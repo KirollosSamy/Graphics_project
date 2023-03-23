@@ -7,9 +7,9 @@ in Varyings {
     vec3 color;
 } fs_in;
 
-uniform vec4 red = vec4(1.0,0.0,0.0,1.0);
-uniform vec4 green = vec4(0.0,1.0,0.0,1.0);
-uniform vec4 blue = vec4(0.0,0.0,1.0,1.0);
+uniform vec4 red = vec4(1.0,0.0,0.0,0.0);
+uniform vec4 green = vec4(0.0,1.0,0.0,0.0);
+uniform vec4 blue = vec4(0.0,0.0,1.0,0.0);
 
 out vec4 frag_color;
 
@@ -24,19 +24,10 @@ out vec4 frag_color;
 
 //TODO: Done (Req 1) Finish this shader and apply the channel mixing using the "dot" function.
 
-
-// void main(){
-//      vec4 temp = vec4(fs_in.color.r,fs_in.color.g, fs_in.color.b,1.0);
-
-//      frag_color.r = dot(red,temp);
-//      frag_color.g = dot(green,temp);
-//      frag_color.b = dot(blue,temp);
-// }
-
 void main()
 {
-    frag_color.r = dot(red.rgb , fs_in.color.rgb);
-    frag_color.g = dot(green.rgb , fs_in.color.rgb);
-    frag_color.b = dot(blue.rgb , fs_in.color.rgb);
+    frag_color.r = dot(red.rgb , fs_in.color.rgb) + red.a;
+    frag_color.g = dot(green.rgb , fs_in.color.rgb) + green.a;
+    frag_color.b = dot(blue.rgb , fs_in.color.rgb) + blue.a;
     
 }
