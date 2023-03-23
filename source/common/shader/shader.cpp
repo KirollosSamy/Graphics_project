@@ -23,7 +23,7 @@ bool our::ShaderProgram::attach(const std::string &filename, GLenum type) const
     file.close();
 
     GLuint shader = glCreateShader(type);
-    glShaderSource(shader, 1, &sourceCStr, nullptr);
+    glShaderSource(shader, 1, &sourceCStr, NULL);
     glCompileShader(shader);
 
     // check for shader errors !
