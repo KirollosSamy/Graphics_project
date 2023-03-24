@@ -11,6 +11,10 @@ uniform vec4 red = vec4(1.0,0.0,0.0,0.0);
 uniform vec4 green = vec4(0.0,1.0,0.0,0.0);
 uniform vec4 blue = vec4(0.0,0.0,1.0,0.0);
 
+//  Initializing uniforms in your code allows you to set their values before they
+//  are used in the shader. This way, you can control the behavior of your shader
+//  by changing the values of uniforms from your application code.
+
 out vec4 frag_color;
 
 // currently the shader just returns the interpalated color varying.
