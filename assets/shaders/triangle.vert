@@ -36,7 +36,7 @@ void main(){
         vec3(0.0, 0.0, 1.0)
     );
 
-    gl_Position = vec4(pos[gl_VertexID] * vec3( scale.x ,scale.y ,1.0) + vec3(translation.x, translation.y, 1.0), 1.0);
+    gl_Position = vec4(pos[gl_VertexID] * vec3( scale.x, scale.y, 1.0) + vec3(translation.x, translation.y, 0.0), 1.0);
     vs_out.color = color[gl_VertexID];
 
 }

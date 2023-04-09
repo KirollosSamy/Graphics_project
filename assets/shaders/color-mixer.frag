@@ -30,6 +30,9 @@ out vec4 frag_color;
 
 void main()
 {
+    // mat3 mix_matrix = transpose(mat3(red.rgb, green.rgb, blue.rgb));
+    // vec3 trans = vec3(red.a, green.a, blue.a);
+    // frag_color.rgb = mix_matrix * fs_in.color + trans;
     frag_color.r = dot(red.rgb , fs_in.color.rgb) + red.a;
     frag_color.g = dot(green.rgb , fs_in.color.rgb) + green.a;
     frag_color.b = dot(blue.rgb , fs_in.color.rgb) + blue.a;
