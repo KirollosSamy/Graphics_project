@@ -48,7 +48,6 @@ namespace our
         {
             // TODO: (Req 4) Write this function
 
-
             // you can google how to set this options (dont memorize just google)
             if (faceCulling.enabled)
             {
@@ -75,7 +74,8 @@ namespace our
                 glEnable(GL_BLEND);
                 glBlendEquation(blending.equation);
                 glBlendFunc(blending.sourceFactor, blending.destinationFactor);
-                glBlendColor(blending.constantColor[0], blending.constantColor[1], blending.constantColor[2], blending.constantColor[2]);
+                // glBlendColor(blending.constantColor[0], blending.constantColor[1], blending.constantColor[2], blending.constantColor[2]);
+                glBlendColor(blending.constantColor.r, blending.constantColor.g, blending.constantColor.b, blending.constantColor.a);
             }
             else
             {
