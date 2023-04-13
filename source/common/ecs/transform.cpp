@@ -21,7 +21,7 @@ namespace our {
         // Note : I guess they are multiplied in reverse order because the transormed vector is
         // multiplied to the right --> V'= T * R * S * V so we need to do scaling first then 
         // Rotation the translation ( still confused contact me 😊 )
-        return   Translation * Rotation * Scaling; 
+        return  Translation * Rotation * Scaling; 
     }
 
      // Deserializes the entity data and components from a json object
