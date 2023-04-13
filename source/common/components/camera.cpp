@@ -43,15 +43,11 @@ namespace our
         //  - the up direction which is the vector (0,1,0) but after being transformed by M
         //  then you can use glm::lookAt
 
-        glm::vec4 eye = glm::vec4(0, 0, 0, 1); // vec4 because M matrix is mat4 we know earlier that it must be mat4 (check lectures)
-        glm::vec4 center = glm::vec4(0, 0, -1, 1);
-        glm::vec4 up = glm::vec4(0, 1, 0, 1);
+        glm::vec3 eye = M * glm::vec4(0, 0, 0, 1); // vec4 because M matrix is mat4 we know earlier that it must be mat4 (check lectures)
+        glm::vec3 center = M * glm::vec4(0, 0, -1, 1);
+        glm::vec3 up = M * glm::vec4(0, 1, 0, 0); //
 
-        glm::mat4 viewMatrix = glm::lookAt(
-            glm::vec3(M * eye), // vec3 as Lookat only accepts vec3 (i am not sure about the logical reason for now so i will not type it :))
-            glm::vec3(M * center),
-            glm::vec3(M * up));
-
+        glm::mat4 viewMatrix = glm::lookAt(eye, center, up);
         return viewMatrix;
     }
 
@@ -65,19 +61,14 @@ namespace our
         //  Left and Right are the same but after being multiplied by the aspect ratio
         //  For the perspective camera, you can use glm::perspective
 
-        float aspect_ratio = viewportSize[0] / (1.0 * viewportSize[1]); // 1.0 * here to make it float division
+        glm::mat4 ret;
+        float aspect_ratio = (viewportSize.x * 1.0f) / viewportSize.y;
 
-        if (this->cameraType == CameraType::ORTHOGRAPHIC)
-        {
-            glm::mat4 projectionMatrix = glm::ortho(aspect_ratio * (-orthoHeight / 2), aspect_ratio * (orthoHeight / 2), -orthoHeight / 2, orthoHeight / 2, near, far);
-            return projectionMatrix;
-        }
-        else  // camera type is prespective
-        {
-            glm::mat4 prespectiveMatrix = glm::perspective(fovY, aspect_ratio, near, far);
-            return prespectiveMatrix;
-        }
+        if (cameraType == CameraType::ORTHOGRAPHIC)
+            ret = glm::ortho(aspect_ratio * -orthoHeight / 2.0f, aspect_ratio * orthoHeight / 2.0f, -orthoHeight / 2.0f, orthoHeight / 2.0f, near, far);
+        else
+            ret = glm::perspective(fovY, aspect_ratio, near, far);
 
-        return glm::mat4(1.0f);
+        return ret;
     }
 }

@@ -47,7 +47,7 @@ namespace our
             // TODO: (Req 8) If the entity is in this world, add it to the "markedForRemoval" set.
             auto it = entities.find(entity);
             if (it != entities.end())
-                markedForRemoval.insert(*it);
+                markedForRemoval.insert(entity);
         }
 
         // This removes the elements in "markedForRemoval" from the "entities" set.
@@ -60,6 +60,7 @@ namespace our
                 markedForRemoval.erase(entity);
                 delete entity;
             }
+            markedForRemoval.clear();
         }
 
         // This deletes all entities in the world

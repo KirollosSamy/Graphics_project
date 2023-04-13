@@ -11,7 +11,7 @@ namespace our {
             //TODO: (Req 8) Create an entity, make its parent "parent" and call its deserialize with "entityData".
             Entity* entity = new Entity();
             entity->parent = parent;
-            entity->deserialize(data);
+            entity->deserialize(entityData);
 
             
             if(entityData.contains("children")){

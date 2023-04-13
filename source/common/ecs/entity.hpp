@@ -40,8 +40,7 @@ namespace our
             //  Don't forget to return a pointer to the new component
             T *comp = new T();
             comp->owner = this;            // make current entity owner of this component
-            T::getID();
-            components.insert(comp); // check component.hpp line 19 for illustration why i used T::getID() also it is very obvious that T of type component
+            components.push_back(comp); 
             return comp;
         }
 
@@ -86,7 +85,6 @@ namespace our
                     components.erase(comp);
                 )
             }
-            return nullptr;
 
         }
 
