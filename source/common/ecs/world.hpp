@@ -55,7 +55,7 @@ namespace our
         void deleteMarkedEntities()
         {
             // TODO: (Req 8) Remove and delete all the entities that have been marked for removal
-            for (auto &entity : markedForRemoval)
+            for (auto entity : markedForRemoval)
             {
                 markedForRemoval.erase(entity);
                 delete entity;
@@ -67,7 +67,7 @@ namespace our
         void clear()
         {
             // TODO: (Req 8) Delete all the entites and make sure that the containers are empty
-            for (auto &entity : entities)
+            for (auto entity : entities)
             {
                 delete entity;
             }

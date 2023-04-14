@@ -55,7 +55,7 @@ namespace our
             //  remember to store the number of elements in "elementCount" since you will need it for drawing
             //  For the attribute locations, use the constants defined above: ATTRIB_LOC_POSITION, ATTRIB_LOC_COLOR, etc
 
-            elementCount = elements.size();
+            elementCount = (GLsizei)elements.size();
 
             // Binding Vertex Array
             glGenVertexArrays(1, &VAO);
@@ -102,15 +102,17 @@ namespace our
             // TODO: (Req 2) Write this function
             glBindVertexArray(VAO);
             glDrawElements(GL_TRIANGLES, elementCount, GL_UNSIGNED_INT, (void *)0);
+             glBindVertexArray(0);
         }
 
         // this function should delete the vertex & element buffers and the vertex array object
         ~Mesh()
         {
             // TODO: (Req 2) Write this function
+            glDeleteVertexArrays(1, &VAO);
             glDeleteBuffers(1, &VBO);
             glDeleteBuffers(1, &EBO);
-            glDeleteVertexArrays(1, &VAO);
+            
         }
 
         Mesh(Mesh const &) = delete;
