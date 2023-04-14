@@ -1,0 +1,52 @@
+newmtl Rightlowerarm1Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.396078 0.396078 0.396078 
+
+d 1
+
+Ns 0
+
+map_Ka Rightlowerarm1_diff.png
+map_Kd Rightlowerarm1_diff.png
+map_d Rightlowerarm1_diff.png
+
+newmtl Eye1Mtl
+Material Color
+Ka 1 0 0
+Kd 1 0 0
+Ks 0.0901961 0 0 
+
+d 1
+
+Ns 0
+
+newmtl Torso1Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.396078 0.396078 0.396078 
+
+d 1
+
+Ns 0
+
+map_Ka Torso1_diff.png
+map_Kd Torso1_diff.png
+map_d Torso1_diff.png
+
+newmtl Hair1Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.87451 0.87451 0.87451 
+
+d 0.992157
+
+Ns 0
+
+map_Ka Hair1_diff.png
+map_Kd Hair1_diff.png
+map_d Hair1_diff.png
+

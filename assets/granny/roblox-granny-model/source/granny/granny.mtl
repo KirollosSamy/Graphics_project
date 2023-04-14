@@ -1,0 +1,116 @@
+newmtl Teeth1Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.0313726 0.0313726 0.0313726 
+
+d 1
+
+Ns 0
+
+map_Ka Teeth1_diff.png
+map_Kd Teeth1_diff.png
+map_d Teeth1_diff.png
+
+newmtl Torso1Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.0313726 0.0313726 0.0313726 
+
+d 1
+
+Ns 0
+
+map_Ka Torso1_diff.png
+map_Kd Torso1_diff.png
+map_d Torso1_diff.png
+
+newmtl Head1Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.0313726 0.0313726 0.0313726 
+
+d 1
+
+Ns 0
+
+map_Ka Head1_diff.png
+map_Kd Head1_diff.png
+map_d Head1_diff.png
+
+newmtl Handle1Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.0627451 0.0627451 0.0627451 
+
+d 1
+
+Ns 0
+
+map_Ka Handle1_diff.png
+map_Kd Handle1_diff.png
+map_d Handle1_diff.png
+
+newmtl Leftlowerarm1Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.0627451 0.0627451 0.0627451 
+
+d 1
+
+Ns 0
+
+map_Ka Leftlowerarm1_diff.png
+map_Kd Leftlowerarm1_diff.png
+map_d Leftlowerarm1_diff.png
+
+newmtl Eyes1Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.0313726 0.0313726 0.0313726 
+
+d 1
+
+Ns 0
+
+map_Ka Eyes1_diff.png
+map_Kd Eyes1_diff.png
+map_d Eyes1_diff.png
+
+newmtl Leftupperarm1Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.0627451 0.0627451 0.0627451 
+
+d 1
+
+Ns 0
+
+map_Ka Leftupperarm1_diff.png
+map_Kd Leftupperarm1_diff.png
+map_d Leftupperarm1_diff.png
+
+newmtl Leftleg1Mtl
+Material Color
+Ka 0.00258583 0.00258583 0.00258583
+Kd 0.00258583 0.00258583 0.00258583
+Ks 8.11239e-05 8.11239e-05 8.11239e-05 
+
+d 1
+
+Ns 0
+
+map_Ka Leftleg1_diff.png
+map_Kd Leftleg1_diff.png
+map_d Leftleg1_diff.png
+
+map_Bump Leftleg1_nmap.png
+
+map_Ns Leftleg1_spec.png
+
