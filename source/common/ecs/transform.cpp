@@ -31,4 +31,8 @@ namespace our {
         scale    = data.value("scale", scale);
     }
 
+    glm::mat4 Transform::operator*(const Transform& other) const{
+            return this->toMat4() * other.toMat4();
+        }
+
 }

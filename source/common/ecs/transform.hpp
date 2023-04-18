@@ -16,6 +16,9 @@ namespace our {
         glm::mat4 toMat4() const;
          // Deserializes the entity data and components from a json object
         void deserialize(const nlohmann::json&);
+
+        //overloading the multiply operator to make the code more elegant
+        glm::mat4 operator*(const Transform& other) const;
     };
 
 }

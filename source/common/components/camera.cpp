@@ -5,12 +5,13 @@
 
 namespace our {
     // Reads camera parameters from the given json object
-    void CameraComponent::deserialize(const nlohmann::json& data){
-        if(!data.is_object()) return;
+    void CameraComponent::deserialize(const nlohmann::json& data) {
+        if (!data.is_object()) return;
         std::string cameraTypeStr = data.value("cameraType", "perspective");
-        if(cameraTypeStr == "orthographic"){
+        if (cameraTypeStr == "orthographic") {
             cameraType = CameraType::ORTHOGRAPHIC;
-        } else {
+        }
+        else {
             cameraType = CameraType::PERSPECTIVE;
         }
         near = data.value("near", 0.01f);
@@ -35,7 +36,12 @@ namespace our {
         // - the center position which is the point (0,0,-1) but after being transformed by M
         // - the up direction which is the vector (0,1,0) but after being transformed by M
         // then you can use glm::lookAt
-        return glm::mat4(1.0f);
+
+        glm::vec3 eye = M * glm::vec4(0, 0, 0, 1);
+        glm::vec3 center = M * glm::vec4(0, 0, -1, 1);
+        glm::vec3 up = M * glm::vec4(0, 1, 0, 1);
+
+        return glm::lookAt(eye, center, up);
     }
 
     // Creates and returns the camera projection matrix
@@ -46,6 +52,11 @@ namespace our {
         // It takes left, right, bottom, top. Bottom is -orthoHeight/2 and Top is orthoHeight/2.
         // Left and Right are the same but after being multiplied by the aspect ratio
         // For the perspective camera, you can use glm::perspective
-        return glm::mat4(1.0f);
+        float aspectRatio = (float)viewportSize.x / viewportSize.y;
+
+        if (cameraType == CameraType::ORTHOGRAPHIC)
+            return glm::ortho(-orthoHeight * aspectRatio / 2.0f, orthoHeight * aspectRatio / 2.0f, -orthoHeight / 2.0f, orthoHeight / 2.0f, near, far);
+        else
+            return glm::perspective(fovY, aspectRatio, near, far);
     }
 }
