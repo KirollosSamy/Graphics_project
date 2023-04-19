@@ -29,9 +29,14 @@ void main(){
     * it differs from screen to screen based on the Resolution(WindowSize.x, WindowSize.y).
     */
 
-    // translate the pixel to NDC space.
+    // translate the pixel to NDC space. Note NDC space ranges [-1,1] 
+    // while the texture coordinate space ranges [0,1]
+    // so by multiplying tex_coord by 2 results range equal [0,2],
+    // and by subtracting 1 the range will be [-1,1] -> NDC space (required range)
     vec2 NDC = vec2(2.0f * tex_coord - 1.0f);  
+
     // calculate the vignette simply by dividing scene color by : 1 + the squared length of the 2D pixel location in the NDC space.
     frag_color = texture(tex, tex_coord) / (1 + length(NDC)*length(NDC));
+    
     // Note that : length() is used to calculate the magnitude of the vector.
 }

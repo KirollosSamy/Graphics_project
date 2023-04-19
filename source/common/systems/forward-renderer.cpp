@@ -28,7 +28,7 @@ namespace our
             PipelineState skyPipelineState{};
             // setting depth configurations
             skyPipelineState.depthTesting.enabled = true;
-            skyPipelineState.depthTesting.function = GL_LESS; // GL_LEQUAL
+            skyPipelineState.depthTesting.function = GL_LEQUAL; // GL_LEQUAL
             // setting faceculling configurations
             skyPipelineState.faceCulling.enabled = true;
             skyPipelineState.faceCulling.culledFace = GL_FRONT;
@@ -69,8 +69,8 @@ namespace our
             depthTarget = texture_utils::empty(GL_DEPTH_COMPONENT24, this->windowSize);
 
             // attach to frame buffer
-            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTarget->getOpenGLName(), 0);
-            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTarget->getOpenGLName(), 0);
+            glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTarget->getOpenGLName(), 0);
+            glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTarget->getOpenGLName(), 0);
 
             // TODO: (Req 11) Unbind the framebuffer just to be safe
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
@@ -166,13 +166,12 @@ namespace our
         // TODO: (Req 9) Modify the following line such that "cameraForward" contains a vector pointing the camera forward direction
         //  HINT: See how you wrote the CameraComponent::getViewMatrix, it should help you solve this one
         auto M = camera->getOwner()->getLocalToWorldMatrix();
-        glm::vec3 cameraForward = glm::vec3(M * glm::vec4(0, 0, -1, 0));
+        glm::vec4 cameraForward = M * glm::vec4(0, 0, -1, 0);
         std::sort(transparentCommands.begin(), transparentCommands.end(), [cameraForward](const RenderCommand &first, const RenderCommand &second)
-                  {
-                    
+                  {         
             //TODO: (Req 9) Finish this function
             // HINT: the following return should return true "first" should be drawn before "second". 
-            return glm::dot(cameraForward,first.center) > glm::dot(cameraForward, second.center) ; });
+            return glm::dot(cameraForward,first.localToWorld * glm::vec4(first.center,1)) > glm::dot(cameraForward,first.localToWorld * glm::vec4(first.center,1)); });
 
         // TODO: (Req 9) Get the camera ViewProjection matrix and store it in VP
         glm::mat4 VP = camera->getProjectionMatrix(this->windowSize) * camera->getViewMatrix();
@@ -217,10 +216,10 @@ namespace our
             this->skyMaterial->setup();
 
             // TODO: (Req 10) Get the camera position
-            glm::vec3 cameraPos = camera->getOwner()->getLocalToWorldMatrix() * glm::vec4(0.0, 0.0, 0.0, 1.0);
+            glm::vec3 cameraPos = M * glm::vec4(0.0, 0.0, 0.0, 1.0);
 
             // TODO: (Req 10) Create a model matrix for the sky such that it always follows the camera (sky sphere center = camera position)
-            glm::mat4 identity(1.0f);
+            glm::mat4 identity(1.0);
             glm::mat4 mat = glm::translate(identity, cameraPos);
 
             // TODO: (Req 10) We want the sky to be drawn behind everything (in NDC space, z=1)
@@ -255,7 +254,7 @@ namespace our
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 
             // TODO: (Req 11) Setup the postprocess material and draw the fullscreen triangle
-            glBindVertexArray(postProcessVertexArray);
+            // glBindVertexArray(postProcessVertexArray);
             postprocessMaterial->setup();
             glDrawArrays(GL_TRIANGLES, 0, 3);
         }

@@ -57,7 +57,7 @@ namespace our
             // TODO: (Req 8) Remove and delete all the entities that have been marked for removal
             for (auto entity : markedForRemoval)
             {
-                markedForRemoval.erase(entity);
+                entities.erase(entity);
                 delete entity;
             }
             markedForRemoval.clear();
