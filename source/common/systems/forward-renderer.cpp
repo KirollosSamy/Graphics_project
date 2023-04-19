@@ -166,7 +166,7 @@ namespace our
         // TODO: (Req 9) Modify the following line such that "cameraForward" contains a vector pointing the camera forward direction
         //  HINT: See how you wrote the CameraComponent::getViewMatrix, it should help you solve this one
         auto M = camera->getOwner()->getLocalToWorldMatrix();
-        glm::vec4 cameraForward = M * glm::vec4(0, 0, -1, 0);
+        glm::vec4 cameraForward = M * glm::vec4(0.0, 0.0, -1.0, 0.0);
         std::sort(transparentCommands.begin(), transparentCommands.end(), [cameraForward](const RenderCommand &first, const RenderCommand &second)
                   {         
             //TODO: (Req 9) Finish this function
@@ -227,8 +227,8 @@ namespace our
             glm::mat4 alwaysBehindTransform = glm::mat4(
                 1.0f, 0.0f, 0.0f, 0.0f,
                 0.0f, 1.0f, 0.0f, 0.0f,
-                0.0f, 0.0f, 1.0f, 0.0f,
-                0.0f, 0.0f, 0.0f, 1.0f);
+                0.0f, 0.0f, 0.0f, 0.0f,
+                0.0f, 0.0f, 1.0f, 1.0f);
             // TODO: (Req 10) set the "transform" uniform
             glm::mat4 transform = alwaysBehindTransform * VP * mat;
             skyMaterial->shader->set("transform", transform);
@@ -254,7 +254,7 @@ namespace our
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 
             // TODO: (Req 11) Setup the postprocess material and draw the fullscreen triangle
-            // glBindVertexArray(postProcessVertexArray);
+            glBindVertexArray(postProcessVertexArray);
             postprocessMaterial->setup();
             glDrawArrays(GL_TRIANGLES, 0, 3);
         }

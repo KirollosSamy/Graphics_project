@@ -30,11 +30,11 @@
                 "grass": "assets/textures/grass_ground_d.jpg",
                 "wood": "assets/textures/wood.jpg",
                 "glass": "assets/textures/glass-panels.png",
-                "monkey": "assets/textures/monkey.png"
+                "monkey": "assets/textures/Torso1_diff (1).png"
             },
             "meshes":{
                 "cube": "assets/models/cube.obj",
-                "monkey": "assets/models/monkey.obj",
+                "monkey": "assets/models/granny.obj",
                 "plane": "assets/models/plane.obj",
                 "sphere": "assets/models/sphere.obj"
             },
