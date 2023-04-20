@@ -30,13 +30,14 @@
                 "grass": "assets/textures/grass_ground_d.jpg",
                 "wood": "assets/textures/wood.jpg",
                 "glass": "assets/textures/glass-panels.png",
-                "monkey": "assets/textures/Torso1_diff (1).png"
+                "granny": "assets/textures/Torso1_diff (1).png"
             },
             "meshes":{
                 "cube": "assets/models/cube.obj",
-                "monkey": "assets/models/granny.obj",
+                "granny": "assets/models/granny.obj",
                 "plane": "assets/models/plane.obj",
-                "sphere": "assets/models/sphere.obj"
+                "sphere": "assets/models/sphere.obj",
+                "granny_house": "assets/models/granny_1_house.obj"
             },
             "samplers":{
                 "default":{},
@@ -95,7 +96,7 @@
                     "texture": "grass",
                     "sampler": "default"
                 },
-                "monkey":{
+                "granny":{
                     "type": "textured",
                     "shader": "textured",
                     "pipelineState": {
@@ -107,7 +108,7 @@
                         }
                     },
                     "tint": [1, 1, 1, 1],
-                    "texture": "monkey",
+                    "texture": "granny",
                     "sampler": "default"
                 },
                 "moon":{
@@ -158,13 +159,12 @@
                 "components": [
                     {
                         "type": "Mesh Renderer",
-                        "mesh": "monkey",
-                        "material": "monkey"
+                        "mesh": "granny",
+                        "material": "granny"
                     },
                     {
                         "type": "Movement",
-                        "linearVelocity": [0, 0.1, 0],
-                        "angularVelocity": [0, 45, 0]
+                        "angularVelocity": [0,0, 0]
                     }
                 ]
             },
