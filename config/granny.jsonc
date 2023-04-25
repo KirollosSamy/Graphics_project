@@ -30,13 +30,29 @@
                 "grass": "assets/textures/grass_ground_d.jpg",
                 "wood": "assets/textures/wood.jpg",
                 "glass": "assets/textures/glass-panels.png",
-                "monkey": "assets/textures/monkey.png"
+                "granny": "assets/textures/Torso1_diff (1).png",
+                "house1":"assets/granny/granny-1-house/textures/Blood.png",
+                "house2":"assets/granny/granny-1-house/textures/CellarFurniture.png",
+                "house3":    "assets/granny/granny-1-house/textures/ExitDoor.png",
+                "house4":    "assets/granny/granny-1-house/textures/FurnitureHall.png",
+                "house5":    "assets/granny/granny-1-house/textures/FurnitureSovrum1.png",
+                "house6":    "assets/granny/granny-1-house/textures/FurnitureSovrum2_2.png",
+                "house7":    "assets/granny/granny-1-house/textures/HouseBakedTexture1.png",
+                "house8":    "assets/granny/granny-1-house/textures/HouseFloorBaked2.png",
+                "house9":    "assets/granny/granny-1-house/textures/Junk_Truck_Rust_Texture_by_FoxStox.png",
+                "house10":    "assets/granny/granny-1-house/textures/KitchenFurniture.png",
+                "house11":    "assets/granny/granny-1-house/textures/Klocka.png",
+                "house12":    "assets/granny/granny-1-house/textures/Micro.png",
+                "house13":    "assets/granny/granny-1-house/textures/Proppskop.png",
+                "house14":    "assets/granny/granny-1-house/textures/Tunna.png",
+                "house15":    "assets/granny/granny-1-house/textures/Vardagsrum.png"
             },
             "meshes":{
                 "cube": "assets/models/cube.obj",
-                "monkey": "assets/models/monkey.obj",
+                "granny": "assets/models/granny.obj",
                 "plane": "assets/models/plane.obj",
-                "sphere": "assets/models/sphere.obj"
+                "sphere": "assets/models/sphere.obj",
+                "house": "assets/models/granny_1_house.obj"
             },
             "samplers":{
                 "default":{},
@@ -95,7 +111,7 @@
                     "texture": "grass",
                     "sampler": "default"
                 },
-                "monkey":{
+                "granny":{
                     "type": "textured",
                     "shader": "textured",
                     "pipelineState": {
@@ -107,10 +123,10 @@
                         }
                     },
                     "tint": [1, 1, 1, 1],
-                    "texture": "monkey",
+                    "texture": "granny",
                     "sampler": "default"
                 },
-                "moon":{
+                "house":{
                     "type": "textured",
                     "shader": "textured",
                     "pipelineState": {
@@ -122,14 +138,29 @@
                         }
                     },
                     "tint": [1, 1, 1, 1],
-                    "texture": "moon",
+                    "texture":"house10",
+                    "t1":"house2",
+                    "t2":"house3",
+                    "t3":"house4",
+                    "t4":"house5",
+                    "t5":"house6",
+                    "t6":"house7",
+                    "t7":"house8",
+                    "t8":"house9",
+                    "t9":"house10",
+                    "t10":"house11",
+                    "t11":"house12",
+                    "t12":"house13",
+                    "t13":"house14",
+                    "t14":"house15",
+                    
                     "sampler": "default"
                 }
             }
         },
         "world":[
             {
-                "position": [0, 0, 10],
+                "position": [0, 8, -2],
                 "components": [
                     {
                         "type": "Camera"
@@ -153,106 +184,33 @@
                     }
                 ]
             },
+
             {
-                "rotation": [-45, 0, 0],
+                "position": [-10, 4, 4],
+                "rotation": [0, 0, 0],
+                "scale": [0.3, 0.3, 0.3],
                 "components": [
                     {
                         "type": "Mesh Renderer",
-                        "mesh": "monkey",
-                        "material": "monkey"
+                        "mesh": "granny",
+                        "material":"granny"
                     },
                     {
-                        "type": "Movement",
-                        "linearVelocity": [0, 0.1, 0],
-                        "angularVelocity": [0, 45, 0]
+                    "type": "Movement",
+                    "linearVelocity": [0, 0, 0],
+                    "angularVelocity": [0, 0, 0]
                     }
                 ]
             },
             {
-                "position": [0, -1, 0],
-                "rotation": [-90, 0, 0],
-                "scale": [10, 10, 1],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "plane",
-                        "material": "grass"
-                    }
-                ]
-            },
-            {
-                "position": [0, 1, 2],
+                "position": [0, 0, 0],
                 "rotation": [0, 0, 0],
-                "scale": [2, 2, 2],
+                "scale": [50, 50, 50],
                 "components": [
                     {
                         "type": "Mesh Renderer",
-                        "mesh": "plane",
-                        "material": "glass"
-                    }
-                ]
-            },
-            {
-                "position": [0, 1, -2],
-                "rotation": [0, 0, 0],
-                "scale": [2, 2, 2],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "plane",
-                        "material": "glass"
-                    }
-                ]
-            },
-            {
-                "position": [2, 1, 0],
-                "rotation": [0, 90, 0],
-                "scale": [2, 2, 2],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "plane",
-                        "material": "glass"
-                    }
-                ]
-            },
-            {
-                "position": [-2, 1, 0],
-                "rotation": [0, 90, 0],
-                "scale": [2, 2, 2],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "plane",
-                        "material": "glass"
-                    }
-                ]
-            },
-            {
-                "position": [0, 3, 0],
-                "rotation": [90, 0, 0],
-                "scale": [2, 2, 2],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "plane",
-                        "material": "glass"
-                    }
-                ]
-            },
-            {
-                "position": [0, 10, 0],
-                "rotation": [45, 45, 0],
-                "scale": [5, 5, 5],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "sphere",
-                        "material": "moon"
-                    },
-                    {
-                        "type": "Movement",
-                        "angularVelocity": [0, 90, 0]
+                        "mesh": "house",
+                        "material":"house"
                     }
                 ]
             }

@@ -171,7 +171,7 @@ namespace our
                   {         
             //TODO: (Req 9) Finish this function
             // HINT: the following return should return true "first" should be drawn before "second". 
-            return glm::dot(cameraForward,first.localToWorld * glm::vec4(first.center,1)) > glm::dot(cameraForward,first.localToWorld * glm::vec4(first.center,1)); });
+            return glm::dot(cameraForward,first.localToWorld * glm::vec4(first.center,1)) > glm::dot(cameraForward,second.localToWorld * glm::vec4(second.center,1)); });
 
         // TODO: (Req 9) Get the camera ViewProjection matrix and store it in VP
         glm::mat4 VP = camera->getProjectionMatrix(this->windowSize) * camera->getViewMatrix();

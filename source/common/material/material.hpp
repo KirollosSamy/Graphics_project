@@ -49,6 +49,29 @@ namespace our {
         Sampler* sampler;
         float alphaThreshold;
 
+        // ----------------------------------------------------------------
+        // adding extra texture parameters (i don't know any other way to do this 🥲 )
+
+        Texture2D* t1;
+        Texture2D* t2;
+        Texture2D* t3;
+        Texture2D* t4;
+        Texture2D* t5;
+        Texture2D* t6;
+        Texture2D* t7;
+        Texture2D* t8;
+        Texture2D* t9;
+        Texture2D* t10;
+        Texture2D* t11;
+        Texture2D* t12;
+        Texture2D* t13;
+        Texture2D* t14;
+        Texture2D* t15;
+
+        // ----------------------------------------------------------------
+        
+
+
         void setup() const override;
         void deserialize(const nlohmann::json& data) override;
     };
