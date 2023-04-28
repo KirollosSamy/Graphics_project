@@ -19,7 +19,7 @@ namespace our {
         glm::mat4 Rotation = glm::yawPitchRoll(rotation.y, rotation.x, rotation.z);
 
         // Note : I guess they are multiplied in reverse order because the transormed vector is
-        // multiplied to the right --> V'= T * R * S * V so we need to do scaling first then 
+        // multiplied to the right ---> V'= T * R * S * V so we need to do scaling first then 
         // Rotation then translation 
         return   Translation * Rotation * Scaling; 
     }
