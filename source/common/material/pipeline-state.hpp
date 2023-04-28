@@ -66,10 +66,8 @@ namespace our {
                 // to be drawn in the correct order and that objects that are farther away from the viewer are obscured by objects that are closer.
                 glDepthFunc(depthTesting.function);
                 //to set the depth testing function for subsequent rendering operations.
-                glDepthMask(depthMask);
-                //hia hena m3molha set b true dayman i think
-                // If depthMask is set to GL_TRUE, the depth buffer is writable and fragments that pass the depth test will update the depth buffer.
-                // If depthMask is set to GL_FALSE, the depth buffer is read-only and fragments will not update the depth buffer.
+                
+              
             } else {
                 glDisable(GL_DEPTH_TEST);
             }
@@ -91,6 +89,10 @@ namespace our {
             } else {
                 glDisable(GL_BLEND);
             }
+            glDepthMask(depthMask);
+              //hia hena m3molha set b true dayman i think
+              // If depthMask is set to GL_TRUE, the depth buffer is writable and fragments that pass the depth test will update the depth buffer.
+              // If depthMask is set to GL_FALSE, the depth buffer is read-only and fragments will not update the depth buffer.
             glColorMask(colorMask[0], colorMask[1], colorMask[2], colorMask[3]);
             ///specifies whether color components should be written to the color buffer during rendering.
             // It takes four boolean parameters that correspond to the red, green, blue, and alpha channels of the color buffer, respectively.
