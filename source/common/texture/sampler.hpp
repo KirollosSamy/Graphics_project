@@ -14,33 +14,44 @@ namespace our {
         // This constructor creates an OpenGL sampler and saves its object name in the member variable "name" 
         Sampler() {
             //TODO: (Req 6) Complete this function
+            // generate sampler and save it in name variable
+            // 1--->stands for one sampler object
+            glGenSamplers(1, &name);
         };
-
         // This deconstructor deletes the underlying OpenGL sampler
         ~Sampler() { 
             //TODO: (Req 6) Complete this function
+            // delete the sampler (name)
+            glDeleteSamplers(1, &name);
          }
 
         // This method binds this sampler to the given texture unit
         void bind(GLuint textureUnit) const {
             //TODO: (Req 6) Complete this function
+            // bind the sampler to textureUnit-->0 or 1 or 2 ...
+                glBindSampler(textureUnit, name);
         }
 
         // This static method ensures that no sampler is bound to the given texture unit
         static void unbind(GLuint textureUnit){
             //TODO: (Req 6) Complete this function
+       //In this implementation, we simply call glBindSampler with the texture unit set to textureUnit and the sampler set to 0, which unbinds any sampler that was previously bound to that texture unit.
+              glBindSampler(textureUnit, 0);
         }
 
         // This function sets a sampler paramter where the value is of type "GLint"
         // This can be used to set the filtering and wrapping parameters
         void set(GLenum parameter, GLint value) const {
             //TODO: (Req 6) Complete this function
+            // like : glSamplerParameteri(color_sampler, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glSamplerParameteri(name, parameter, value);
         }
 
         // This function sets a sampler paramter where the value is of type "GLfloat"
         // This can be used to set the "GL_TEXTURE_MAX_ANISOTROPY_EXT" parameter
         void set(GLenum parameter, GLfloat value) const {
             //TODO: (Req 6) Complete this function
+        glSamplerParameterf(name, parameter, value);
         }
 
         // This function sets a sampler paramter where the value is of type "GLfloat[4]"
