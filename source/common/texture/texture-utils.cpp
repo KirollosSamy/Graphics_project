@@ -8,7 +8,9 @@
 our::Texture2D* our::texture_utils::empty(GLenum format, glm::ivec2 size){
     our::Texture2D* texture = new our::Texture2D();
     //TODO: (Req 11) Finish this function to create an empty texture with the given size and format
-
+    texture->bind();
+    glTexStorage2D(GL_TEXTURE_2D, 1, format, size.x, size.y);
+    
     return texture;
 }
 
@@ -35,6 +37,10 @@ our::Texture2D* our::texture_utils::loadImage(const std::string& filename, bool 
     our::Texture2D* texture = new our::Texture2D();
     //Bind the texture such that we upload the image data to its storage
     //TODO: (Req 5) Finish this function to fill the texture with the data found in "pixels"
+    texture->bind(); 
+    //(kiro)why do we need the channel variable? I think something is still missing
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+    if(generate_mipmap) glGenerateMipmap(GL_TEXTURE_2D);
     
     stbi_image_free(pixels); //Free image data after uploading to GPU
     return texture;
