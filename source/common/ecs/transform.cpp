@@ -20,7 +20,7 @@ namespace our {
 
         // Note : I guess they are multiplied in reverse order because the transormed vector is
         // multiplied to the right --> V'= T * R * S * V so we need to do scaling first then 
-        // Rotation the translation ( still confused contact me 😊 )
+        // Rotation then translation 
         return   Translation * Rotation * Scaling; 
     }
 
