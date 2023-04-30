@@ -158,7 +158,7 @@ namespace our {
         // The matrix M is a 4x4 transformation matrix that transforms coordinates from the local space of the camera to the world space of the scene. Multiplying the homogeneous vector (0.0, 0.0, -1.0, 0.0) by this matrix applies the transformation and returns a new 4D homogeneous vector representing the transformed vector.
         // After the multiplication, the resulting vector cameraForward contains the transformed vector in the world space. The x, y, and z components of the vector represent the new direction of the camera forward vector in the world space, while the w component is still 0.
         auto M = camera->getOwner()->getLocalToWorldMatrix();
-        glm::vec3 cameraForward = M * glm::vec4(0.0, 0.0, -1.0, 1.0);
+        glm::vec3 cameraForward = M * glm::vec4(0.0, 0.0, -1.0, 0.0); // vector
 
 // This function is implementing a sorting algorithm for a vector of RenderCommand objects based on their distance to the camera. Specifically, it sorts the vector in descending order of distance, so that the commands that are farthest from the camera are drawn first.
 // The sorting function takes two RenderCommand objects as input, referred to as "first" and "second". It then calculates the distance of each object to the camera using the dot product of  the object's center position (as it is transformed already) in homogeneous coordinates with the camera forward vector.

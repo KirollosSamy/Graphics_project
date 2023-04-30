@@ -28,7 +28,7 @@ namespace our
     // Creates and returns the camera view matrix
     glm::mat4 CameraComponent::getViewMatrix() const
     {
-        auto owner = getOwner();
+        auto owner = getOwner();  // owner entity
         auto M = owner->getLocalToWorldMatrix();
         // TODO: (Req 8) Complete this function
         // HINT:
@@ -43,15 +43,22 @@ namespace our
         //  - the up direction which is the vector (0,1,0) but after being transformed by M
         //  then you can use glm::lookAt
 
-        glm::vec4 eye = M * glm::vec4(0,0,0,1);
-        glm::vec4 center = M * glm::vec4(0,0,-1,1);
-        glm::vec4 up = M * glm::vec4(0,1,0,0);
+
+        glm::vec4 eye = M * glm::vec4(0,0,0,1);     // camera position
+        glm::vec4 center = M * glm::vec4(0,0,-1,1); // where the camera is looking at (-z direction)
+        glm::vec4 up = M * glm::vec4(0,1,0,0);      // y-axis of camera pointing to 
+
+        
+    
 
         glm::mat4 view = glm::lookAt(
             glm::vec3(eye.x,eye.y,eye.z),
             glm::vec3(center.x,center.y,center.z),
             glm::vec3(up.x,up.y,up.z)
         );
+
+        // create a view matrix that transforms the scene coordinates into camera coordinates which is used
+        // with the projection matrix to create the final matrix that is used to render the scene from the camera's perspective.
         
         return view;
     }
