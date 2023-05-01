@@ -58,7 +58,7 @@ int main(int argc, char** argv) {
         app.changeState(app_config["start-scene"].get<std::string>());
     }
 
-    // Finally run the application
-    // Here, the application loop will run till the terminatio condition is statisfied
+    // Finally run the application.
+    // Here, the application loop will run till the terminatio condition is statisfied.
     return app.run(run_for_frames);
 }
