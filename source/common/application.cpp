@@ -12,6 +12,14 @@
 
 #include <flags/flags.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#include <Mmsystem.h>
+#include <mciapi.h>
+// these two headers are already included in the <Windows.h> header
+#pragma comment(lib, "Winmm.lib")
+#endif
+
 // Include the Dear ImGui implementation headers
 #define IMGUI_IMPL_OPENGL_LOADER_GLAD2
 #include <imgui_impl/imgui_impl_glfw.h>
@@ -180,6 +188,10 @@ our::WindowConfiguration our::Application::getWindowConfiguration()
 int our::Application::run(int run_for_frames)
 {
 
+#ifdef _WIN32
+    mciSendString("open \"assets/audio/granny house music.mp3\" type mpegvideo alias mp3", NULL, 0, NULL);
+    mciSendString("play mp3 repeat", NULL, 0, NULL);
+#endif
     // Set the function to call when an error occurs.
     glfwSetErrorCallback(glfw_error_callback);
 
@@ -280,12 +292,7 @@ int our::Application::run(int run_for_frames)
         if (run_for_frames != 0 && current_frame >= run_for_frames)
             break;
         glfwPollEvents(); // Read all the user events and call relevant callbacks.
-                          // glClearColor(
-                          //             ((id /   1) % 16) / 16.0,
-                          //             ((id /  16) % 16) / 16.0,
-                          //             ((id / 256) % 16) / 16.0,
-                          //         1);
-                          //         glClear(GL_COLOR_BUFFER_BIT);
+                         
         // Start a new ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
@@ -308,7 +315,7 @@ int our::Application::run(int run_for_frames)
         glViewport(0, 0, frame_buffer_size.x, frame_buffer_size.y);
 
         // Get the current time (the time at which we are starting the current frame).
-        double current_frame_time = glfwGetTime();  // TODO: how we can get  the time difference between frames?
+        double current_frame_time = glfwGetTime(); // TODO: how we can get  the time difference between frames?
 
         // Call onDraw, in which we will draw the current frame, and send to it the time difference between the last and current frame
         if (currentState)
