@@ -1,5 +1,6 @@
 #pragma once
 
+#include "system.hpp"
 #include "../ecs/world.hpp"
 #include "../components/camera.hpp"
 #include "../components/mesh-renderer.hpp"
