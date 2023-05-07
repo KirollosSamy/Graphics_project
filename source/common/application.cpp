@@ -11,6 +11,7 @@
 #include <filesystem>
 
 #include <flags/flags.h>
+#include <thread>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -292,7 +293,7 @@ int our::Application::run(int run_for_frames)
         if (run_for_frames != 0 && current_frame >= run_for_frames)
             break;
         glfwPollEvents(); // Read all the user events and call relevant callbacks.
-                         
+
         // Start a new ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
@@ -377,7 +378,7 @@ int our::Application::run(int run_for_frames)
         // If a scene change was requested, apply it
         while (nextState)
         {
-            // If a scene was already running, destroy it (not delete since we can go back to it later)
+            // If a scene was already running, destroy it (not delete since we can go back to it later )
             if (currentState)
                 currentState->onDestroy();
             // Switch scenes
