@@ -36,6 +36,8 @@ class Playstate: public our::State {
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
+
+        setEventListeners();
     }
 
     void onDraw(double deltaTime) override {
@@ -64,5 +66,10 @@ class Playstate: public our::State {
         world.clear();
         // and we delete all the loaded assets to free memory on the RAM and the VRAM
         our::clearAllAssets();
+    }
+
+    void setEventListeners () {
+        // movementSystem.listen(&renderer);
+        // renderer.notify(our::Event::KEY_FOUND);
     }
 };
