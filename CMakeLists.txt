@@ -78,6 +78,9 @@ set(COMMON_SOURCES
         source/common/components/movement.hpp
         source/common/components/movement.cpp
         source/common/components/component-deserializer.hpp
+        source/common/components/collision.hpp
+        source/common/components/collision.cpp
+        
         source/common/components/player.hpp
         source/common/components/player.cpp
 
@@ -87,6 +90,7 @@ set(COMMON_SOURCES
         source/common/systems/movement.hpp
         source/common/systems/system.hpp
         source/common/systems/events.hpp
+        source/common/systems/collision.cpp
         source/common/systems/player-system.hpp
         source/common/systems/player-system.cpp
 )

@@ -3,6 +3,7 @@
 #include <glad/gl.h>
 #include "vertex.hpp"
 #include <GLFW/glfw3.h>
+#include <limits>
 namespace our
 {
 
@@ -21,6 +22,8 @@ namespace our
         GLsizei elementCount;
 
     public:
+        // min and max values of the bounding box of the mesh
+        glm::vec3 min, max;
         // The constructor takes two vectors:
         // - vertices which contain the vertex data.
         // - elements which contain the indices of the vertices out of which each rectangle will be constructed.
@@ -93,6 +96,23 @@ namespace our
             glVertexAttribPointer(normal_loc, 3, GL_FLOAT, true, sizeof(Vertex), (void *)offsetof(Vertex, normal));
 
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+
+            // getting the mesh verticies and finding the minimum and maximam vertex positions
+            this->min = glm::vec3(std::numeric_limits<float>::max());
+            this->max = glm::vec3(std::numeric_limits<float>::min());
+
+            // my assumption here is that we can draw a bounding box (Cuboid) to represent our mesh approximately
+
+            // loop over each vertex
+            for (auto &vertix : vertices)
+            {
+                this->min.x = std::min(this->min.x, vertix.position.x);
+                this->min.y = std::min(this->min.y, vertix.position.y);
+                this->min.z = std::min(this->min.z, vertix.position.z);
+                this->max.x = std::max(this->max.x, vertix.position.x);
+                this->max.y = std::max(this->max.y, vertix.position.y);
+                this->max.z = std::max(this->max.z, vertix.position.z);
+            }
         }
         void draw()
         {

@@ -6,6 +6,7 @@
 #include <systems/forward-renderer.hpp>
 #include <systems/free-camera-controller.hpp>
 #include <systems/movement.hpp>
+#include <systems/collision.cpp>
 #include <asset-loader.hpp>
 #include <systems/player-system.hpp>
 
@@ -21,6 +22,8 @@ class Playstate : public our::State {
     // our::CollisionSystem collisionSystem;
     // our::GrannySystem grannySystem;
     // our::ObjectSystem objectSystem;
+
+    our::CollisionSystem collisionSystem;
 
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
@@ -48,8 +51,9 @@ class Playstate : public our::State {
 
     void onDraw(double deltaTime) override {
         // Here, we just run a bunch of systems to control the world logic
-        movementSystem.update(&world, (float)deltaTime);
+        movementSystem.update(&world, (float)deltaTime);    // monkey up
         cameraController.update(&world, (float)deltaTime);
+        collisionSystem.update(&world, (float)deltaTime);  // monkey -> down
         // collisionSystem.update(&world);
         // objectSystem.update(&world);
         // grannySystem.update(&world);

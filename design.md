@@ -12,8 +12,6 @@
 
    *-* first approach for one meet the the other for another meet*
 
-
-
 MAIN OBJECTS:
 
 * house->some objects within the house
@@ -27,20 +25,13 @@ TODOS:
 - Separate objects from house (Texture and  physics of the game )
 - Physics Engine
 
-
 problems:
 
 * granny paths
 * collision ?
 * download tools and drawer
 
-
-
 # We need to see how we can use a physics engine !!?
-
-    
-
-
 
 |                        <br />Objects and important questions                        |                                                       Description                                                       | Importance | Logic                                                                                 | Scenario | Assigned to whom |
 | :----------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------: | :--------: | ------------------------------------------------------------------------------------- | -------- | :--------------: |
@@ -66,25 +57,50 @@ problems:
 |                                                                                      |                                                                                                                        |            |                                                                                       |          |                  |
 |                                                                                      |                                                                                                                        |            |                                                                                       |          |                  |
 
-
-
-
-
-| <br />Tasks                                                               | Description | Assigned to whom |
-| :------------------------------------------------------------------------ | :---------: | ---------------- |
-| <br />**1 - Granny**  (ghost ?) +                                 |      -      | Shredan          |
-| 2 - Player+ Light                                                        |      -      | Kiro             |
-|                                                                           |      -      |                  |
-| 3 - Objects (keys,tools, .....etc) + House (Textures) + Text_instruction |      -      | Nada             |
-| 4 - Collision + Music + Scarry Faces                                    |            | Khaled           |
-|                                                                           |            |                  |
-|                                                                           |            |                  |
-
-
-
+| <br />Tasks                                            | Description | Assigned to whom |
+| :----------------------------------------------------- | :---------: | ---------------- |
+| <br />**1 - Granny**  (ghost ?) +              |      -      | Shredan          |
+| 2 - Player+ Light                                     |      -      | Kiro             |
+|                                                        |      -      |                  |
+| 3 - Objects (keys,tools, .....etc) + House (Textures) |      -      | Nada             |
+| 4 - Collision + Music + Scarry Faces                 |            | Khaled           |
+|                                                        |            |                  |
+| Text_instruction                                       |            |                  |
 
 | System | Description                                                                                                                                                            | keyWords                                |
 | :----: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
 |   S1   | - check for distances between objects<br />if player is in the region of danger he is captured <br />- check if player is too close too object to be able to carry it | - Capture tool<br />- Catched by granny |
 |   S2   |                                                                                                                                                                        |                                         |
 |        |                                                                                                                                                                        |                                         |
+
+| Music                                                                                                                                                           | How to use it                                                                                                                                                                                                                                                                                    |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| -  implemented using mciSendString which is a function in Windows API and is used to send command<br /> strings to control multimedia devices and services. | mciSendString("command  PATH", NULL, 0, NULL);<br />takes variety of commands to control multimedia devices and services in Windows<br /><br />we should call it first with command open and file path to open the audio file<br />then call function again with the needed command and options |
+
+### this commands are :
+
+#### * `open`: Opens a multimedia file or device and assigns it an alias name.
+
+* `close`: Closes a multimedia file or device.
+* `play`: Plays a multimedia file or device.
+* `stop`: Stops playing a multimedia file or device.
+* `pause`: Pauses playback of a multimedia file or device.
+* `resume`: Resumes playback of a paused multimedia file or device.
+* `seek`: Seeks to a specific location in a multimedia file.
+* `set`: Sets various properties of a multimedia device or service, such as volume or playback speed.
+* `status`: Retrieves the status of a multimedia device or service, such as the current position of playback.
+
+###### 🔴Scary Faces appears at random times for a certain time (3 to 4 seconds): (Still working on How )
+
+1. Load the image you want to display using an image loading library such as SOIL or DevIL. This will give you a texture ID that you can use to reference the image.
+2. Set up an OpenGL quad that will cover the entire screen. You can do this by defining four vertices with texture coordinates that map to the corners of the screen.
+3. Bind the texture you loaded in step 1 to the quad using the texture ID.
+4. Render the quad to the screen using OpenGL's immediate mode or a vertex buffer object.
+5. Wait for the desired amount of time using a timer or sleep function.
+6. Clear the front buffer using `glClear()` to remove the quad and any other graphics from the screen.
+
+
+
+###### Objects : 
+
+---
