@@ -19,10 +19,8 @@ class Playstate : public our::State {
     our::MovementSystem movementSystem;
 
     our::PlayerSystem playerSystem;
-    // our::CollisionSystem collisionSystem;
     // our::GrannySystem grannySystem;
     // our::ObjectSystem objectSystem;
-
     our::CollisionSystem collisionSystem;
 
     void onInitialize() override {
@@ -54,7 +52,6 @@ class Playstate : public our::State {
         movementSystem.update(&world, (float)deltaTime);    // monkey up
         cameraController.update(&world, (float)deltaTime);
         collisionSystem.update(&world, (float)deltaTime);  // monkey -> down
-        // collisionSystem.update(&world);
         // objectSystem.update(&world);
         // grannySystem.update(&world);
 
@@ -92,7 +89,7 @@ class Playstate : public our::State {
 
     // All the dependecies between systems should be listed here
     void setEventListeners() {
-        // playerSystem.listen(&collisionSystem);
+        playerSystem.listen(&collisionSystem);
         // playerSystem.listen(&grannySystem);
         // playerSystem.listen(&objectSystem);
     }
