@@ -15,7 +15,7 @@ namespace our
     // The movement system is responsible for moving every entity which contains a MovementComponent.
     // This system is added as a simple example for how use the ECS framework to implement logic. 
     // For more information, see "common/components/movement.hpp"
-    class MovementSystem {
+    class MovementSystem : public System{
     public:
 
         // This should be called every frame to update all entities containing a MovementComponent. 

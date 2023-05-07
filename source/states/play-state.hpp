@@ -7,24 +7,30 @@
 #include <systems/free-camera-controller.hpp>
 #include <systems/movement.hpp>
 #include <asset-loader.hpp>
+#include <systems/player-system.hpp>
 
 // This state shows how to use the ECS framework and deserialization.
-class Playstate: public our::State {
+class Playstate : public our::State {
 
     our::World world;
     our::ForwardRenderer renderer;
     our::FreeCameraControllerSystem cameraController;
     our::MovementSystem movementSystem;
 
+    our::PlayerSystem playerSystem;
+    // our::CollisionSystem collisionSystem;
+    // our::GrannySystem grannySystem;
+    // our::ObjectSystem objectSystem;
+
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
         auto& config = getApp()->getConfig()["scene"];
         // If we have assets in the scene config, we deserialize them
-        if(config.contains("assets")){
+        if (config.contains("assets")) {
             our::deserializeAllAssets(config["assets"]);
         }
         // If we have a world in the scene config, we use it to populate our world
-        if(config.contains("world")){
+        if (config.contains("world")) {
             world.deserialize(config["world"]);
         }
         // We initialize the camera controller system since it needs a pointer to the app
@@ -33,6 +39,10 @@ class Playstate: public our::State {
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
 
+        // search for the player once for efficiency
+        bool playerExist = playerSystem.setPlayer(&world);
+        // if(!playerExist) getApp()->changeState("menu");
+
         setEventListeners();
     }
 
@@ -40,13 +50,26 @@ class Playstate: public our::State {
         // Here, we just run a bunch of systems to control the world logic
         movementSystem.update(&world, (float)deltaTime);
         cameraController.update(&world, (float)deltaTime);
+        // collisionSystem.update(&world);
+        // objectSystem.update(&world);
+        // grannySystem.update(&world);
+
+        our::GameStatus gameStatus = playerSystem.update(&world);
+
+        // check if the game has ended
+        // we can modify menu state slightly to display gameover and won screen.
+        if(gameStatus == our::GameStatus::WON)
+            getApp()->changeState("menu");
+        else if(gameStatus == our::GameStatus::LOST)
+            getApp()->changeState("menu");
+
         // And finally we use the renderer system to draw the scene
         renderer.render(&world);
 
         // Get a reference to the keyboard object
         auto& keyboard = getApp()->getKeyboard();
 
-        if(keyboard.justPressed(GLFW_KEY_ESCAPE)){
+        if (keyboard.justPressed(GLFW_KEY_ESCAPE)) {
             // If the escape  key is pressed in this frame, go to the play state
             getApp()->changeState("menu");
         }
@@ -63,8 +86,10 @@ class Playstate: public our::State {
         our::clearAllAssets();
     }
 
-    void setEventListeners () {
-        // movementSystem.listen(&renderer);
-        // renderer.notify(our::Event::KEY_FOUND);
+    // All the dependecies between systems should be listed here
+    void setEventListeners() {
+        // playerSystem.listen(&collisionSystem);
+        // playerSystem.listen(&grannySystem);
+        // playerSystem.listen(&objectSystem);
     }
 };

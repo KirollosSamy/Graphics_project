@@ -11,7 +11,7 @@ namespace our
     class IObserver {
     public:
         virtual void update(const T& event) = 0;
-        virtual ~IObserver() {};
+        virtual ~IObserver() {}; // destructor must be virtual don't change this
     };
 
     template<typename T>
@@ -20,7 +20,7 @@ namespace our
         virtual void addObserver(IObserver<T>* observer) = 0;
         virtual void removeObserver(IObserver<T>* observer) = 0;
         virtual void notify(const T& event) = 0;
-        virtual ~ISubject() {};
+        virtual ~ISubject() {};  // destructor must be virtual don't change this
     };
 
 
@@ -30,7 +30,8 @@ namespace our
     // between systems, but in some cases there's a need of direct communication between systems 
     // but a key design rule of ECS is that systems should not depend on each other and thus 
     // I decided the best way to handle the communication is by means of observer design pattern.
-    // A system can observe multiple systems and a system can have multiple observers (It's both a subject and observer).
+    // A system can observe multiple systems and a system can have multiple observers (It's both a subject and observer),
+    // although this may seem like multiple inheritance (which i think it's a very bad idea), it's not it just implements 2 interfaces.
     // The class can be implemented without using interfaces but I decided to implement it this way because
     // maybe at some point a class rather than system will be interested in the events fired by a system.
     class System : public IObserver<Event>, public ISubject<Event> {

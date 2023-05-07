@@ -18,7 +18,7 @@ namespace our
     // The free camera controller system is responsible for moving every entity which contains a FreeCameraControllerComponent.
     // This system is added as a slightly complex example for how use the ECS framework to implement logic. 
     // For more information, see "common/components/free-camera-controller.hpp"
-    class FreeCameraControllerSystem {
+    class FreeCameraControllerSystem : public System {
         Application* app; // The application in which the state runs
         bool mouse_locked = false; // Is the mouse locked
 

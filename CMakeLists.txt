@@ -78,6 +78,8 @@ set(COMMON_SOURCES
         source/common/components/movement.hpp
         source/common/components/movement.cpp
         source/common/components/component-deserializer.hpp
+        source/common/components/player.hpp
+        source/common/components/player.cpp
 
         source/common/systems/forward-renderer.hpp
         source/common/systems/forward-renderer.cpp
@@ -85,6 +87,8 @@ set(COMMON_SOURCES
         source/common/systems/movement.hpp
         source/common/systems/system.hpp
         source/common/systems/events.hpp
+        source/common/systems/player-system.hpp
+        source/common/systems/player-system.cpp
 )
 
 # Define the directories in which to search for the included headers
