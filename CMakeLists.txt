@@ -81,6 +81,8 @@ set(COMMON_SOURCES
         source/common/components/collision.hpp
         source/common/components/collision.cpp
         
+        source/common/components/player.hpp
+        source/common/components/player.cpp
 
         source/common/systems/forward-renderer.hpp
         source/common/systems/forward-renderer.cpp
@@ -89,6 +91,8 @@ set(COMMON_SOURCES
         source/common/systems/system.hpp
         source/common/systems/events.hpp
         source/common/systems/collision.cpp
+        source/common/systems/player-system.hpp
+        source/common/systems/player-system.cpp
 )
 
 # Define the directories in which to search for the included headers

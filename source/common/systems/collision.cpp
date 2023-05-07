@@ -1,5 +1,6 @@
 #pragma once
 
+#include "system.hpp"
 #include "../ecs/world.hpp"
 #include "../components/collision.hpp"
 #include "../components/mesh-renderer.hpp"
@@ -34,7 +35,7 @@ namespace our
         --> object -> key -> communicate (system -> HandOfplayer) -> player --> children (Key)
 
     */
-    class CollisionSystem
+    class CollisionSystem : public System
     {
     public:
         std::pair<glm::vec3, glm::vec3> getCollisionBox(Entity *entity)
