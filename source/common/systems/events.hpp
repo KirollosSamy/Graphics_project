@@ -11,5 +11,11 @@ namespace our {
         PLAYER_AT_DOOR, //collision system => player system
         FOUND_COIN, //collision system => player system
         MADE_NOISE, //collision system => granny system
+        KEY1_FOUND,
+        KEY2_FOUND,
+        KEY3_FOUND,
+        DOOR1_COLLISION,
+        DOOR2_COLLISION,
+        DOOR3_COLLISION,
     };
 }

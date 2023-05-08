@@ -9,6 +9,7 @@
 #include <systems/collision.cpp>
 #include <asset-loader.hpp>
 #include <systems/player-system.hpp>
+#include <systems/PickSystem.hpp>
 
 // This state shows how to use the ECS framework and deserialization.
 class Playstate : public our::State {
@@ -22,6 +23,7 @@ class Playstate : public our::State {
     // our::GrannySystem grannySystem;
     // our::ObjectSystem objectSystem;
     our::CollisionSystem collisionSystem;
+    our::PickSystem pickSystem;
 
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
@@ -44,6 +46,8 @@ class Playstate : public our::State {
         bool playerExist = playerSystem.setPlayer(&world);
         // if(!playerExist) getApp()->changeState("menu");
 
+        pickSystem.setApp(getApp());
+
         setEventListeners();
     }
 
@@ -52,8 +56,12 @@ class Playstate : public our::State {
         movementSystem.update(&world, (float)deltaTime);    // monkey up
         cameraController.update(&world, (float)deltaTime);
         collisionSystem.update(&world, (float)deltaTime);  // monkey -> down
+
+        pickSystem.update(&world);
         // objectSystem.update(&world);
         // grannySystem.update(&world);
+
+
 
         our::GameStatus gameStatus = playerSystem.update(&world);
 
@@ -90,6 +98,7 @@ class Playstate : public our::State {
     // All the dependecies between systems should be listed here
     void setEventListeners() {
         playerSystem.listen(&collisionSystem);
+        pickSystem.listen(&collisionSystem);
         // playerSystem.listen(&grannySystem);
         // playerSystem.listen(&objectSystem);
     }

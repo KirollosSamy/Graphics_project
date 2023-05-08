@@ -93,6 +93,8 @@ set(COMMON_SOURCES
         source/common/systems/collision.cpp
         source/common/systems/player-system.hpp
         source/common/systems/player-system.cpp
+        source/common/systems/PickSystem.hpp
+        source/common/systems/PickSystem.cpp
 )
 
 # Define the directories in which to search for the included headers

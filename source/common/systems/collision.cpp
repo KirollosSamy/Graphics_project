@@ -11,6 +11,8 @@
 #include <glm/trigonometric.hpp>
 #include <glm/gtx/fast_trigonometry.hpp>
 
+#include "events.hpp"
+
 #include <iostream>
 
 namespace our
@@ -143,10 +145,10 @@ namespace our
             // For each entity in the world
             for (auto &entity : world->getEntities())  // [e1 e2 e3]
             {
-                // Get the position of the entity may be needed later
+                // Get the position of the entity 
                 glm::vec3 &position = entity->localTransform.position;
 
-                // Get ortientation of the entity may be needed later
+                // Get ortientation of the entity 
                 glm::vec3 &rotation = entity->localTransform.rotation;
 
                 // Get the collision component if it exists
@@ -164,7 +166,7 @@ namespace our
                         // if the other entity is not me (assuming name is unique)
                         // player has no mesh so i spent almost 2 hours debuging to catch that so when it comes to player i need to skip it for now
                         // (i will think of a way to implement collision of it later)
-                        if (entity->name == otherEntity->name || otherEntity->name == "player") // skip me -> Note: this condition can be modified to ignore things also from collision system if needed
+                        if (entity->name == otherEntity->name || otherEntity->name == "player" || otherEntity->name == "house") // skip me -> Note: this condition can be modified to ignore things also from collision system if needed
                             continue;
 
                         // general collision concept
@@ -173,7 +175,10 @@ namespace our
                         if (check_collision(boxPositions.first, boxPositions.second, otherBoxPositions.first, otherBoxPositions.second))
                         {
                             MovementComponent *movement = entity->getComponent<MovementComponent>();
-                            std::cout << "COLLISION" << std::endl;
+                            std::cout << "COLLISION  " << deltaTime<< std::endl;
+
+                            // firing event to notify key1 is found  (testing)
+                            notify(Event::KEY1_FOUND);
 
                             if (movement) // if it exists
                             {

@@ -2,6 +2,7 @@
 
 #include <unordered_set>
 #include "entity.hpp"
+#include <iostream>
 
 namespace our
 {
@@ -20,6 +21,28 @@ namespace our
         // If any of the entities has children, this function will be called recursively for these children
         void deserialize(const nlohmann::json &data, Entity *parent = nullptr);
 
+        void InsertChild()
+        {
+            // auto it = entities.find(parent);
+            // if (it != entities.end())
+            // return; // error player not found (not logical )
+
+            // player -> tool
+
+            Entity *child =this->GetEntity("screw");
+            Entity *parent = this->GetEntity("hand");
+
+            child->parent = parent;
+            std::cout << "child parent : " << child->parent->name << std::endl;
+        }
+        Entity *GetEntity(std::string name)
+        {
+            for (auto &Entity : entities)
+            {
+                if (Entity->name == name)
+                    return Entity;
+            }
+        }
         // This adds an entity to the entities set and returns a pointer to that entity
         // WARNING The entity is owned by this world so don't use "delete" to delete it, instead, call "markForRemoval"
         // to put it in the "markedForRemoval" set. The elements in the "markedForRemoval" set will be removed and
