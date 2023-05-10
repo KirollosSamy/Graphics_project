@@ -31,7 +31,8 @@
         "glass": "assets/textures/glass-panels.png",
         "granny": "assets/textures/Torso1_diff (1).png",
         "house": "assets/textures/granny/CellarFurniture.png",
-        "screw": "assets/textures/screw.png"
+        "screw": "assets/textures/screw.png",
+        "door": "assets/textures/door.png"
       },
       "meshes": {
         "cube": "assets/models/cube.obj",
@@ -39,7 +40,8 @@
         "plane": "assets/models/plane.obj",
         "sphere": "assets/models/sphere.obj",
         "house": "assets/models/granny_1_house.obj",
-        "screw": "assets/models/screw.obj"
+        "screw": "assets/models/screw.obj",
+        "door": "assets/models/door.obj"
       },
       "samplers": {
         "default": {},
@@ -142,6 +144,34 @@
           "tint": [1, 1, 1, 1],
           "texture": "screw",
           "sampler": "default"
+        },
+        "wall": {
+          "type": "tinted",
+          "shader": "tinted",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [0.1, 0.1, 0.1, 1]
+        },
+        "door": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          "texture": "door",
+          "sampler": "default"
         }
       }
     },
@@ -211,7 +241,7 @@
         "name": "screw",
         "position": [2, 2, 3],
         "rotation": [0, 0, 0],
-        "scale": [0.05, 0.05, 0.05],
+        "scale": [0.1, 0.1, 0.1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -219,7 +249,20 @@
             "material": "screw"
           }
         ]
-      }
+      },
+      {
+        "name":"door",
+        "position": [3.7, 11.5, 5.7],
+        "rotation": [0, 180, 0],
+        "scale": [0.04, 0.03, 0.035],
+        "components": [
+            {
+                "type": "Mesh Renderer",
+                "mesh": "door",
+                "material": "door"
+            }
+        ]
+    }
     ]
   }
 }

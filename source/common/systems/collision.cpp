@@ -65,7 +65,7 @@ namespace our
 
                     -> too simple try it on paper.
 
-       
+
                                        +------+  <- (x',y',z') (length,width,height)
                                      /       /|
                                     /       / |
@@ -74,7 +74,7 @@ namespace our
                                     |      |  + <- (length,width,z)
                                     |      | /
                                     |      |/
-                    (x,y,z) ->      +------+    
+                    (x,y,z) ->      +------+
 
             */
 
@@ -143,12 +143,12 @@ namespace our
         void update(World *world, float deltaTime)
         {
             // For each entity in the world
-            for (auto &entity : world->getEntities())  // [e1 e2 e3]
+            for (auto &entity : world->getEntities()) // [e1 e2 e3]
             {
-                // Get the position of the entity 
+                // Get the position of the entity
                 glm::vec3 &position = entity->localTransform.position;
 
-                // Get ortientation of the entity 
+                // Get ortientation of the entity
                 glm::vec3 &rotation = entity->localTransform.rotation;
 
                 // Get the collision component if it exists
@@ -166,6 +166,13 @@ namespace our
                         // if the other entity is not me (assuming name is unique)
                         // player has no mesh so i spent almost 2 hours debuging to catch that so when it comes to player i need to skip it for now
                         // (i will think of a way to implement collision of it later)
+                        // TODO : ignore collision with child of hand
+                        if (otherEntity->parent)
+                        {
+                            if (otherEntity->parent->name == "hand")
+                                continue;
+                        }
+
                         if (entity->name == otherEntity->name || otherEntity->name == "player" || otherEntity->name == "house") // skip me -> Note: this condition can be modified to ignore things also from collision system if needed
                             continue;
 
@@ -175,7 +182,7 @@ namespace our
                         if (check_collision(boxPositions.first, boxPositions.second, otherBoxPositions.first, otherBoxPositions.second))
                         {
                             MovementComponent *movement = entity->getComponent<MovementComponent>();
-                            std::cout << "COLLISION  " << deltaTime<< std::endl;
+                            std::cout << "COLLISION  " << deltaTime << std::endl;
 
                             // firing event to notify key1 is found  (testing)
                             notify(Event::KEY1_FOUND);
