@@ -95,6 +95,8 @@ set(COMMON_SOURCES
         source/common/systems/player-system.cpp
         source/common/systems/PickSystem.hpp
         source/common/systems/PickSystem.cpp
+        source/common/systems/DropSystem.hpp
+        source/common/systems/DropSystem.cpp
 )
 
 # Define the directories in which to search for the included headers

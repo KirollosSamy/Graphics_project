@@ -21,30 +21,28 @@ namespace our
             {
             case Event::KEY1_FOUND:
                 std::cout << "inside while " << std::endl;
-                // if(app->getKeyboard().isPressed(GLFW_KEY_P)) // checking if P key is pressed
-                std::cout << "key1 found" << std::endl; // adding this print to make sure code sequance runs correctly before debugging problems
-                Pick(world, "screw");
+                if (app->getKeyboard().isPressed(GLFW_KEY_P)) // checking if P key is pressed
+                {
+                    std::cout << "key1 found" << std::endl; // adding this print to make sure code sequance runs correctly before debugging problems
+                    Pick(world, "screw");
+                }
                 break;
             }
         }
     }
     void PickSystem::Pick(World *world, std::string object_name) // TODO: we can find a better way for searching an entity here
     {
-        // first step change the object to player's children
-        // second change the object's position to player's hand--->const position
-        //  Entity *player = world->GetEntity("player");
+
+        Entity *hand = world->GetEntity("hand");
         Entity *object = world->GetEntity(object_name);
 
-
-        // std::cout << player->name << std::endl << object->name << std::endl;
-
-        world->InsertChild();
-
-        // TODO: we need to change the position of the object to player's hand
+        world->InsertChild("hand", "screw");
 
         glm::vec3 &position = object->localTransform.position;
-        position += glm::vec3(5, 5, 5);
-
-        // i need to remove my hand
+        glm::vec3 &scale = object->localTransform.scale;
+        position = glm::vec3(-1, -1.5, -1); // caught by hand
+        // TODO: How can we reverse the direction of an object in the world space-->made by khaled & Nada
+        // scale = glm::vec3(0.009/0.01 ,0.009/0.01, 0.09);
+        scale = glm::vec3(0.009 / (hand->localTransform.scale.x / 10), 0.009 / (hand->localTransform.scale.y / 10), -0.09); // for screw
     }
 }

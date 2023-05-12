@@ -10,6 +10,7 @@
 #include <asset-loader.hpp>
 #include <systems/player-system.hpp>
 #include <systems/PickSystem.hpp>
+#include <systems/DropSystem.hpp>
 
 // This state shows how to use the ECS framework and deserialization.
 class Playstate : public our::State {
@@ -24,6 +25,7 @@ class Playstate : public our::State {
     // our::ObjectSystem objectSystem;
     our::CollisionSystem collisionSystem;
     our::PickSystem pickSystem;
+    our::DropSystem dropSystem;
 
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
@@ -47,6 +49,7 @@ class Playstate : public our::State {
         // if(!playerExist) getApp()->changeState("menu");
 
         pickSystem.setApp(getApp());
+        dropSystem.setApp(getApp());
 
         setEventListeners();
     }
@@ -57,7 +60,9 @@ class Playstate : public our::State {
         cameraController.update(&world, (float)deltaTime);
         collisionSystem.update(&world, (float)deltaTime);  // monkey -> down
 
-        // pickSystem.update(&world);
+        pickSystem.update(&world);
+        dropSystem.Drop(&world);
+        
         // objectSystem.update(&world);
         // grannySystem.update(&world);
 

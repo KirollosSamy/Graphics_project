@@ -21,20 +21,16 @@ namespace our
         // If any of the entities has children, this function will be called recursively for these children
         void deserialize(const nlohmann::json &data, Entity *parent = nullptr);
 
-        void InsertChild()
+        void InsertChild(std::string Parent,std::string Object)
         {
-            // auto it = entities.find(parent);
-            // if (it != entities.end())
-            // return; // error player not found (not logical )
 
-            // player -> tool
-
-            Entity *child =this->GetEntity("screw");
-            Entity *parent = this->GetEntity("hand");
+            Entity *child =this->GetEntity(Object);    //  object
+            Entity *parent = this->GetEntity(Parent);  //  hand
 
             child->parent = parent;
             std::cout << "child parent : " << child->parent->name << std::endl;
         }
+        
         Entity *GetEntity(std::string name)
         {
             for (auto &Entity : entities)
@@ -42,6 +38,7 @@ namespace our
                 if (Entity->name == name)
                     return Entity;
             }
+            return NULL;
         }
         // This adds an entity to the entities set and returns a pointer to that entity
         // WARNING The entity is owned by this world so don't use "delete" to delete it, instead, call "markForRemoval"
@@ -56,6 +53,17 @@ namespace our
             entities.insert(newEntity);
             return newEntity;
         }
+        // Add entity with name--->new
+        // Entity *add_with_name(std::string name)
+        // {
+        //     // TODO: (Req 8) Create a new entity, set its world member variable to this,
+        //     //  and don't forget to insert it in the suitable container.
+        //     Entity *newEntity = new Entity();
+        //     newEntity->name = name;
+        //     newEntity->world = this;
+        //     entities.insert(newEntity);
+        //     return newEntity;
+        // }
 
         // This returns and immutable reference to the set of all entites in the world.
         const std::unordered_set<Entity *> &getEntities()
