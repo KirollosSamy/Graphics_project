@@ -176,14 +176,15 @@ namespace our
                         {
                             MovementComponent *movement = entity->getComponent<MovementComponent>();
                             std::cout << "COLLISION  " << deltaTime<< std::endl;
+                            std::cout << "entity " << entity->name <<" otherEntity "<<otherEntity->name <<std::endl;
 
                             // firing event to notify key1 is found  (testing)
-                            notify(Event::KEY1_FOUND);
+                            // notify(Event::KEY1_FOUND);
 
                             if (movement) // if it exists
                             {
                                 // working on monkey special case
-                                glm::vec3 up = glm::vec3(entity->localTransform.toMat4() * glm::vec4(0, 1, 0, 0));
+                                // glm::vec3 up = glm::vec3(entity->localTransform.toMat4() * glm::vec4(0, 1, 0, 0));
 
                                 // undoing last movement
                                 position -= movement->linearVelocity * deltaTime;

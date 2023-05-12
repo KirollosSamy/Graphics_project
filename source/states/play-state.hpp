@@ -57,7 +57,7 @@ class Playstate : public our::State {
         cameraController.update(&world, (float)deltaTime);
         collisionSystem.update(&world, (float)deltaTime);  // monkey -> down
 
-        pickSystem.update(&world);
+        // pickSystem.update(&world);
         // objectSystem.update(&world);
         // grannySystem.update(&world);
 

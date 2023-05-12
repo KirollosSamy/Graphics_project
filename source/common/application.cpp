@@ -189,10 +189,10 @@ our::WindowConfiguration our::Application::getWindowConfiguration()
 int our::Application::run(int run_for_frames)
 {
 
-#ifdef _WIN32
-    mciSendString("open \"assets/audio/granny house music.mp3\" type mpegvideo alias mp3", NULL, 0, NULL);
-    mciSendString("play mp3 repeat", NULL, 0, NULL);
-#endif
+// #ifdef _WIN32
+//     mciSendString("open \"assets/audio/granny house music.mp3\" type mpegvideo alias mp3", NULL, 0, NULL);
+//     mciSendString("play mp3 repeat", NULL, 0, NULL);
+// #endif
     // Set the function to call when an error occurs.
     glfwSetErrorCallback(glfw_error_callback);
 

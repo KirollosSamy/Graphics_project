@@ -31,7 +31,8 @@
         "glass": "assets/textures/glass-panels.png",
         "granny": "assets/textures/Torso1_diff (1).png",
         "house": "assets/textures/granny/CellarFurniture.png",
-        "screw": "assets/textures/screw.png"
+        "screw": "assets/textures/screw.png",
+        "door":"assets/textures/door.png"
       },
       "meshes": {
         "cube": "assets/models/cube.obj",
@@ -39,7 +40,8 @@
         "plane": "assets/models/plane.obj",
         "sphere": "assets/models/sphere.obj",
         "house": "assets/models/granny_1_house.obj",
-        "screw": "assets/models/screw.obj"
+        "screw": "assets/models/screw.obj",
+        "door":"assets/models/door.obj"
       },
       "samplers": {
         "default": {},
@@ -60,6 +62,19 @@
             }
           },
           "tint": [0.45, 0.4, 0.5, 1]
+        },
+        "wall": {
+          "type": "tinted",
+          "shader": "tinted",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [0.1, 0.1, 0.1, 1]
         },
         "glass": {
           "type": "textured",
@@ -142,13 +157,28 @@
           "tint": [1, 1, 1, 1],
           "texture": "screw",
           "sampler": "default"
-        }
+        },
+        "door": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          "texture": "door",
+          "sampler": "default"
+      }
       }
     },
     "world": [
       {
         "name": "player",
-        "position": [0, 8, -2],
+        "position": [50, 8, 18],
         "components": [
           {
             "type": "Camera"
@@ -183,7 +213,7 @@
       },
       {
         "name": "granny",
-        "position": [-10, 4, 4],
+        "position": [40, 4, 24],
         "rotation": [0, 0, 0],
         "scale": [0.3, 0.3, 0.3],
         "components": [
@@ -196,7 +226,7 @@
       },
       {
         "name": "house",
-        "position": [0, 0, 0],
+        "position": [50, 0, 20],
         "rotation": [0, 0, 0],
         "scale": [50, 50, 50],
         "components": [
@@ -209,7 +239,7 @@
       },
       {
         "name": "screw",
-        "position": [2, 2, 3],
+        "position": [52, 2, 23],
         "rotation": [0, 0, 0],
         "scale": [0.05, 0.05, 0.05],
         "components": [
@@ -219,7 +249,74 @@
             "material": "screw"
           }
         ]
+      },
+      {
+        "name":"wall",
+        "position": [60.5, 4, 20],
+        "rotation": [0, 90, 0],
+        "scale": [10, 10, 10],
+        "components": [
+            {
+                "type": "Mesh Renderer",
+                "mesh": "plane",
+                "material": "wall"
+            }
+        ]
+    },
+    {
+      "name":"wall",
+      "position": [40, 4, 20],
+      "rotation": [0, 90, 0],
+      "scale": [10, 10, 10],
+      "components": [
+          {
+              "type": "Mesh Renderer",
+              "mesh": "plane",
+              "material": "wall"
+          }
+      ]
+  },
+  {
+    "name":"wall",
+    "position": [50, 4, 27],
+    "rotation": [0, 0, 90],
+    "scale": [10, 10, 10],
+    "components": [
+        {
+            "type": "Mesh Renderer",
+            "mesh": "plane",
+            "material": "wall"
+        }
+    ]
+},
+{
+  "name":"wall",
+  "position": [50, 4, 13.5],
+  "rotation": [0, 0, 90],
+  "scale": [10, 10, 10],
+  "components": [
+      {
+          "type": "Mesh Renderer",
+          "mesh": "plane",
+          "material": "wall"
       }
+  ]
+},
+{
+  "name":"door",
+  "position": [54, 11, 25],
+  "rotation": [0, 180, 0],
+  "scale": [0.05, 0.05, 0.05],
+  "components": [
+      {
+          "type": "Mesh Renderer",
+          "mesh": "door",
+          "material": "door"
+      }
+ ]
+ }
+  
+
     ]
   }
 }
