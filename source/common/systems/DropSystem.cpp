@@ -3,6 +3,7 @@
 #include "DropSystem.hpp"
 #include "../ecs/entity.hpp"
 
+
 #include <iostream>
 
 namespace our
@@ -25,7 +26,7 @@ namespace our
                      
                     glm::vec3 &position = Entity->localTransform.position;
 
-                    position = hand->localTransform.position + glm::vec3(-3,0,5);
+                    position = hand->localTransform.position + glm::vec3(47,0,25);
                     glm::vec3 &scale = Entity->localTransform.scale;
                     // position = glm::vec3(-1, -1.5, -1); // caught by hand
                     // TODO: How can we reverse the direction of an object in the world space-->made by khaled & Nada

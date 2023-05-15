@@ -32,7 +32,9 @@
         "granny": "assets/textures/Torso1_diff (1).png",
         "house": "assets/textures/granny/CellarFurniture.png",
         "screw": "assets/textures/screw.png",
-        "door": "assets/textures/door.png"
+        "door": "assets/textures/door.png",
+        "spider": "assets/textures/spider.png",
+        "coins":"assets/textures/coins.jpg"
       },
       "meshes": {
         "cube": "assets/models/cube.obj",
@@ -41,7 +43,9 @@
         "sphere": "assets/models/sphere.obj",
         "house": "assets/models/granny_1_house.obj",
         "screw": "assets/models/screw.obj",
-        "door": "assets/models/door.obj"
+        "door": "assets/models/door.obj",
+        "spider":"assets/models/Spider.obj",
+        "coins":"assets/models/gold_coin.obj"
       },
       "samplers": {
         "default": {},
@@ -172,6 +176,36 @@
             }
           },
           "tint": [0.1, 0.1, 0.1, 1]
+        },
+        "coins": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          "texture": "coins",
+          "sampler": "default"
+        },
+        "spider": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          "texture": "spider",
+          "sampler": "default"
         }
       }
     },
@@ -221,6 +255,129 @@
             "type": "Mesh Renderer",
             "mesh": "granny",
             "material": "granny"
+          }
+        ]
+      },
+      {
+        "name": "coins",
+        "position": [50, 5.1, 20],
+        "rotation": [0, 0, 0],
+        "scale": [3, 3, 3],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "coins",
+            "material": "coins"
+          },
+          {
+            "type": "Movement",
+            "linearVelocity": [0, 0, 0],
+            "angularVelocity": [0, 50, 0]
+          }
+        ]
+      },
+      {
+        "name": "spider",
+        "position": [59, 6.6, 23],
+        "rotation": [0, 0, 0],
+        "scale": [0.003, 0.003, 0.003],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "spider",
+            "material": "spider"
+          },
+          {
+            "type": "Movement",
+            "linearVelocity": [250, 250, 250],
+            "angularVelocity": [0, 20, 0]
+          },
+          {
+            "type": "Collision"
+          }
+        ]
+      },
+      {
+        "name": "spider",
+        "position": [59, 6.6, 23],
+        "rotation": [0, 0, 0],
+        "scale": [0.003, 0.003, 0.003],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "spider",
+            "material": "spider"
+          },
+          {
+            "type": "Movement",
+            "linearVelocity": [250, 250, 250],
+            "angularVelocity": [0, 10, 0]
+          },
+          {
+            "type": "Collision"
+          }
+        ]
+      },
+      {
+        "name": "spider",
+        "position": [55, 6.6, 19],
+        "rotation": [0, 0, 0],
+        "scale": [0.003, 0.003, 0.003],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "spider",
+            "material": "spider"
+          },
+          {
+            "type": "Movement",
+            "linearVelocity": [200, 200, 200],
+            "angularVelocity": [0, 20, 0]
+          },
+          {
+            "type": "Collision"
+          }
+        ]
+      },
+      {
+        "name": "spider",
+        "position": [50, 6.6, 19],
+        "rotation": [0, 0, 0],
+        "scale": [0.003, 0.003, 0.003],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "spider",
+            "material": "spider"
+          },
+          {
+            "type": "Movement",
+            "linearVelocity": [350, 350, 350],
+            "angularVelocity": [0, 20, 0]
+          },
+          {
+            "type": "Collision"
+          }
+        ]
+      },
+      {
+        "name": "spider",
+        "position": [45, 6.6, 26],
+        "rotation": [0, 0, 0],
+        "scale": [0.003, 0.003, 0.003],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "spider",
+            "material": "spider"
+          },
+          {
+            "type": "Movement",
+            "linearVelocity": [250, 250, 250],
+            "angularVelocity": [0, 40, 0]
+          },
+          {
+            "type": "Collision"
           }
         ]
       },
@@ -299,6 +456,19 @@
           "type": "Mesh Renderer",
           "mesh": "plane",
           "material": "wall"
+      }
+  ]
+},
+{
+  "name":"wall",
+  "position": [50, 8, 19.1],
+  "rotation": [0, 0, 90],
+  "scale": [1, 2, 0.5],
+  "components": [
+      {
+          "type": "Mesh Renderer",
+          "mesh": "plane",
+          "material": "glass"
       }
   ]
 },

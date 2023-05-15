@@ -99,8 +99,18 @@ problems:
 5. Wait for the desired amount of time using a timer or sleep function.
 6. Clear the front buffer using `glClear()` to remove the quad and any other graphics from the screen.
 
+###### Today's Tasks :
 
 
-###### Objects : 
+
+| Tasks     | check |
+| :-------- | :---- |
+| firan     | ✅    |
+| music     |       |
+| coins     |       |
+| collision |       |
+| text      |       |
+
+
 
 ---

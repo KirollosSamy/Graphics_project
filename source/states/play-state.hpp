@@ -11,6 +11,7 @@
 #include <systems/player-system.hpp>
 #include <systems/PickSystem.hpp>
 #include <systems/DropSystem.hpp>
+#include <systems/sound.hpp>
 
 // This state shows how to use the ECS framework and deserialization.
 class Playstate : public our::State {
@@ -26,6 +27,7 @@ class Playstate : public our::State {
     our::CollisionSystem collisionSystem;
     our::PickSystem pickSystem;
     our::DropSystem dropSystem;
+    our::SoundSystem soundSystem;
 
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
@@ -48,8 +50,13 @@ class Playstate : public our::State {
         bool playerExist = playerSystem.setPlayer(&world);
         // if(!playerExist) getApp()->changeState("menu");
 
+
+        // setting soundEngine pointer
+
+
         pickSystem.setApp(getApp());
         dropSystem.setApp(getApp());
+        soundSystem.setSoundEngine(getApp()->getSoundEngine());
 
         setEventListeners();
     }
@@ -59,6 +66,7 @@ class Playstate : public our::State {
         movementSystem.update(&world, (float)deltaTime);    // monkey up
         cameraController.update(&world, (float)deltaTime);
         collisionSystem.update(&world, (float)deltaTime);  // monkey -> down
+        soundSystem.update(&world);
 
         pickSystem.update(&world);
         dropSystem.Drop(&world);
@@ -104,6 +112,8 @@ class Playstate : public our::State {
     void setEventListeners() {
         playerSystem.listen(&collisionSystem);
         pickSystem.listen(&collisionSystem);
+        soundSystem.listen(&collisionSystem);
+        
         // playerSystem.listen(&grannySystem);
         // playerSystem.listen(&objectSystem);
     }

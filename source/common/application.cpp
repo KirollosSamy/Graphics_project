@@ -189,11 +189,19 @@ our::WindowConfiguration our::Application::getWindowConfiguration()
 int our::Application::run(int run_for_frames)
 {
 
-// #ifdef _WIN32
-//     mciSendString("open \"assets/audio/granny house music.mp3\" type mpegvideo alias mp3", NULL, 0, NULL);
-//     mciSendString("play mp3 repeat", NULL, 0, NULL);
-// #endif
+    // #ifdef _WIN32
+    //     mciSendString("open \"assets/audio/granny house music.mp3\" type mpegvideo alias mp3", NULL, 0, NULL);
+    //     mciSendString("play mp3 repeat", NULL, 0, NULL);
+    // #endif
     // Set the function to call when an error occurs.
+    // ISoundEngine *SoundEngine = createIrrKlangDevice();
+    // SoundEngine->play2D("assets/audio/granny_house_music.mp3", true);
+    if (!this->playing)
+    {
+        SoundEngine->play2D("assets/audio/menu.mp3", true);
+        this->playing = true;
+    }
+
     glfwSetErrorCallback(glfw_error_callback);
 
     // Initialize GLFW and exit if it failed
@@ -290,6 +298,7 @@ int our::Application::run(int run_for_frames)
     // Game loop
     while (!glfwWindowShouldClose(window))
     {
+
         if (run_for_frames != 0 && current_frame >= run_for_frames)
             break;
         glfwPollEvents(); // Read all the user events and call relevant callbacks.

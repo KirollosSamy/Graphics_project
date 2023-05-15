@@ -17,5 +17,9 @@ namespace our {
         DOOR1_COLLISION,
         DOOR2_COLLISION,
         DOOR3_COLLISION,
+        COLLISION_WITH_WALL,
+        TERRIFIED,
+        NORMAL_MUSIC,
+        RUNNING,
     };
 }

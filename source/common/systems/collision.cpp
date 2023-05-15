@@ -39,6 +39,7 @@ namespace our
     */
     class CollisionSystem : public System
     {
+
     public:
         std::pair<glm::vec3, glm::vec3> getCollisionBox(Entity *entity)
         {
@@ -181,12 +182,36 @@ namespace our
 
                         if (check_collision(boxPositions.first, boxPositions.second, otherBoxPositions.first, otherBoxPositions.second))
                         {
+
                             MovementComponent *movement = entity->getComponent<MovementComponent>();
-                            std::cout << "COLLISION  " << deltaTime<< std::endl;
-                            std::cout << "entity " << entity->name <<" otherEntity "<<otherEntity->name <<std::endl;
+                            std::cout << "COLLISION  " << deltaTime << std::endl;
+                            std::cout << "entity " << entity->name << " otherEntity " << otherEntity->name << std::endl;
+
+                            if (entity->name == "spider")
+                            {
+                                if (otherEntity->name == "hand")
+                                    notify(Event::TERRIFIED);
+                                glm::mat4 M = entity->localTransform.toMat4();
+                                glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, 1, 0));
+
+                                // undo last move
+                                position -= deltaTime * movement->linearVelocity * front;
+                                rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
+                                // entity->localTransform.rotation.y += glm::radians((std::rand() % 181) * 1.0f);
+                                continue;
+                            }
+
+                            if (otherEntity->name == "coins")
+                            {
+                                // notify player to increament counter
+                                continue;
+                            }
 
                             // firing event to notify key1 is found  (testing)
-                            // notify(Event::KEY1_FOUND);
+                            if (otherEntity->name == "screw")
+                            {
+                                notify(Event::KEY1_FOUND);
+                            }
 
                             if (movement) // if it exists
                             {
@@ -194,7 +219,7 @@ namespace our
                                 // glm::vec3 up = glm::vec3(entity->localTransform.toMat4() * glm::vec4(0, 1, 0, 0));
 
                                 // undoing last movement
-                                position -= movement->linearVelocity * deltaTime;
+                                // position -= movement->linearVelocity * deltaTime;
                             }
                         }
                     }
