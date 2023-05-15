@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include <glm/vec2.hpp>
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
@@ -12,9 +13,9 @@
 
 #include "input/keyboard.hpp"
 #include "input/mouse.hpp"
+// #include "irrKlang.h"
 
-#include <irrKlang.h>
-using namespace irrklang;
+// using namespace irrklang;
 
 namespace our
 {
@@ -61,7 +62,7 @@ namespace our
     protected:
         GLFWwindow *window = nullptr; // Pointer to the window created by GLFW using "glfwCreateWindow()".
 
-        ISoundEngine *SoundEngine;
+        // ISoundEngine *SoundEngine;
         bool playing = false;
 
         Keyboard keyboard; // Instance of "our" keyboard class that handles keyboard functionalities.
@@ -81,7 +82,7 @@ namespace our
 
     public:
         // Create an application with following configuration
-        Application(const nlohmann::json &app_config) : app_config(app_config) { SoundEngine = createIrrKlangDevice(); }
+        Application(const nlohmann::json &app_config) : app_config(app_config) {}
         // On destruction, delete all the states
         ~Application()
         {
@@ -92,7 +93,7 @@ namespace our
         // This is the main class function that run the whole application (Initialize, Game loop, House cleaning).
         int run(int run_for_frames = 0);
 
-        ISoundEngine *getSoundEngine() { return SoundEngine; }
+        // ISoundEngine *getSoundEngine() { return SoundEngine; }
 
         // Register a state for use by the application
         // The state is uniquely identified by its name
@@ -118,16 +119,16 @@ namespace our
             auto it = states.find(name);
             if (it != states.end())
             {
-                if (name == "play")
-                {
-                    SoundEngine->stopAllSounds();
-                    SoundEngine->play2D("assets/audio/granny_house_music.mp3", true);
-                }
-                else if (name == "menu")
-                {
-                    SoundEngine->stopAllSounds();
-                    SoundEngine->play2D("assets/audio/menu.mp3", true);
-                }
+                // if (name == "play")
+                // {
+                //     SoundEngine->stopAllSounds();
+                //     SoundEngine->play2D("assets/audio/granny_house_music.mp3", true);
+                // }
+                // else if (name == "menu")
+                // {
+                //     SoundEngine->stopAllSounds();
+                //     SoundEngine->play2D("assets/audio/menu.mp3", true);
+                // }
 
                 nextState = it->second;
             }

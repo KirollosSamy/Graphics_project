@@ -2,14 +2,19 @@
 
 #include "system.hpp"
 #include "../ecs/world.hpp"
+#include "../ecs/entity.hpp"
 #include "../components/collision.hpp"
 #include "../components/mesh-renderer.hpp"
 #include "../components/movement.hpp"
+#include "../components/player.hpp"
+#include "../components/free-camera-controller.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
 #include <glm/trigonometric.hpp>
 #include <glm/gtx/fast_trigonometry.hpp>
+
+#include "../application.hpp"
 
 #include "events.hpp"
 
@@ -41,6 +46,12 @@ namespace our
     {
 
     public:
+        Application *app;
+
+        void setApp(Application *app)
+        {
+            this->app = app;
+        }
         std::pair<glm::vec3, glm::vec3> getCollisionBox(Entity *entity)
         {
             // get local to world matrix
@@ -171,7 +182,20 @@ namespace our
                         if (otherEntity->parent)
                         {
                             if (otherEntity->parent->name == "hand")
-                                continue;
+                            {
+                                // here we are setting the object name the player hold so to use it in matching system
+                                Entity *player = world->GetEntity("player");
+
+                                PlayerComponent *playerComponent = player->getComponent<PlayerComponent>();
+                                if (playerComponent)
+                                {
+                                    playerComponent->gameState.holded = otherEntity->name;
+                                }
+                                else
+                                    std::cout << " no player component found" << std::endl;
+                            }
+
+                            continue;
                         }
 
                         if (entity->name == otherEntity->name || otherEntity->name == "player" || otherEntity->name == "house") // skip me -> Note: this condition can be modified to ignore things also from collision system if needed
@@ -182,19 +206,50 @@ namespace our
 
                         if (check_collision(boxPositions.first, boxPositions.second, otherBoxPositions.first, otherBoxPositions.second))
                         {
-
                             MovementComponent *movement = entity->getComponent<MovementComponent>();
                             std::cout << "COLLISION  " << deltaTime << std::endl;
                             std::cout << "entity " << entity->name << " otherEntity " << otherEntity->name << std::endl;
+                            if(entity->name=="hand")
+                            if ((otherEntity->name == "door1" || otherEntity->name == "wall"))
+                            {
+                                notify(Event::DOOR1_COLLISION);
+
+                                Entity *player = world->GetEntity("player");
+
+                                FreeCameraControllerComponent *controller = player->getComponent<FreeCameraControllerComponent>();
+
+                                glm::vec3 current_sensitivity = controller->positionSensitivity;
+
+                                glm::mat4 M = player->localTransform.toMat4();
+                                glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0)),
+                                          up = glm::vec3(M * glm::vec4(0, 1, 0, 0)),
+                                          right = glm::vec3(M * glm::vec4(1, 0, 0, 0));
+
+                                glm::vec3 &position_player = player->localTransform.position;
+
+                                if (app->getKeyboard().isPressed(GLFW_KEY_W))
+                                    position_player -= front * (deltaTime * current_sensitivity.z);
+
+                                if (app->getKeyboard().isPressed(GLFW_KEY_S))
+                                    position_player += front * (deltaTime * current_sensitivity.z);
+
+                                if (app->getKeyboard().isPressed(GLFW_KEY_A))
+                                    position_player += right * (deltaTime * current_sensitivity.x);
+
+                                if (app->getKeyboard().isPressed(GLFW_KEY_D))
+                                    position_player -= right * (deltaTime * current_sensitivity.x);
+                            }
 
                             if (entity->name == "spider")
                             {
                                 if (otherEntity->name == "hand")
                                     notify(Event::TERRIFIED);
+
                                 glm::mat4 M = entity->localTransform.toMat4();
-                                glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, 1, 0));
+                                glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
 
                                 // undo last move
+                                //
                                 position -= deltaTime * movement->linearVelocity * front;
                                 rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
                                 // entity->localTransform.rotation.y += glm::radians((std::rand() % 181) * 1.0f);
@@ -211,6 +266,7 @@ namespace our
                             if (otherEntity->name == "screw")
                             {
                                 notify(Event::KEY1_FOUND);
+                                continue;
                             }
 
                             if (movement) // if it exists

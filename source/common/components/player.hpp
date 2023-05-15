@@ -2,15 +2,20 @@
 
 #include "../ecs/component.hpp"
 
-namespace our {
+namespace our
+{
 
-    struct GameState {
+    struct GameState
+    {
         int score = 0;
         bool keyFound = false;
         bool dead = false;
         float timeLeft;
 
-        void deserialize(const nlohmann::json& gameStateData) {
+        std::string holded = "";
+
+        void deserialize(const nlohmann::json &gameStateData)
+        {
             timeLeft = gameStateData.value("timeLeft", timeLeft);
         }
     };
@@ -19,13 +24,17 @@ namespace our {
 
     // This component denotes that the current entity is a player
     // Only one instance of this class can be instantiated.
-    class PlayerComponent : public Component {
-        GameState gameState;
+
+    class PlayerComponent : public Component
+    {
+
         friend PlayerSystem;
+
     public:
+        GameState gameState;
         static std::string getID() { return "Player"; }
 
-        void deserialize(const nlohmann::json& data) override;
+        void deserialize(const nlohmann::json &data) override;
     };
 
 }

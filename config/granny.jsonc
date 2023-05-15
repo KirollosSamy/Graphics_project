@@ -34,7 +34,9 @@
         "screw": "assets/textures/screw.png",
         "door": "assets/textures/door.png",
         "spider": "assets/textures/spider.png",
-        "coins":"assets/textures/coins.jpg"
+        "coins": "assets/textures/coins.jpg",
+        "drawer": "assets/textures/drawer.jpeg",
+        "table": "assets/textures/table.png"
       },
       "meshes": {
         "cube": "assets/models/cube.obj",
@@ -44,8 +46,10 @@
         "house": "assets/models/granny_1_house.obj",
         "screw": "assets/models/screw.obj",
         "door": "assets/models/door.obj",
-        "spider":"assets/models/Spider.obj",
-        "coins":"assets/models/gold_coin.obj"
+        "spider": "assets/models/Spider.obj",
+        "coins": "assets/models/gold_coin.obj",
+        "drawer": "assets/models/drawer.obj",
+        "table": "assets/models/table.obj"
       },
       "samplers": {
         "default": {},
@@ -206,6 +210,36 @@
           "tint": [1, 1, 1, 1],
           "texture": "spider",
           "sampler": "default"
+        },
+        "table": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          "texture": "table",
+          "sampler": "default"
+        },
+        "drawer": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          "texture": "drawer",
+          "sampler": "default"
         }
       }
     },
@@ -219,6 +253,9 @@
           },
           {
             "type": "Free Camera Controller"
+          },
+          {
+            "type": "Player"
           }
         ],
         "children": [
@@ -408,98 +445,109 @@
         ]
       },
       {
-        "name":"wall",
+        "name": "wall",
         "position": [60.5, 4, 20],
         "rotation": [0, 90, 0],
         "scale": [10, 10, 10],
         "components": [
-            {
-                "type": "Mesh Renderer",
-                "mesh": "plane",
-                "material": "wall"
-            }
-        ]
-    },
-    {
-      "name":"wall",
-      "position": [40, 4, 20],
-      "rotation": [0, 90, 0],
-      "scale": [10, 10, 10],
-      "components": [
           {
-              "type": "Mesh Renderer",
-              "mesh": "plane",
-              "material": "wall"
-          }
-      ]
-  },
-  {
-    "name":"wall",
-    "position": [50, 4, 27],
-    "rotation": [0, 0, 90],
-    "scale": [10, 10, 10],
-    "components": [
-        {
             "type": "Mesh Renderer",
             "mesh": "plane",
             "material": "wall"
-        }
-    ]
-},
-{
-  "name":"wall",
-  "position": [50, 4, 13.5],
-  "rotation": [0, 0, 90],
-  "scale": [10, 10, 10],
-  "components": [
-      {
-          "type": "Mesh Renderer",
-          "mesh": "plane",
-          "material": "wall"
-      }
-  ]
-},
-{
-  "name":"wall",
-  "position": [50, 8, 19.1],
-  "rotation": [0, 0, 90],
-  "scale": [1, 2, 0.5],
-  "components": [
-      {
-          "type": "Mesh Renderer",
-          "mesh": "plane",
-          "material": "glass"
-      }
-  ]
-},
-{
-  "name":"door",
-  "position": [54, 11, 25],
-  "rotation": [0, 180, 0],
-  "scale": [0.05, 0.05, 0.05],
-  "components": [
-      {
-          "type": "Mesh Renderer",
-          "mesh": "door",
-          "material": "door"
+          }
+        ]
       },
       {
-        "name":"door",
-        "position": [3.7, 11.5, 5.7],
-        "rotation": [0, 180, 0],
-        "scale": [0.04, 0.03, 0.035],
+        "name": "wall",
+        "position": [40, 4, 20],
+        "rotation": [0, 90, 0],
+        "scale": [10, 10, 10],
         "components": [
-            {
-                "type": "Mesh Renderer",
-                "mesh": "door",
-                "material": "door"
-            }
+          {
+            "type": "Mesh Renderer",
+            "mesh": "plane",
+            "material": "wall"
+          }
         ]
-    }
- ]
- }
-  
-
+      },
+      {
+        "name": "wall",
+        "position": [50, 4, 27],
+        "rotation": [0, 0, 90],
+        "scale": [10, 10, 10],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "plane",
+            "material": "wall"
+          }
+        ]
+      },
+      {
+        "name": "wall",
+        "position": [50, 4, 13.5],
+        "rotation": [0, 0, 90],
+        "scale": [10, 10, 10],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "plane",
+            "material": "wall"
+          }
+        ]
+      },
+      {
+        "name": "wall",
+        "position": [50, 8, 19.1],
+        "rotation": [0, 0, 90],
+        "scale": [1, 2, 0.5],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "plane",
+            "material": "glass"
+          }
+        ]
+      },
+      {
+        "name": "door1",
+        "position": [53.7, 11.4, 25.7],
+        "rotation": [0, 180, 0],
+        "scale": [0.05, 0.03, 0.04],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "door",
+            "material": "door"
+          }
+        ]
+      },
+      {
+        "name": "table",
+        "position": [55, 10.0, 15],
+        "rotation": [0, 180, 0],
+        "scale": [0.09, 0.06, 0.08],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "table",
+            "material": "table"
+          }
+        ]
+      },
+      {
+        "name": "drawer",
+        "position": [55, 9.5, 28],
+        "rotation": [0, 180, 0],
+        "scale": [0.5, 0.3, 0.4],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "drawer",
+            "material": "drawer"
+          }
+        ]
+      }
     ]
   }
 }

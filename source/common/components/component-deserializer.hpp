@@ -35,7 +35,7 @@ namespace our
             component = entity->addComponent<CollisionComponent>();
         }
         else if (type == PlayerComponent::getID()) {
-            component = entity->addComponent<CollisionComponent>();
+            component = entity->addComponent<PlayerComponent>();
         }
         if (component)
             component->deserialize(data);

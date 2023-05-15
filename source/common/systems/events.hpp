@@ -14,6 +14,7 @@ namespace our {
         KEY1_FOUND,
         KEY2_FOUND,
         KEY3_FOUND,
+        KEY1_TAKEN,
         DOOR1_COLLISION,
         DOOR2_COLLISION,
         DOOR3_COLLISION,
@@ -23,3 +24,12 @@ namespace our {
         RUNNING,
     };
 }
+
+
+
+// sequance
+/*
+
+
+
+*/

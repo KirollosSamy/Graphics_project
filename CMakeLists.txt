@@ -101,6 +101,8 @@ set(COMMON_SOURCES
         source/common/systems/DropSystem.cpp
         source/common/systems/sound.hpp
         source/common/systems/sound.cpp
+        source/common/systems/MatchingSystem.hpp
+        source/common/systems/MatchingSystem.cpp
 
 )
 

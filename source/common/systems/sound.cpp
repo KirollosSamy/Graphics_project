@@ -19,8 +19,7 @@ namespace our
                 SoundEngine->stopAllSounds();
                 SoundEngine->play2D("assets/audio/heart.mp3", false);
 
-
-                
+    
                 break;
             }
         }
