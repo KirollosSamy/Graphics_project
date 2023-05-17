@@ -30,7 +30,7 @@
         "wood": "assets/textures/wood.jpg",
         "glass": "assets/textures/glass-panels.png",
         "granny": "assets/textures/Torso1_diff (1).png",
-        "house": "assets/textures/granny/house little darker.png",
+        "house": "assets/textures/granny/house2.png",
         "screw": "assets/textures/screw.png",
         "door": "assets/textures/door.png",
         "spider": "assets/textures/spider.png",
@@ -553,6 +553,32 @@
         "position": [57.6, 11.4, 14.80],
         "rotation": [0, 180, 0],
         "scale": [0.03, 0.03, 0.03],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "door",
+            "material": "door"
+          }
+        ]
+      },
+      {
+        "name": "door5",
+        "position": [48.45, 7.8, 20.2],
+        "rotation": [0, 180, 0],
+        "scale": [0.028, 0.032, 0.028],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "door",
+            "material": "door"
+          }
+        ]
+      },
+      {
+        "name": "door6",
+        "position": [53.0, 7.8, 23.3],
+        "rotation": [0, 90, 0],
+        "scale": [0.03, 0.032, 0.03],
         "components": [
           {
             "type": "Mesh Renderer",
