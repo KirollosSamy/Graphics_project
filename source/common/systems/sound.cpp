@@ -15,9 +15,9 @@ namespace our
             switch (event)
             {
             case Event::TERRIFIED:
-                std::cout << "event reached here" << std::endl;
-                SoundEngine->stopAllSounds();
-                SoundEngine->play2D("assets/audio/heart.mp3", false);
+                std::cout << "event reached hereeeeeeeeeeee" << std::endl;
+                // SoundEngine->stopAllSounds();
+                SoundEngine->play2D("assets/audio/secret.mp3", false);
 
     
                 break;

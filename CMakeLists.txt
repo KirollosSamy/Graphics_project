@@ -118,6 +118,7 @@ include_directories(
 )
 
 
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${PROJECT_SOURCE_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${PROJECT_SOURCE_DIR}/bin)
@@ -144,3 +145,14 @@ target_link_libraries(GAME_APPLICATION glfw)
 target_link_libraries(GAME_APPLICATION irrKlang)
 
 # link_directories(/vendor/Irrklang/libs/irrKlang.lib)
+
+
+add_custom_command(TARGET GAME_APPLICATION POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/dlls
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_SOURCE_DIR}/vendor/irrKlang/dlls/irrKlang.dll
+        ${CMAKE_SOURCE_DIR}/vendor/irrKlang/dlls/ikpMP3.dll
+        ${CMAKE_SOURCE_DIR}/vendor/irrKlang/dlls/ikpFlac.dll
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/
+        COMMENT "Copying DLL files to the binary directory"
+        )

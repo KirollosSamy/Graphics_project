@@ -209,36 +209,40 @@ namespace our
                             MovementComponent *movement = entity->getComponent<MovementComponent>();
                             std::cout << "COLLISION  " << deltaTime << std::endl;
                             std::cout << "entity " << entity->name << " otherEntity " << otherEntity->name << std::endl;
-                            if(entity->name=="hand")
-                            if ((otherEntity->name == "door1" || otherEntity->name == "wall"))
-                            {
-                                notify(Event::DOOR1_COLLISION);
+                            if (entity->name == "hand")
+                                if ((otherEntity->name == "door1" || otherEntity->name == "wall") || otherEntity->name == "door2" || otherEntity->name == "door3" || otherEntity->name == "door4")
+                                {
+                                    notify(Event::DOOR1_COLLISION);
 
-                                Entity *player = world->GetEntity("player");
+                                    Entity *player = world->GetEntity("player");
 
-                                FreeCameraControllerComponent *controller = player->getComponent<FreeCameraControllerComponent>();
+                                    FreeCameraControllerComponent *controller = player->getComponent<FreeCameraControllerComponent>();
 
-                                glm::vec3 current_sensitivity = controller->positionSensitivity;
+                                    glm::vec3 current_sensitivity = controller->positionSensitivity;
 
-                                glm::mat4 M = player->localTransform.toMat4();
-                                glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0)),
-                                          up = glm::vec3(M * glm::vec4(0, 1, 0, 0)),
-                                          right = glm::vec3(M * glm::vec4(1, 0, 0, 0));
+                                    glm::mat4 M = player->localTransform.toMat4();
+                                    glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0)),
+                                              up = glm::vec3(M * glm::vec4(0, 1, 0, 0)),
+                                              right = glm::vec3(M * glm::vec4(1, 0, 0, 0));
 
-                                glm::vec3 &position_player = player->localTransform.position;
+                                    glm::vec3 &position_player = player->localTransform.position;
 
-                                if (app->getKeyboard().isPressed(GLFW_KEY_W))
-                                    position_player -= front * (deltaTime * current_sensitivity.z);
+                                    if (app->getKeyboard().isPressed(GLFW_KEY_W))
+                                        position_player -= front * (deltaTime * current_sensitivity.z);
 
-                                if (app->getKeyboard().isPressed(GLFW_KEY_S))
-                                    position_player += front * (deltaTime * current_sensitivity.z);
+                                    if (app->getKeyboard().isPressed(GLFW_KEY_S))
+                                        position_player += front * (deltaTime * current_sensitivity.z);
 
-                                if (app->getKeyboard().isPressed(GLFW_KEY_A))
-                                    position_player += right * (deltaTime * current_sensitivity.x);
+                                    if (app->getKeyboard().isPressed(GLFW_KEY_A))
+                                        position_player += right * (deltaTime * current_sensitivity.x);
 
-                                if (app->getKeyboard().isPressed(GLFW_KEY_D))
-                                    position_player -= right * (deltaTime * current_sensitivity.x);
-                            }
+                                    if (app->getKeyboard().isPressed(GLFW_KEY_D))
+                                        position_player -= right * (deltaTime * current_sensitivity.x);
+                                }
+
+                            if (entity->name == "hand")
+                                if (otherEntity->name == "spider")
+                                    notify(Event::TERRIFIED);
 
                             if (entity->name == "spider")
                             {
@@ -251,7 +255,7 @@ namespace our
                                 // undo last move
                                 //
                                 position -= deltaTime * movement->linearVelocity * front;
-                                rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
+                                rotation.y += glm::radians(50.0f) + glm::radians((std::rand() % 181) * 1.0f);
                                 // entity->localTransform.rotation.y += glm::radians((std::rand() % 181) * 1.0f);
                                 continue;
                             }
@@ -269,19 +273,18 @@ namespace our
                                 continue;
                             }
 
-                            if (movement) // if it exists
-                            {
-                                // working on monkey special case
-                                // glm::vec3 up = glm::vec3(entity->localTransform.toMat4() * glm::vec4(0, 1, 0, 0));
+                            // if (movement) // if it exists
+                            // {
+                            //     // working on monkey special case
+                            //     // glm::vec3 up = glm::vec3(entity->localTransform.toMat4() * glm::vec4(0, 1, 0, 0));
 
-                                // undoing last movement
-                                // position -= movement->linearVelocity * deltaTime;
-                            }
+                            //     // undoing last movement
+                            //     // position -= movement->linearVelocity * deltaTime;
+                            // }
                         }
                     }
                 }
             }
         }
     };
-
 }

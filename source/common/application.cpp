@@ -196,11 +196,11 @@ int our::Application::run(int run_for_frames)
     // Set the function to call when an error occurs.
     // ISoundEngine *SoundEngine = createIrrKlangDevice();
     // SoundEngine->play2D("assets/audio/granny_house_music.mp3", true);
-    // if (!this->playing)
-    // {
-    //     SoundEngine->play2D("assets/audio/menu.mp3", true);
-    //     this->playing = true;
-    // }
+    if (!this->playing)
+    {
+        SoundEngine->play2D("assets/audio/menu.mp3", true);
+        this->playing = true;
+    }
 
     glfwSetErrorCallback(glfw_error_callback);
 

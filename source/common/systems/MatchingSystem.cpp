@@ -40,6 +40,10 @@ namespace our
                 }
 
                 break;
+
+                // door 3 open coordinates [52.9, 11.4, 20]  rotation 180
+
+                // drawer open  [45.7, 11.2, 15]   [-180, -180, 180]
             }
         }
     };
