@@ -46,6 +46,8 @@ namespace our
                 // drawer open  [45.7, 11.2, 15]   [-180, -180, 180]
 
                 // door 6 open "position": [53.45, 7.8, 24.0], "rotation": [0, 180, 0],
+
+                // key position if not child "position": [45.7, 11.25, 14.45],
         
             }
         }

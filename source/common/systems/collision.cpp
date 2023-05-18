@@ -255,7 +255,7 @@ namespace our
                                 // undo last move
                                 //
                                 position -= deltaTime * movement->linearVelocity * front;
-                                rotation.y += glm::radians(50.0f) + glm::radians((std::rand() % 181) * 1.0f);
+                                rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
                                 // entity->localTransform.rotation.y += glm::radians((std::rand() % 181) * 1.0f);
                                 continue;
                             }
@@ -273,14 +273,6 @@ namespace our
                                 continue;
                             }
 
-                            // if (movement) // if it exists
-                            // {
-                            //     // working on monkey special case
-                            //     // glm::vec3 up = glm::vec3(entity->localTransform.toMat4() * glm::vec4(0, 1, 0, 0));
-
-                            //     // undoing last movement
-                            //     // position -= movement->linearVelocity * deltaTime;
-                            // }
                         }
                     }
                 }
