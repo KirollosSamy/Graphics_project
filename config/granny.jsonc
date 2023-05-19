@@ -13,7 +13,8 @@
       "sky": "assets/textures/sky.jpg",
       "postprocess": "assets/shaders/postprocess/distortion.frag",
       "addedTex": "assets/textures/water-normal.png",
-      "effect_power": 0.05
+      "effect_power": 0.05,
+      "ambient": [0.05, 0.05, 0.05]
     },
     "assets": {
       "shaders": {
@@ -24,6 +25,10 @@
         "textured": {
           "vs": "assets/shaders/textured.vert",
           "fs": "assets/shaders/textured.frag"
+        },
+        "light": {
+          "vs": "assets/shaders/light.vert",
+          "fs": "assets/shaders/light.frag"
         }
       },
       "textures": {
@@ -61,7 +66,7 @@
         "hummer": "assets/models/hummer.obj",
         "boy": "assets/models/boy.obj",
         "prison": "assets/models/prison.obj",
-        "masterKey":"assets/models/monkey.obj"
+        "masterKey": "assets/models/monkey.obj"
       },
       "samplers": {
         "default": {},
@@ -84,8 +89,10 @@
           "tint": [0.45, 0.4, 0.5, 1]
         },
         "glass": {
-          "type": "textured",
-          "shader": "textured",
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
           "pipelineState": {
             "faceCulling": {
               "enabled": false
@@ -102,12 +109,16 @@
           },
           "transparent": true,
           "tint": [1, 1, 1, 1],
-          "texture": "glass",
+          // "texture": "glass",
+          "diffuse": "glass",
+
           "sampler": "pixelated"
         },
         "grass": {
-          "type": "textured",
-          "shader": "textured",
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
           "pipelineState": {
             "faceCulling": {
               "enabled": false
@@ -117,12 +128,16 @@
             }
           },
           "tint": [1, 1, 1, 1],
-          "texture": "grass",
+          // "texture": "grass",
+          "diffuse": "grass",
+
           "sampler": "default"
         },
         "granny": {
-          "type": "textured",
-          "shader": "textured",
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
           "pipelineState": {
             "faceCulling": {
               "enabled": false
@@ -132,12 +147,16 @@
             }
           },
           "tint": [1, 1, 1, 1],
-          "texture": "granny",
+          // "texture": "granny",
+          "diffuse": "granny",
+
           "sampler": "default"
         },
         "house": {
-          "type": "textured",
-          "shader": "textured",
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
           "pipelineState": {
             "faceCulling": {
               "enabled": false
@@ -146,13 +165,17 @@
               "enabled": true
             }
           },
-          "tint": [1, 1, 1, 1],
-          "texture": "house",
+          // "tint": [1, 1, 1, 1],
+          // "texture": "house",
+          "diffuse": "house",
+
           "sampler": "default"
         },
         "screw": {
-          "type": "textured",
-          "shader": "textured",
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
           "pipelineState": {
             "faceCulling": {
               "enabled": false
@@ -162,12 +185,16 @@
             }
           },
           "tint": [1, 1, 1, 1],
-          "texture": "screw",
+          // "texture": "screw",
+          "diffuse": "screw",
+
           "sampler": "default"
         },
         "door": {
-          "type": "textured",
-          "shader": "textured",
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
           "pipelineState": {
             "faceCulling": {
               "enabled": false
@@ -177,12 +204,16 @@
             }
           },
           "tint": [1, 1, 1, 1],
-          "texture": "door",
+          // "texture": "door",
+          "diffuse": "door",
+
           "sampler": "default"
         },
         "key": {
-          "type": "textured",
-          "shader": "textured",
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
           "pipelineState": {
             "faceCulling": {
               "enabled": false
@@ -192,12 +223,16 @@
             }
           },
           "tint": [1, 1, 1, 1],
-          "texture": "key",
+          // "texture": "key",
+          "diffuse": "key",
+
           "sampler": "default"
         },
         "hummer": {
-          "type": "textured",
-          "shader": "textured",
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
           "pipelineState": {
             "faceCulling": {
               "enabled": false
@@ -207,7 +242,9 @@
             }
           },
           "tint": [1, 1, 1, 1],
-          "texture": "hummer",
+          // "texture": "hummer",
+          "diffuse": "hummer",
+
           "sampler": "default"
         },
         "wall": {
@@ -224,8 +261,10 @@
           "tint": [0.1, 0.1, 0.1, 1]
         },
         "coins": {
-          "type": "textured",
-          "shader": "textured",
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
           "pipelineState": {
             "faceCulling": {
               "enabled": false
@@ -235,12 +274,16 @@
             }
           },
           "tint": [1, 1, 1, 1],
-          "texture": "coins",
+          // "texture": "coins",
+          "diffuse": "coins",
+
           "sampler": "default"
         },
         "spider": {
-          "type": "textured",
-          "shader": "textured",
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
           "pipelineState": {
             "faceCulling": {
               "enabled": false
@@ -250,12 +293,16 @@
             }
           },
           "tint": [1, 1, 1, 1],
-          "texture": "spider",
+          // "texture": "spider",
+          "diffuse": "spider",
+
           "sampler": "default"
         },
         "prison": {
-          "type": "textured",
-          "shader": "textured",
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
           "pipelineState": {
             "faceCulling": {
               "enabled": false
@@ -265,12 +312,16 @@
             }
           },
           "tint": [1, 1, 1, 1],
-          "texture": "prison",
+          // "texture": "prison",
+          "diffuse": "prison",
+
           "sampler": "default"
         },
         "table": {
-          "type": "textured",
-          "shader": "textured",
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
           "pipelineState": {
             "faceCulling": {
               "enabled": false
@@ -280,12 +331,16 @@
             }
           },
           "tint": [1, 1, 1, 1],
-          "texture": "table",
+          // "texture": "table",
+          "diffuse": "table",
+
           "sampler": "default"
         },
         "masterKey": {
-          "type": "textured",
-          "shader": "textured",
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
           "pipelineState": {
             "faceCulling": {
               "enabled": false
@@ -295,12 +350,16 @@
             }
           },
           "tint": [1, 1, 1, 1],
-          "texture": "door",
+          // "texture": "door",
+          "diffuse": "door",
+
           "sampler": "default"
         },
         "boy": {
-          "type": "textured",
-          "shader": "textured",
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
           "pipelineState": {
             "faceCulling": {
               "enabled": false
@@ -310,12 +369,16 @@
             }
           },
           "tint": [1, 1, 1, 1],
-          "texture": "boy",
+          // "texture": "boy",
+          "diffuse": "boy",
+
           "sampler": "default"
         },
         "drawer": {
-          "type": "textured",
-          "shader": "textured",
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
           "pipelineState": {
             "faceCulling": {
               "enabled": false
@@ -325,7 +388,24 @@
             }
           },
           "tint": [1, 1, 1, 1],
-          "texture": "drawer",
+          // "texture": "drawer",
+          "diffuse": "drawer",
+
+          "sampler": "default"
+        },
+        "lightSource": {
+          "type": "lit",
+          "shader": "light",
+          "diffuse": "glass",
+          "emissiveColor": [128, 128, 128, 255],
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
           "sampler": "default"
         }
       }
@@ -364,6 +444,21 @@
                 "type": "Movement",
                 "linearVelocity": [0, 0, 0],
                 "angularVelocity": [0, 0, 0]
+              }
+            ]
+          },
+          {
+            "name": "flash",
+            "position": [0, 0, 0],
+            "rotation": [0, 0, 0],
+            "scale": [0.1, 0.1, 0.1],
+            "components": [
+              {
+                "type": "Spot Light",
+                "color": [0.2, 0.2, 0.2],
+                "attenuation": [0.03, 0.0, 0.0],
+                "innerCutoff": 0.91,
+                "outerCutoff": 0.75
               }
             ]
           }
@@ -846,6 +941,24 @@
             "type": "Mesh Renderer",
             "mesh": "key",
             "material": "key"
+          }
+        ]
+      },
+      {
+        "name": "light",
+        "position": [40, 8, 25],
+        "rotation": [0, 0, 0],
+        "scale": [0.1, 0.1, 0.1],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "cube",
+            "material": "lightSource"
+          },
+          {
+            "type": "Directional Light",
+            "color": [0.4, 0.4, 0.4],
+            "direction": [-1.0, 0.0, 0.0]
           }
         ]
       }

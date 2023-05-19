@@ -53,7 +53,6 @@ namespace our
         SpotLight* flash;
         glm::vec3 ambient;
         ShaderProgram* lightShader;
-        TexturedMaterial *postprocessMaterial;
 
         Texture2D *addedTex; // new texture for distortion effect. (wavy)
         float effect_power = 0.05f;
