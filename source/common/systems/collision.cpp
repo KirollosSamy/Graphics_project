@@ -213,7 +213,7 @@ namespace our
                             std::cout << "COLLISION  " << deltaTime << std::endl;
                             std::cout << "entity " << entity->name << " otherEntity " << otherEntity->name << std::endl;
                             if (entity->name == "hand")
-                                if ((otherEntity->name == "door1" || otherEntity->name == "wall") || otherEntity->name == "door2" || otherEntity->name == "door3" || otherEntity->name == "door4" || otherEntity->name == "door5" || otherEntity->name == "door6" || otherEntity->name == "prison")
+                                if ((otherEntity->name == "door1" || otherEntity->name == "wall") || otherEntity->name == "door2" || otherEntity->name == "door3" || otherEntity->name == "door4" || otherEntity->name == "door5" || otherEntity->name == "door6" || otherEntity->name == "prison" || otherEntity->name =="prison1")
                                 {
                                     if (otherEntity->name == "door1")
                                         notify(Event::DOOR1_COLLISION);
@@ -255,6 +255,20 @@ namespace our
                                     if (app->getKeyboard().isPressed(GLFW_KEY_D))
                                         position_player -= right * (deltaTime * current_sensitivity.x);
                                 }
+
+                            if (entity->name == "boy")
+                            {
+                                if (otherEntity->name == "prison" || otherEntity->name == "prison1")
+                                {
+                                    glm::mat4 M = entity->localTransform.toMat4();
+                                    glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
+
+                                    // undo last move
+                                    //
+                                    position -= deltaTime * movement->linearVelocity * front;
+                                    rotation.y += glm::radians(180.0f);
+                                }
+                            }
 
                             if (entity->name == "hand")
                                 if (otherEntity->name == "spider")
@@ -308,7 +322,7 @@ namespace our
                             }
 
                             // firing event to notify key1 is found  (testing)
-                             if (otherEntity->name == "drawer")
+                            if (otherEntity->name == "drawer")
                             {
                                 notify(Event::DRAWER_COLLISION);
                                 continue;

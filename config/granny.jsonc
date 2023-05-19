@@ -42,7 +42,8 @@
         "key": "assets/textures/KeyRust_A.png",
         "hummer": "assets/textures/hummer.png",
         "boy": "assets/textures/boy.png",
-        "prison": "assets/textures/prison.png"
+        "prison": "assets/textures/prison.png",
+        "masterKey": "assets/textures/masterKey.jpg"
       },
       "meshes": {
         "cube": "assets/models/cube.obj",
@@ -59,7 +60,8 @@
         "key": "assets/models/key_low.obj",
         "hummer": "assets/models/hummer.obj",
         "boy": "assets/models/boy.obj",
-        "prison": "assets/models/prison.obj"
+        "prison": "assets/models/prison.obj",
+        "masterKey":"assets/models/monkey.obj"
       },
       "samplers": {
         "default": {},
@@ -279,6 +281,21 @@
           },
           "tint": [1, 1, 1, 1],
           "texture": "table",
+          "sampler": "default"
+        },
+        "masterKey": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          "texture": "door",
           "sampler": "default"
         },
         "boy": {
@@ -769,12 +786,20 @@
             "type": "Mesh Renderer",
             "mesh": "boy",
             "material": "boy"
+          },
+          {
+            "type": "Movement",
+            "linearVelocity": [25, 25, 25],
+            "angularVelocity": [0, 0, 0]
+          },
+          {
+            "type": "Collision"
           }
         ]
       },
       {
-        "name": "prison",
-        "position": [53.8, 4.7, 28.4],
+        "name": "prison1",
+        "position": [54.8, 4.7, 28.4],
         "rotation": [0, -90, 0],
         "scale": [0.01, 0.01, 0.01],
         "components": [
@@ -787,7 +812,7 @@
       },
       {
         "name": "prison",
-        "position": [50.8, 4.7, 28.4],
+        "position": [49.8, 4.7, 28.4],
         "rotation": [0, -90, 0],
         "scale": [0.01, 0.01, 0.01],
         "components": [
@@ -801,6 +826,19 @@
       {
         "name": "key5",
         "position": [47.7, 6.65, 21.45],
+        "rotation": [90, 0, 0],
+        "scale": [0.03, 0.03, 0.09],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "key",
+            "material": "key"
+          }
+        ]
+      },
+      {
+        "name": "key6",
+        "position": [50.7, 3.85, 23.45],
         "rotation": [90, 0, 0],
         "scale": [0.03, 0.03, 0.09],
         "components": [

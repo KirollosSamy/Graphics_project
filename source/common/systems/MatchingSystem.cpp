@@ -111,9 +111,9 @@ namespace our
                     glm::vec3 &position = door1->localTransform.position;
                     glm::vec3 &rotation = door1->localTransform.rotation;
                     // (right left , up down , front back)
-                    //    "position": [53.7, 11.4, 25.7],
-                    position =  glm::vec3(52.8,11.4,26.5);
-                    rotation.y = glm::radians(90.0f);
+                    //    "position": 50.8, 4.7, 28.4,
+                    position =  glm::vec3(50.8, 4.7, 29.5);
+                    // rotation.y = glm::radians(90.0f);
 
                     // TODO :
                     // make the boy go out 
