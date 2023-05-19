@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../components/light.hpp"
 #include "system.hpp"
 #include "../ecs/world.hpp"
 #include "../components/camera.hpp"
@@ -12,22 +13,24 @@
 
 namespace our
 {
-    
+
     // The render command stores command that tells the renderer that it should draw
     // the given mesh at the given localToWorld matrix using the given material
     // The renderer will fill this struct using the mesh renderer components
-    struct RenderCommand {
+    struct RenderCommand
+    {
         glm::mat4 localToWorld;
         glm::vec3 center;
-        Mesh* mesh;
-        Material* material;
+        Mesh *mesh;
+        Material *material;
     };
 
     // A forward renderer is a renderer that draw the object final color directly to the framebuffer
     // In other words, the fragment shader in the material should output the color that we should see on the screen
     // This is different from more complex renderers that could draw intermediate data to a framebuffer before computing the final color
     // In this project, we only need to implement a forward renderer
-    class ForwardRenderer : public System {
+    class ForwardRenderer : public System
+    {
         // These window size will be used on multiple occasions (setting the viewport, computing the aspect ratio, etc.)
         glm::ivec2 windowSize;
         // These are two vectors in which we will store the opaque and the transparent commands.
@@ -35,22 +38,36 @@ namespace our
         std::vector<RenderCommand> opaqueCommands;
         std::vector<RenderCommand> transparentCommands;
         // Objects used for rendering a skybox
-        Mesh* skySphere;
-        TexturedMaterial* skyMaterial;
+        Mesh *skySphere;
+        TexturedMaterial *skyMaterial;
         // Objects used for Postprocessing
         GLuint postprocessFrameBuffer, postProcessVertexArray;
         Texture2D *colorTarget, *depthTarget;
-        TexturedMaterial* postprocessMaterial;
+        TexturedMaterial *postprocessMaterial;
+
+        std::vector<Light*> lights;
+        SpotLight* flash;
+        glm::vec3 ambient;
+        ShaderProgram* lightShader;
+        TexturedMaterial *postprocessMaterial;
+
+        Texture2D *addedTex; // new texture for distortion effect. (wavy)
+        float effect_power = 0.05f;
+        bool applyEffect = false;
+
     public:
         // Initialize the renderer including the sky and the Postprocessing objects.
         // windowSize is the width & height of the window (in pixels).
-        void initialize(glm::ivec2 windowSize, const nlohmann::json& config);
+        void initialize(glm::ivec2 windowSize, const nlohmann::json& config, World* world);
         // Clean up the renderer
         void destroy();
         // This function should be called every frame to draw the given world
-        void render(World* world);
+        void render(World *world);
 
-
+        void changeApply(bool ok)
+        {
+            applyEffect = ok;
+        }
     };
 
 }

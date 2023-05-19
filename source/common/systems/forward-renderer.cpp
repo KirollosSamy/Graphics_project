@@ -1,24 +1,25 @@
 #include "forward-renderer.hpp"
 #include "../mesh/mesh-utils.hpp"
 #include "../texture/texture-utils.hpp"
+#include "../deserialize-utils.hpp"
 
 namespace our {
 
-    void ForwardRenderer::initialize(glm::ivec2 windowSize, const nlohmann::json& config){
+    void ForwardRenderer::initialize(glm::ivec2 windowSize, const nlohmann::json& config, World* world) {
         // First, we store the window size for later use
         this->windowSize = windowSize;
 
         // Then we check if there is a sky texture in the configuration
-        if(config.contains("sky")){
+        if (config.contains("sky")) {
             // First, we create a sphere which will be used to draw the sky
             this->skySphere = mesh_utils::sphere(glm::ivec2(16, 16));
-            
+
             // We can draw the sky using the same shader used to draw textured objects
             ShaderProgram* skyShader = new ShaderProgram();
             skyShader->attach("assets/shaders/textured.vert", GL_VERTEX_SHADER);
             skyShader->attach("assets/shaders/textured.frag", GL_FRAGMENT_SHADER);
             skyShader->link();
-            
+
             //TODO: (Req 10) Pick the correct pipeline state to draw the sky
             // Hints: the sky will be draw after the opaque objects so we would need depth testing but which depth funtion should we pick?
             // We will draw the sphere from the inside, so what options should we pick for the face culling.
@@ -33,7 +34,7 @@ namespace our {
             skyPipelineState.faceCulling.culledFace = GL_FRONT;
             skyPipelineState.depthTesting.enabled = true;
             skyPipelineState.depthTesting.function = GL_LEQUAL;
-            
+
             // Load the sky texture (note that we don't need mipmaps since we want to avoid any unnecessary blurring while rendering the sky)
             std::string skyTextureFile = config.value<std::string>("sky", "");
             Texture2D* skyTexture = texture_utils::loadImage(skyTextureFile, false);
@@ -57,7 +58,7 @@ namespace our {
         }
 
         // Then we check if there is a postprocessing shader in the configuration
-        if(config.contains("postprocess")){
+        if (config.contains("postprocess")) {
             //TODO: (Req 11) Create a framebuffer
             glGenFramebuffers(1, &postprocessFrameBuffer);
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, postprocessFrameBuffer);
@@ -67,10 +68,10 @@ namespace our {
             // The depth format can be (Depth component with 24 bits).
             colorTarget = texture_utils::empty(GL_RGBA8, windowSize);
             depthTarget = texture_utils::empty(GL_DEPTH_COMPONENT24, windowSize);
-            
+
             glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTarget->getOpenGLName(), 0);
             glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTarget->getOpenGLName(), 0);
-            
+
             //TODO: (Req 11) Unbind the framebuffer just to be safe
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 
@@ -99,11 +100,27 @@ namespace our {
             // so it is more performant to disable the depth mask
             postprocessMaterial->pipelineState.depthMask = false;
         }
+
+        //set the ambient value for the entire scene
+        ambient = config.value("ambient", glm::vec3(0.1f, 0.1f, 0.1f));
+
+        //get the light shader to use it to send global uniforms
+        lightShader = AssetLoader<ShaderProgram>::get("light");
+
+        // Find all ligh sources once for efficiency
+        for (auto entity : world->getEntities()) {
+            // If this entity has a light component then it's a light source
+            if (auto light = entity->getComponent<Light>(); light) {
+                lights.push_back(light);
+                if (entity->name == "flash") flash = (SpotLight*)light;
+            }
+        }
+
     }
 
-    void ForwardRenderer::destroy(){
+    void ForwardRenderer::destroy() {
         // Delete all objects related to the sky
-        if(skyMaterial){
+        if (skyMaterial) {
             delete skySphere;
             delete skyMaterial->shader;
             delete skyMaterial->texture;
@@ -111,7 +128,7 @@ namespace our {
             delete skyMaterial;
         }
         // Delete all objects related to post processing
-        if(postprocessMaterial){
+        if (postprocessMaterial) {
             glDeleteFramebuffers(1, &postprocessFrameBuffer);
             glDeleteVertexArrays(1, &postProcessVertexArray);
             delete colorTarget;
@@ -122,16 +139,16 @@ namespace our {
         }
     }
 
-    void ForwardRenderer::render(World* world){
+    void ForwardRenderer::render(World* world) {
         // First of all, we search for a camera and for all the mesh renderers
         CameraComponent* camera = nullptr;
         opaqueCommands.clear();
         transparentCommands.clear();
-        for(auto entity : world->getEntities()){
+        for (auto entity : world->getEntities()) {
             // If we hadn't found a camera yet, we look for a camera in this entity
-            if(!camera) camera = entity->getComponent<CameraComponent>();
+            if (!camera) camera = entity->getComponent<CameraComponent>();
             // If this entity has a mesh renderer component
-            if(auto meshRenderer = entity->getComponent<MeshRendererComponent>(); meshRenderer){
+            if (auto meshRenderer = entity->getComponent<MeshRendererComponent>(); meshRenderer) {
                 // We construct a command from it
                 RenderCommand command;
                 command.localToWorld = meshRenderer->getOwner()->getLocalToWorldMatrix();
@@ -139,17 +156,18 @@ namespace our {
                 command.mesh = meshRenderer->mesh;
                 command.material = meshRenderer->material;
                 // if it is transparent, we add it to the transparent commands list
-                if(command.material->transparent){
+                if (command.material->transparent) {
                     transparentCommands.push_back(command);
-                } else {
-                // Otherwise, we add it to the opaque command list
+                }
+                else {
+                    // Otherwise, we add it to the opaque command list
                     opaqueCommands.push_back(command);
                 }
             }
         }
 
         // If there is no camera, we return (we cannot render without a camera)
-        if(camera == nullptr) return;
+        if (camera == nullptr) return;
 
         //TODO: (Req 9) Modify the following line such that "cameraForward" contains a vector pointing the camera forward direction
         // HINT: See how you wrote the CameraComponent::getViewMatrix, it should help you solve this one
@@ -160,18 +178,18 @@ namespace our {
         auto M = camera->getOwner()->getLocalToWorldMatrix();
         glm::vec3 cameraForward = M * glm::vec4(0.0, 0.0, -1.0, 0.0); // vector
 
-// This function is implementing a sorting algorithm for a vector of RenderCommand objects based on their distance to the camera. Specifically, it sorts the vector in descending order of distance, so that the commands that are farthest from the camera are drawn first.
-// The sorting function takes two RenderCommand objects as input, referred to as "first" and "second". It then calculates the distance of each object to the camera using the dot product of  the object's center position (as it is transformed already) in homogeneous coordinates with the camera forward vector.
-// Finally, the function returns a boolean value based on whether the distance of the first object is smaller than the distance of the second object. If it is, then the sorting function will consider the first object to be "less than" the second object, which means it will appear earlier in the sorted vector. If it is not, then the second object will appear earlier in the sorted vector.
+        // This function is implementing a sorting algorithm for a vector of RenderCommand objects based on their distance to the camera. Specifically, it sorts the vector in descending order of distance, so that the commands that are farthest from the camera are drawn first.
+        // The sorting function takes two RenderCommand objects as input, referred to as "first" and "second". It then calculates the distance of each object to the camera using the dot product of  the object's center position (as it is transformed already) in homogeneous coordinates with the camera forward vector.
+        // Finally, the function returns a boolean value based on whether the distance of the first object is smaller than the distance of the second object. If it is, then the sorting function will consider the first object to be "less than" the second object, which means it will appear earlier in the sorted vector. If it is not, then the second object will appear earlier in the sorted vector.
 
-// The dot product between the camera forward vector and the vector from the camera to each object's center is used to calculate the distance between the camera and each object. This is because the camera forward vector represents the direction that the camera is facing.
-        std::sort(transparentCommands.begin(), transparentCommands.end(), [cameraForward](const RenderCommand& first, const RenderCommand& second){
-        //TODO: (Req 9) Finish this function
-        // HINT: the following return should return true "first" should be drawn before "second".
-        float distanceToFirst = glm::dot(first.center,cameraForward);
-        float distanceToSecond = glm::dot(second.center,cameraForward);
-        return distanceToFirst < distanceToSecond;
-        });
+        // The dot product between the camera forward vector and the vector from the camera to each object's center is used to calculate the distance between the camera and each object. This is because the camera forward vector represents the direction that the camera is facing.
+        std::sort(transparentCommands.begin(), transparentCommands.end(), [cameraForward](const RenderCommand& first, const RenderCommand& second) {
+            //TODO: (Req 9) Finish this function
+            // HINT: the following return should return true "first" should be drawn before "second".
+            float distanceToFirst = glm::dot(first.center, cameraForward);
+            float distanceToSecond = glm::dot(second.center, cameraForward);
+            return distanceToFirst < distanceToSecond;
+            });
 
         //TODO: (Req 9) Get the camera ViewProjection matrix and store it in VP
         // from camera class
@@ -192,7 +210,7 @@ namespace our {
        // The third argument is the width of the viewport rectangle.
        // The fourth argument is the height of the viewport rectangle.
        //glViewport is used to set the viewport to cover the entire window, from (0, 0) in the lower left corner to the x-coordinate this->windowSize.x and y-coordinate this->windowSize.y in the upper right corner. This means that any drawing that happens after this call will be limited to the area defined by the viewport.
-       glViewport(0,0, this->windowSize.x, this->windowSize.y);
+        glViewport(0, 0, this->windowSize.x, this->windowSize.y);
 
 
         //TODO: (Req 9) Set the clear color to black and the clear depth to 1
@@ -209,7 +227,7 @@ namespace our {
         glDepthMask(GL_TRUE); // enable writing to depth buffer
 
         // If there is a postprocess material, bind the framebuffer
-        if(postprocessMaterial){
+        if (postprocessMaterial) {
             //TODO: (Req 11) bind the framebuffer
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, postprocessFrameBuffer);
         }
@@ -221,6 +239,30 @@ namespace our {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
+        //the camera position is sent to the fragment shader to determine viewDir
+        glm::vec3 cameraPos = M * glm::vec4(0.0, 0.0, 0.0, 1.0);
+
+        // The position & direction of the flash light should follow the camera
+        if (flash) {
+            flash->setDirection(cameraForward);
+            flash->setPosition(cameraPos);
+        }
+
+        // send global uniforms to light shader, that is uniforms that don't change with each mesh
+        lightShader->use();
+        
+        lightShader->set("cameraPos", cameraPos);
+        lightShader->set("ambientLight", ambient);
+
+        for (Light* light : lights)
+            light->send(lightShader);
+
+        // send the size for each type of light sources to the light shader
+        DirectionalLight::setSize(lightShader);
+        PointLight::setSize(lightShader);
+        SpotLight::setSize(lightShader);
+
+
         //TODO: (Req 9) Draw all the opaque commands
         // Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
 
@@ -229,71 +271,87 @@ namespace our {
       // After the MVP matrix is calculated, the "transform" uniform variable in the shader program is set to the MVP matrix value. This variable is then used in the vertex shader to transform the vertices of the mesh.
       // Finally, the mesh is drawn using the material associated with the opaque command. The mesh is drawn using the draw() function, which typically contains the necessary OpenGL commands to send vertex and index data to the graphics pipeline for rendering.
 
- for (auto &cmd : opaqueCommands) {
-    // Set the model matrix to localToWorld
-    glm::mat4 modelMatrix = cmd.localToWorld;
-    // Calculate the model-view-projection matrix
-    glm::mat4 mvpMatrix = VP * modelMatrix;
-    // Set the transform uniform to mvpMatrix
-    cmd.material->setup();
-    cmd.material->shader->set("transform", mvpMatrix);
-    // Draw the mesh with the material
-    cmd.mesh->draw();
-      }
+        for (auto& cmd : opaqueCommands) {
+            // Set the model matrix to localToWorld
+            glm::mat4 modelMatrix = cmd.localToWorld;
+            // Calculate the model-view-projection matrix
+            glm::mat4 mvpMatrix = VP * modelMatrix;
+            // Set the transform uniform to mvpMatrix
+            cmd.material->setup();
+            cmd.material->shader->set("transform", mvpMatrix);
+
+            if (dynamic_cast<LitMaterial*>(cmd.material)) {
+                glm::mat4 M_IT = glm::transpose(glm::inverse(modelMatrix));
+
+                cmd.material->shader->set("M", modelMatrix);
+                cmd.material->shader->set("M_IT", M_IT);
+            }
+
+            // Draw the mesh with the material
+            cmd.mesh->draw();
+        }
         // If there is a sky material, draw the sky
-        if(this->skyMaterial){
+        if (this->skyMaterial) {
 
-    //TODO: (Req 10) setup the sky material
-    this->skyMaterial->setup();
+            //TODO: (Req 10) setup the sky material
+            this->skyMaterial->setup();
 
-    //TODO: (Req 10) Get the camera position
-    //To get the camera position in world coordinates, we need to multiply the origin of the camera's local coordinate system (which is typically the position of the camera relative to its game object) by the game object's local-to-world transformation matrix. We can do this by creating a homogeneous vector with components (0, 0, 0, 1) (since we want to translate a point) and multiplying it by the transformation matrix.
-    // calculates the camera position by creating a homogeneous vector with components (0, 0, 0, 1), multiplying it by the transformation matrix M, and discarding the fourth (w) component of the resulting vector to obtain a 3D position vector. The resulting vector gives the position of the camera in world coordinates.
-    glm::vec3 cameraPos = M * glm::vec4(0.0, 0.0, 0.0, 1.0); 
+            //TODO: (Req 10) Get the camera position
+            //To get the camera position in world coordinates, we need to multiply the origin of the camera's local coordinate system (which is typically the position of the camera relative to its game object) by the game object's local-to-world transformation matrix. We can do this by creating a homogeneous vector with components (0, 0, 0, 1) (since we want to translate a point) and multiplying it by the transformation matrix.
+            // calculates the camera position by creating a homogeneous vector with components (0, 0, 0, 1), multiplying it by the transformation matrix M, and discarding the fourth (w) component of the resulting vector to obtain a 3D position vector. The resulting vector gives the position of the camera in world coordinates.
+            // glm::vec3 cameraPos = M * glm::vec4(0.0, 0.0, 0.0, 1.0); 
 
-    //TODO: (Req 10) Create a model matrix for the sky such that it always follows the camera (sky sphere center = camera position)
-    glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), cameraPos);
+            //TODO: (Req 10) Create a model matrix for the sky such that it always follows the camera (sky sphere center = camera position)
+            glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), cameraPos);
 
-    //TODO: (Req 10) We want the sky to be drawn behind everything (in NDC space, z=1)
-    //  We can acheive the is by multiplying by an extra matrix after the projection but what values should we put in it?
-    // The first matrix sets the fourth row to be (0,0,1,1), which means that any point multiplied by this matrix will have a w value of 1. This would result in the point not being affected by the perspective division and therefore always remaining at z = 1 in normalized device coordinates (NDC).
-    // For the purpose of rendering the sky sphere, it will position the sphere at the far plane of the camera frustum (z = 1) and ensure that it is always behind everything else.
+            //TODO: (Req 10) We want the sky to be drawn behind everything (in NDC space, z=1)
+            //  We can acheive the is by multiplying by an extra matrix after the projection but what values should we put in it?
+            // The first matrix sets the fourth row to be (0,0,1,1), which means that any point multiplied by this matrix will have a w value of 1. This would result in the point not being affected by the perspective division and therefore always remaining at z = 1 in normalized device coordinates (NDC).
+            // For the purpose of rendering the sky sphere, it will position the sphere at the far plane of the camera frustum (z = 1) and ensure that it is always behind everything else.
 
-    glm::mat4 alwaysBehindTransform = glm::mat4(
-        1.0f, 0.0f, 0.0f, 0.0f,
-        0.0f, 1.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 1.0f, 1.0f
-    );
+            glm::mat4 alwaysBehindTransform = glm::mat4(
+                1.0f, 0.0f, 0.0f, 0.0f,
+                0.0f, 1.0f, 0.0f, 0.0f,
+                0.0f, 0.0f, 0.0f, 0.0f,
+                0.0f, 0.0f, 1.0f, 1.0f
+            );
 
-    //TODO: (Req 10) set the "transform" uniform
-    glm::mat4 mvpMatrix = alwaysBehindTransform * VP * modelMatrix;
-    this->skyMaterial->shader->set("transform", mvpMatrix);
+            //TODO: (Req 10) set the "transform" uniform
+            glm::mat4 mvpMatrix = alwaysBehindTransform * VP * modelMatrix;
+            this->skyMaterial->shader->set("transform", mvpMatrix);
 
-    //TODO: (Req 10) draw the sky sphere
-    this->skySphere->draw();    
+            //TODO: (Req 10) draw the sky sphere
+            this->skySphere->draw();
         }
 
-    //TODO: (Req 9) Draw all the transparent commands
-    // Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
-    // For each transparent command, the code sets the model matrix to the command's localToWorld matrix. Then, it calculates the model-view-projection matrix by multiplying the projection matrix (P) by the view matrix (V) and the model matrix.
-    //After that, the code sets the "transform" uniform in the command's material shader to the calculated model-view-projection matrix. Finally, it draws the mesh using the command's material.
+        //TODO: (Req 9) Draw all the transparent commands
+        // Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
+        // For each transparent command, the code sets the model matrix to the command's localToWorld matrix. Then, it calculates the model-view-projection matrix by multiplying the projection matrix (P) by the view matrix (V) and the model matrix.
+        //After that, the code sets the "transform" uniform in the command's material shader to the calculated model-view-projection matrix. Finally, it draws the mesh using the command's material.
 
-    for (auto &cmd :transparentCommands) {
-    // Set the model matrix to localToWorld
-    glm::mat4 modelMatrix = cmd.localToWorld;
-    // Calculate the model-view-projection matrix
-    glm::mat4 mvpMatrix = VP* modelMatrix;
-    // Set the transform uniform to mvpMatrix
-     cmd.material->setup();
-    cmd.material->shader->set("transform", mvpMatrix);
-    // Draw the mesh with the material
-    cmd.mesh->draw();
-      }
+        for (auto& cmd : transparentCommands) {
+            // Set the model matrix to localToWorld
+            glm::mat4 modelMatrix = cmd.localToWorld;
+            // Calculate the model-view-projection matrix
+            glm::mat4 mvpMatrix = VP * modelMatrix;
+            // Set the transform uniform to mvpMatrix
+            cmd.material->setup();
+            cmd.material->shader->set("transform", mvpMatrix);
+
+            if (dynamic_cast<LitMaterial*>(cmd.material)) {
+                glm::mat4 M_IT = glm::transpose(glm::inverse(modelMatrix));
+
+                cmd.material->shader->set("M", modelMatrix);
+                cmd.material->shader->set("M_IT", M_IT);
+            }
+
+            // Draw the mesh with the material
+            cmd.mesh->draw();
+        }
 
 
         // If there is a postprocess material, apply postprocessing
-        if(postprocessMaterial){
+        if (postprocessMaterial) {
             //TODO: (Req 11) Return to the default framebuffer
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 
