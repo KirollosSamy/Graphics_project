@@ -213,9 +213,22 @@ namespace our
                             std::cout << "COLLISION  " << deltaTime << std::endl;
                             std::cout << "entity " << entity->name << " otherEntity " << otherEntity->name << std::endl;
                             if (entity->name == "hand")
-                                if ((otherEntity->name == "door1" || otherEntity->name == "wall") || otherEntity->name == "door2" || otherEntity->name == "door3" || otherEntity->name == "door4")
+                                if ((otherEntity->name == "door1" || otherEntity->name == "wall") || otherEntity->name == "door2" || otherEntity->name == "door3" || otherEntity->name == "door4" || otherEntity->name == "door5" || otherEntity->name == "door6" || otherEntity->name == "prison")
                                 {
-                                    notify(Event::DOOR1_COLLISION);
+                                    if (otherEntity->name == "door1")
+                                        notify(Event::DOOR1_COLLISION);
+                                    else if (otherEntity->name == "door2")
+                                        notify(Event::DOOR2_COLLISION);
+                                    else if (otherEntity->name == "door3")
+                                        notify(Event::DOOR3_COLLISION);
+                                    else if (otherEntity->name == "door4")
+                                        notify(Event::DOOR4_COLLISION);
+                                    else if (otherEntity->name == "door5")
+                                        notify(Event::DOOR5_COLLISION);
+                                    else if (otherEntity->name == "door6")
+                                        notify(Event::DOOR6_COLLISION);
+                                    else if (otherEntity->name == "prison")
+                                        notify(Event::PRISON_COLLISION);
 
                                     Entity *player = world->GetEntity("player");
 
@@ -269,11 +282,11 @@ namespace our
                                 continue;
                             }
 
-                            if (entity->name == "hand")
-                            {
-                                if (otherEntity->name == "granny")
-                                    renderer->changeApply(true);
-                            }
+                            // if (entity->name == "hand")
+                            // {
+                            //     if (otherEntity->name == "granny")
+                            //         renderer->changeApply(true);
+                            // }
 
                             if (entity->name == "granny")
                             {
@@ -291,14 +304,48 @@ namespace our
                             if (otherEntity->name == "coins")
                             {
                                 // notify player to increament counter
-
                                 continue;
                             }
 
                             // firing event to notify key1 is found  (testing)
+                             if (otherEntity->name == "drawer")
+                            {
+                                notify(Event::DRAWER_COLLISION);
+                                continue;
+                            }
                             if (otherEntity->name == "screw")
                             {
+                                notify(Event::SCREW_FOUND);
+                                continue;
+                            }
+                            if (otherEntity->name == "key1")
+                            {
                                 notify(Event::KEY1_FOUND);
+                                continue;
+                            }
+                            if (otherEntity->name == "key2")
+                            {
+                                notify(Event::KEY2_FOUND);
+                                continue;
+                            }
+                            if (otherEntity->name == "key3")
+                            {
+                                notify(Event::KEY3_FOUND);
+                                continue;
+                            }
+                            if (otherEntity->name == "key4")
+                            {
+                                notify(Event::KEY4_FOUND);
+                                continue;
+                            }
+                            if (otherEntity->name == "key5")
+                            {
+                                notify(Event::KEY5_FOUND);
+                                continue;
+                            }
+                            if (otherEntity->name == "hummer")
+                            {
+                                notify(Event::HUMMER_FOUND);
                                 continue;
                             }
                         }

@@ -606,7 +606,7 @@
       {
         "name": "door2",
         "position": [46.85, 11.4, 20.2],
-        "rotation": [0, 180, 0],
+        "rotation": [0, 180, 180],
         "scale": [0.035, 0.03, 0.035],
         "components": [
           {
@@ -619,7 +619,7 @@
       {
         "name": "door3",
         "position": [52, 11.4, 19.1],
-        "rotation": [0, 90, 0],
+        "rotation": [0, 90, 180],
         "scale": [0.035, 0.03, 0.035],
         "components": [
           {
@@ -645,7 +645,7 @@
       {
         "name": "door5",
         "position": [48.45, 7.8, 20.2],
-        "rotation": [0, 180, 0],
+        "rotation": [0, 180, 180],
         "scale": [0.028, 0.032, 0.028],
         "components": [
           {
@@ -658,7 +658,7 @@
       {
         "name": "door6",
         "position": [53.0, 7.8, 23.3],
-        "rotation": [0, 90, 0],
+        "rotation": [0, 90, 180],
         "scale": [0.03, 0.032, 0.03],
         "components": [
           {
@@ -692,20 +692,18 @@
             "mesh": "drawer",
             "material": "drawer"
           }
-        ],
-        "children": [
+        ]
+      },
+      {
+        "name": "key1",
+        "position": [45.7, 11.25, 14.45],
+        "rotation": [90, 0, 0],
+        "scale": [0.03, 0.03, 0.09],
+        "components": [
           {
-            "name": "key1",
-            "position": [0, 0, 0],
-            "rotation": [90, 0, 0],
-            "scale": [0.03, 0.03, 0.09],
-            "components": [
-              {
-                "type": "Mesh Renderer",
-                "mesh": "key",
-                "material": "key"
-              }
-            ]
+            "type": "Mesh Renderer",
+            "mesh": "key",
+            "material": "key"
           }
         ]
       },
