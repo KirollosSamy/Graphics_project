@@ -11,7 +11,9 @@
   "scene": {
     "renderer": {
       "sky": "assets/textures/sky.jpg",
-      "postprocess": "assets/shaders/postprocess/vignette.frag"
+      "postprocess": "assets/shaders/postprocess/distortion.frag",
+      "addedTex": "assets/textures/water-normal.png",
+      "effect_power": 0.05
     },
     "assets": {
       "shaders": {
@@ -39,12 +41,12 @@
         "table": "assets/textures/table.png",
         "key": "assets/textures/KeyRust_A.png",
         "hummer": "assets/textures/hummer.png",
-        "boy" : "assets/textures/boy.png",
+        "boy": "assets/textures/boy.png",
         "prison": "assets/textures/prison.png"
       },
       "meshes": {
         "cube": "assets/models/cube.obj",
-        "granny": "assets/models/granny.obj",
+        "granny": "assets/models/test2.obj",
         "plane": "assets/models/plane.obj",
         "sphere": "assets/models/sphere.obj",
         "house": "assets/models/granny_1_house.obj",
@@ -55,9 +57,9 @@
         "drawer": "assets/models/drawer.obj",
         "table": "assets/models/table.obj",
         "key": "assets/models/key_low.obj",
-        "hummer":"assets/models/hummer.obj",
-        "boy":"assets/models/boy.obj",
-        "prison":"assets/models/prison.obj"
+        "hummer": "assets/models/hummer.obj",
+        "boy": "assets/models/boy.obj",
+        "prison": "assets/models/prison.obj"
       },
       "samplers": {
         "default": {},
@@ -175,7 +177,8 @@
           "tint": [1, 1, 1, 1],
           "texture": "door",
           "sampler": "default"
-        },"key": {
+        },
+        "key": {
           "type": "textured",
           "shader": "textured",
           "pipelineState": {
@@ -247,7 +250,8 @@
           "tint": [1, 1, 1, 1],
           "texture": "spider",
           "sampler": "default"
-        },"prison": {
+        },
+        "prison": {
           "type": "textured",
           "shader": "textured",
           "pipelineState": {
@@ -350,10 +354,12 @@
       },
       {
         "name": "granny",
-        // "position": [40, 4, 24],
-        "position": [100, 10,40],
+        "position": [50, 5.7, 23],
+        // [40,7,22]
+        // "position": [100, 10,40],
         "rotation": [0, 0, 0],
-        "scale": [0.3, 0.3, 0.3],
+        // "scale": [0.3, 0.3, 0.3],
+        "scale": [0.05, 0.05, 0.05],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -362,8 +368,8 @@
           },
           {
             "type": "Movement",
-            "linearVelocity": [0.3, 0, 0.3],
-            "angularVelocity": [0, 0.5, 0]
+            "linearVelocity": [5, 5, 5],
+            "angularVelocity": [0, 0, 0]
           },
           {
             "type": "Collision"
@@ -625,7 +631,7 @@
       },
       {
         "name": "door4",
-        "position": [57.6, 11.4, 14.80],
+        "position": [57.6, 11.4, 14.8],
         "rotation": [0, 180, 0],
         "scale": [0.03, 0.03, 0.03],
         "components": [
@@ -705,7 +711,7 @@
       },
       {
         "name": "key2",
-        "position":[44.7, 10.1, 25.45],
+        "position": [44.7, 10.1, 25.45],
         "rotation": [90, 0, 0],
         "scale": [0.03, 0.03, 0.09],
         "components": [
@@ -718,7 +724,7 @@
       },
       {
         "name": "hummer",
-        "position":[54.8, 11.20, 18.70],
+        "position": [54.8, 11.2, 18.7],
         "rotation": [0, 0, 90],
         "scale": [0.0003, 0.0003, 0.0003],
         "components": [
@@ -731,7 +737,7 @@
       },
       {
         "name": "key3",
-        "position":[57.0, 10.8, 19.63],
+        "position": [57.0, 10.8, 19.63],
         "rotation": [90, 0, 0],
         "scale": [0.03, 0.03, 0.06],
         "components": [
@@ -744,7 +750,7 @@
       },
       {
         "name": "key4",
-        "position":[57.8, 7.16, 18.2],
+        "position": [57.8, 7.16, 18.2],
         "rotation": [90, 0, 0],
         "scale": [0.03, 0.03, 0.06],
         "components": [
@@ -757,7 +763,7 @@
       },
       {
         "name": "boy",
-        "position":[50.8, 3.7, 23.8],
+        "position": [50.8, 3.7, 23.8],
         "rotation": [0, -90, 0],
         "scale": [0.01, 0.01, 0.01],
         "components": [
@@ -770,7 +776,7 @@
       },
       {
         "name": "prison",
-        "position":[53.8, 4.7, 28.4],
+        "position": [53.8, 4.7, 28.4],
         "rotation": [0, -90, 0],
         "scale": [0.01, 0.01, 0.01],
         "components": [
@@ -783,7 +789,7 @@
       },
       {
         "name": "prison",
-        "position":[50.8, 4.7, 28.4],
+        "position": [50.8, 4.7, 28.4],
         "rotation": [0, -90, 0],
         "scale": [0.01, 0.01, 0.01],
         "components": [
@@ -796,7 +802,7 @@
       },
       {
         "name": "key5",
-        "position":[47.7, 6.65, 21.45],
+        "position": [47.7, 6.65, 21.45],
         "rotation": [90, 0, 0],
         "scale": [0.03, 0.03, 0.09],
         "components": [
@@ -807,7 +813,6 @@
           }
         ]
       }
-      
     ]
   }
 }

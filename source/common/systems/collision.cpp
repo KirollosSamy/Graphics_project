@@ -14,6 +14,8 @@
 #include <glm/trigonometric.hpp>
 #include <glm/gtx/fast_trigonometry.hpp>
 
+#include "forward-renderer.hpp"
+
 #include "../application.hpp"
 
 #include "events.hpp"
@@ -152,9 +154,10 @@ namespace our
             return true;
         }
 
-        void update(World *world, float deltaTime)
+        void update(World *world, float deltaTime, ForwardRenderer *renderer)
         {
             // For each entity in the world
+
             for (auto &entity : world->getEntities()) // [e1 e2 e3]
             {
                 // Get the position of the entity
@@ -242,12 +245,18 @@ namespace our
 
                             if (entity->name == "hand")
                                 if (otherEntity->name == "spider")
-                                    notify(Event::TERRIFIED);
+                                {
+                                    // notify(Event::TERRIFIED);
+                                    // renderer->changeApply(true);
+                                }
 
                             if (entity->name == "spider")
                             {
                                 if (otherEntity->name == "hand")
-                                    notify(Event::TERRIFIED);
+                                {
+                                    // notify(Event::TERRIFIED);
+                                    // renderer->changeApply(true);
+                                }
 
                                 glm::mat4 M = entity->localTransform.toMat4();
                                 glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
@@ -259,16 +268,22 @@ namespace our
                                 // entity->localTransform.rotation.y += glm::radians((std::rand() % 181) * 1.0f);
                                 continue;
                             }
-                               if (entity->name == "granny")
+
+                            if (entity->name == "hand")
                             {
-                                // if (otherEntity->name == "hand")
+                                if (otherEntity->name == "granny")
+                                    renderer->changeApply(true);
+                            }
+
+                            if (entity->name == "granny")
+                            {
                                 //     notify(Event::TERRIFIED);
                                 // std::cout << "sherry" << std::endl;
                                 glm::mat4 M = entity->localTransform.toMat4();
                                 glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
                                 // undo last move
-                                // position -= deltaTime * movement->linearVelocity * front;
-                                // rotation.y += glm::radians(90.0f);
+                                position -= deltaTime * movement->linearVelocity * front;
+                                rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
                                 // entity->localTransform.rotation.y += glm::radians((std::rand() % 181) * 1.0f);
                                 continue;
                             }
@@ -276,6 +291,7 @@ namespace our
                             if (otherEntity->name == "coins")
                             {
                                 // notify player to increament counter
+
                                 continue;
                             }
 
@@ -285,7 +301,6 @@ namespace our
                                 notify(Event::KEY1_FOUND);
                                 continue;
                             }
-
                         }
                     }
                 }

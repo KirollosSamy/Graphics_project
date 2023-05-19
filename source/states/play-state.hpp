@@ -73,7 +73,7 @@ class Playstate : public our::State {
         // Here, we just run a bunch of systems to control the world logic
         movementSystem.update(&world, (float)deltaTime);    // monkey up
         cameraController.update(&world, (float)deltaTime);  // p = p + delta x(z,y,w)  collision -> false  || collision -> true
-        collisionSystem.update(&world, (float)deltaTime);  //  == p - delta x
+        collisionSystem.update(&world, (float)deltaTime, &renderer);  //  == p - delta x
         soundSystem.update(&world);
 
         pickSystem.update(&world);

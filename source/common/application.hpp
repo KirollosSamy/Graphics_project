@@ -119,16 +119,16 @@ namespace our
             auto it = states.find(name);
             if (it != states.end())
             {
-                if (name == "play")
-                {
-                    SoundEngine->stopAllSounds();
-                    SoundEngine->play2D("assets/audio/granny_house_music.mp3", true);
-                }
-                else if (name == "menu")
-                {
-                    SoundEngine->stopAllSounds();
-                    SoundEngine->play2D("assets/audio/menu.mp3", true);
-                }
+                // if (name == "play")
+                // {
+                //     SoundEngine->stopAllSounds();
+                //     SoundEngine->play2D("assets/audio/granny_house_music.mp3", true);
+                // }
+                // else if (name == "menu")
+                // {
+                //     SoundEngine->stopAllSounds();
+                //     SoundEngine->play2D("assets/audio/menu.mp3", true);
+                // }
 
                 nextState = it->second;
             }
