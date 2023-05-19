@@ -15,6 +15,7 @@
 #include  <systems/granny-system.hpp>
 
 // #include <systems/sound.hpp>
+#include <systems/sound.hpp>
 
 // This state shows how to use the ECS framework and deserialization.
 class Playstate : public our::State {
@@ -33,6 +34,7 @@ class Playstate : public our::State {
     our::MatchingSystem matchingSystem;
     our::GrannySystem grannySystem;
     // our::SoundSystem soundSystem;
+    our::SoundSystem soundSystem;
 
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
@@ -62,7 +64,7 @@ class Playstate : public our::State {
         pickSystem.setApp(getApp());
         dropSystem.setApp(getApp());
         collisionSystem.setApp(getApp());
-        // soundSystem.setSoundEngine(getApp()->getSoundEngine());
+        soundSystem.setSoundEngine(getApp()->getSoundEngine());
 
         setEventListeners();
     }
@@ -72,7 +74,7 @@ class Playstate : public our::State {
         movementSystem.update(&world, (float)deltaTime);    // monkey up
         cameraController.update(&world, (float)deltaTime);  // p = p + delta x(z,y,w)  collision -> false  || collision -> true
         collisionSystem.update(&world, (float)deltaTime);  //  == p - delta x
-        // soundSystem.update(&world);
+        soundSystem.update(&world);
 
         pickSystem.update(&world);
         dropSystem.Drop(&world);
@@ -125,6 +127,7 @@ class Playstate : public our::State {
         playerSystem.listen(&grannySystem);
 
         // soundSystem.listen(&collisionSystem);
+        soundSystem.listen(&collisionSystem);
         
         // playerSystem.listen(&grannySystem);
         // playerSystem.listen(&objectSystem);
