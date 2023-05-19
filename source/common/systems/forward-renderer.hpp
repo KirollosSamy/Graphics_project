@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../components/light.hpp"
 #include "system.hpp"
 #include "../ecs/world.hpp"
 #include "../components/camera.hpp"
@@ -48,6 +49,11 @@ namespace our
         Texture2D *colorTarget, *depthTarget;
         TexturedMaterial *postprocessMaterial;
 
+        std::vector<Light*> lights;
+        SpotLight* flash;
+        glm::vec3 ambient;
+        ShaderProgram* lightShader;
+
         Texture2D *addedTex; // new texture for distortion effect. (wavy)
         float effect_power = 0.05f;
         bool applyEffect = false;
@@ -55,7 +61,7 @@ namespace our
     public:
         // Initialize the renderer including the sky and the Postprocessing objects.
         // windowSize is the width & height of the window (in pixels).
-        void initialize(glm::ivec2 windowSize, const nlohmann::json &config);
+        void initialize(glm::ivec2 windowSize, const nlohmann::json& config, World* world);
         // Clean up the renderer
         void destroy();
         // This function should be called every frame to draw the given world
