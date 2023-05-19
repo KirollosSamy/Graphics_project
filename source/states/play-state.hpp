@@ -12,6 +12,8 @@
 #include <systems/PickSystem.hpp>
 #include <systems/DropSystem.hpp>
 #include <systems/MatchingSystem.hpp>
+#include  <systems/granny-system.hpp>
+
 // #include <systems/sound.hpp>
 
 // This state shows how to use the ECS framework and deserialization.
@@ -29,6 +31,7 @@ class Playstate : public our::State {
     our::PickSystem pickSystem;
     our::DropSystem dropSystem;
     our::MatchingSystem matchingSystem;
+    our::GrannySystem grannySystem;
     // our::SoundSystem soundSystem;
 
     void onInitialize() override {
@@ -74,6 +77,7 @@ class Playstate : public our::State {
         pickSystem.update(&world);
         dropSystem.Drop(&world);
         matchingSystem.Matching(&world);
+        grannySystem.update(&world,(float)deltaTime);
         // objectSystem.update(&world);
         // grannySystem.update(&world);
 
@@ -116,6 +120,10 @@ class Playstate : public our::State {
         playerSystem.listen(&collisionSystem);
         pickSystem.listen(&collisionSystem);
         matchingSystem.listen(&collisionSystem);
+        grannySystem.listen(&playerSystem);
+        // TODO : 
+        playerSystem.listen(&grannySystem);
+
         // soundSystem.listen(&collisionSystem);
         
         // playerSystem.listen(&grannySystem);

@@ -284,7 +284,8 @@
       },
       {
         "name": "granny",
-        "position": [40, 4, 24],
+        // "position": [40, 4, 24],
+        "position": [100, 10,40],
         "rotation": [0, 0, 0],
         "scale": [0.3, 0.3, 0.3],
         "components": [
@@ -292,6 +293,14 @@
             "type": "Mesh Renderer",
             "mesh": "granny",
             "material": "granny"
+          },
+          {
+            "type": "Movement",
+            "linearVelocity": [0.3, 0, 0.3],
+            "angularVelocity": [0, 0.5, 0]
+          },
+          {
+            "type": "Collision"
           }
         ]
       },
@@ -308,7 +317,7 @@
           },
           {
             "type": "Movement",
-            "linearVelocity": [0, 0, 0],
+            "linearVelocity": [250, 250, 250],
             "angularVelocity": [0, 50, 0]
           }
         ]

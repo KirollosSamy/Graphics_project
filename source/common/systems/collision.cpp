@@ -255,6 +255,19 @@ namespace our
                                 // entity->localTransform.rotation.y += glm::radians((std::rand() % 181) * 1.0f);
                                 continue;
                             }
+                               if (entity->name == "granny")
+                            {
+                                // if (otherEntity->name == "hand")
+                                //     notify(Event::TERRIFIED);
+                                // std::cout << "sherry" << std::endl;
+                                glm::mat4 M = entity->localTransform.toMat4();
+                                glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
+                                // undo last move
+                                // position -= deltaTime * movement->linearVelocity * front;
+                                // rotation.y += glm::radians(90.0f);
+                                // entity->localTransform.rotation.y += glm::radians((std::rand() % 181) * 1.0f);
+                                continue;
+                            }
 
                             if (otherEntity->name == "coins")
                             {
