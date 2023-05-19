@@ -7,6 +7,10 @@
 #include "../components/mesh-renderer.hpp"
 #include "../asset-loader.hpp"
 
+#include "../texture/texture2d.hpp"
+#include "../texture/sampler.hpp"
+#include "../shader/shader.hpp"
+
 #include <glad/gl.h>
 #include <vector>
 #include <algorithm>

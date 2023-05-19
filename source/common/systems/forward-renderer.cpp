@@ -90,6 +90,11 @@ namespace our {
             postprocessShader->attach("assets/shaders/fullscreen.vert", GL_VERTEX_SHADER);
             postprocessShader->attach(config.value<std::string>("postprocess", ""), GL_FRAGMENT_SHADER);
             postprocessShader->link();
+            if(config.contains("addedTex")){
+                addedTex = texture_utils::loadImage(config.value<std::string>("addedTex", ""));
+            }
+            
+            effect_power = config.value("effect_power", effect_power);
 
             // Create a post processing material
             postprocessMaterial = new TexturedMaterial();
@@ -359,6 +364,13 @@ namespace our {
             glBindVertexArray(postProcessVertexArray);
             postprocessMaterial->setup();
 
+            if(addedTex  && applyEffect){
+                glActiveTexture(GL_TEXTURE1);
+                addedTex->bind();
+                postprocessMaterial->sampler->bind(1);
+                postprocessMaterial->shader->set("additional_sampler", 1);
+                postprocessMaterial->shader->set("effect_power", effect_power);//TODO
+            }
             glDrawArrays(GL_TRIANGLES, 0, 3);
         }
     }

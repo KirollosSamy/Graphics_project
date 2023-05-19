@@ -12,6 +12,9 @@
 #include <systems/PickSystem.hpp>
 #include <systems/DropSystem.hpp>
 #include <systems/MatchingSystem.hpp>
+#include  <systems/granny-system.hpp>
+
+// #include <systems/sound.hpp>
 #include <systems/sound.hpp>
 
 // This state shows how to use the ECS framework and deserialization.
@@ -29,6 +32,8 @@ class Playstate : public our::State {
     our::PickSystem pickSystem;
     our::DropSystem dropSystem;
     our::MatchingSystem matchingSystem;
+    our::GrannySystem grannySystem;
+    // our::SoundSystem soundSystem;
     our::SoundSystem soundSystem;
 
     void onInitialize() override {
@@ -68,12 +73,13 @@ class Playstate : public our::State {
         // Here, we just run a bunch of systems to control the world logic
         movementSystem.update(&world, (float)deltaTime);    // monkey up
         cameraController.update(&world, (float)deltaTime);  // p = p + delta x(z,y,w)  collision -> false  || collision -> true
-        collisionSystem.update(&world, (float)deltaTime);  //  == p - delta x
+        collisionSystem.update(&world, (float)deltaTime, &renderer);  //  == p - delta x
         soundSystem.update(&world);
 
         pickSystem.update(&world);
         dropSystem.Drop(&world);
         matchingSystem.Matching(&world);
+        grannySystem.update(&world,(float)deltaTime);
         // objectSystem.update(&world);
         // grannySystem.update(&world);
 
@@ -116,6 +122,11 @@ class Playstate : public our::State {
         playerSystem.listen(&collisionSystem);
         pickSystem.listen(&collisionSystem);
         matchingSystem.listen(&collisionSystem);
+        grannySystem.listen(&playerSystem);
+        // TODO : 
+        playerSystem.listen(&grannySystem);
+
+        // soundSystem.listen(&collisionSystem);
         soundSystem.listen(&collisionSystem);
         
         // playerSystem.listen(&grannySystem);

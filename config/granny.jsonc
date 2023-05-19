@@ -11,7 +11,9 @@
   "scene": {
     "renderer": {
       "sky": "assets/textures/sky.jpg",
-      "postprocess": "assets/shaders/postprocess/vignette.frag"
+      "postprocess": "assets/shaders/postprocess/distortion.frag",
+      "addedTex": "assets/textures/water-normal.png",
+      "effect_power": 0.05
     },
     "assets": {
       "shaders": {
@@ -36,11 +38,16 @@
         "spider": "assets/textures/spider.png",
         "coins": "assets/textures/coins.jpg",
         "drawer": "assets/textures/drawer.jpeg",
-        "table": "assets/textures/table.png"
+        "table": "assets/textures/table.png",
+        "key": "assets/textures/KeyRust_A.png",
+        "hummer": "assets/textures/hummer.png",
+        "boy": "assets/textures/boy.png",
+        "prison": "assets/textures/prison.png",
+        "masterKey": "assets/textures/masterKey.jpg"
       },
       "meshes": {
         "cube": "assets/models/cube.obj",
-        "granny": "assets/models/granny.obj",
+        "granny": "assets/models/test2.obj",
         "plane": "assets/models/plane.obj",
         "sphere": "assets/models/sphere.obj",
         "house": "assets/models/granny_1_house.obj",
@@ -49,7 +56,12 @@
         "spider": "assets/models/Spider.obj",
         "coins": "assets/models/gold_coin.obj",
         "drawer": "assets/models/drawer.obj",
-        "table": "assets/models/table.obj"
+        "table": "assets/models/table.obj",
+        "key": "assets/models/key_low.obj",
+        "hummer": "assets/models/hummer.obj",
+        "boy": "assets/models/boy.obj",
+        "prison": "assets/models/prison.obj",
+        "masterKey":"assets/models/monkey.obj"
       },
       "samplers": {
         "default": {},
@@ -168,6 +180,36 @@
           "texture": "door",
           "sampler": "default"
         },
+        "key": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          "texture": "key",
+          "sampler": "default"
+        },
+        "hummer": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          "texture": "hummer",
+          "sampler": "default"
+        },
         "wall": {
           "type": "tinted",
           "shader": "tinted",
@@ -211,6 +253,21 @@
           "texture": "spider",
           "sampler": "default"
         },
+        "prison": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          "texture": "prison",
+          "sampler": "default"
+        },
         "table": {
           "type": "textured",
           "shader": "textured",
@@ -224,6 +281,36 @@
           },
           "tint": [1, 1, 1, 1],
           "texture": "table",
+          "sampler": "default"
+        },
+        "masterKey": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          "texture": "door",
+          "sampler": "default"
+        },
+        "boy": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          "texture": "boy",
           "sampler": "default"
         },
         "drawer": {
@@ -284,14 +371,25 @@
       },
       {
         "name": "granny",
-        "position": [40, 4, 24],
+        "position": [50, 5.7, 23],
+        // [40,7,22]
+        // "position": [100, 10,40],
         "rotation": [0, 0, 0],
-        "scale": [0.3, 0.3, 0.3],
+        // "scale": [0.3, 0.3, 0.3],
+        "scale": [0.05, 0.05, 0.05],
         "components": [
           {
             "type": "Mesh Renderer",
             "mesh": "granny",
             "material": "granny"
+          },
+          {
+            "type": "Movement",
+            "linearVelocity": [5, 5, 5],
+            "angularVelocity": [0, 0, 0]
+          },
+          {
+            "type": "Collision"
           }
         ]
       },
@@ -308,14 +406,14 @@
           },
           {
             "type": "Movement",
-            "linearVelocity": [0, 0, 0],
+            "linearVelocity": [250, 250, 250],
             "angularVelocity": [0, 50, 0]
           }
         ]
       },
       {
         "name": "spider",
-        "position": [59, 6.6, 23],
+        "position": [47, 6.6, 15],
         "rotation": [0, 0, 0],
         "scale": [0.003, 0.003, 0.003],
         "components": [
@@ -336,7 +434,7 @@
       },
       {
         "name": "spider",
-        "position": [59, 6.6, 23],
+        "position": [48, 6.6, 15],
         "rotation": [0, 0, 0],
         "scale": [0.003, 0.003, 0.003],
         "components": [
@@ -357,7 +455,7 @@
       },
       {
         "name": "spider",
-        "position": [55, 6.6, 19],
+        "position": [55, 6.6, 13],
         "rotation": [0, 0, 0],
         "scale": [0.003, 0.003, 0.003],
         "components": [
@@ -378,7 +476,7 @@
       },
       {
         "name": "spider",
-        "position": [50, 6.6, 19],
+        "position": [50, 6.6, 15],
         "rotation": [0, 0, 0],
         "scale": [0.003, 0.003, 0.003],
         "components": [
@@ -399,7 +497,7 @@
       },
       {
         "name": "spider",
-        "position": [45, 6.6, 26],
+        "position": [45, 6.6, 15],
         "rotation": [0, 0, 0],
         "scale": [0.003, 0.003, 0.003],
         "components": [
@@ -433,9 +531,9 @@
       },
       {
         "name": "screw",
-        "position": [52, 2, 23],
+        "position": [54, 7.3, 23.0],
         "rotation": [0, 0, 0],
-        "scale": [0.1, 0.1, 0.1],
+        "scale": [0.05, 0.05, 0.05],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -525,7 +623,7 @@
       {
         "name": "door2",
         "position": [46.85, 11.4, 20.2],
-        "rotation": [0, 180, 0],
+        "rotation": [0, 180, 180],
         "scale": [0.035, 0.03, 0.035],
         "components": [
           {
@@ -538,7 +636,7 @@
       {
         "name": "door3",
         "position": [52, 11.4, 19.1],
-        "rotation": [0, 90, 0],
+        "rotation": [0, 90, 180],
         "scale": [0.035, 0.03, 0.035],
         "components": [
           {
@@ -550,7 +648,7 @@
       },
       {
         "name": "door4",
-        "position": [57.6, 11.4, 14.80],
+        "position": [57.6, 11.4, 14.8],
         "rotation": [0, 180, 0],
         "scale": [0.03, 0.03, 0.03],
         "components": [
@@ -564,7 +662,7 @@
       {
         "name": "door5",
         "position": [48.45, 7.8, 20.2],
-        "rotation": [0, 180, 0],
+        "rotation": [0, 180, 180],
         "scale": [0.028, 0.032, 0.028],
         "components": [
           {
@@ -577,7 +675,7 @@
       {
         "name": "door6",
         "position": [53.0, 7.8, 23.3],
-        "rotation": [0, 90, 0],
+        "rotation": [0, 90, 180],
         "scale": [0.03, 0.032, 0.03],
         "components": [
           {
@@ -610,6 +708,144 @@
             "type": "Mesh Renderer",
             "mesh": "drawer",
             "material": "drawer"
+          }
+        ]
+      },
+      {
+        "name": "key1",
+        "position": [45.7, 11.25, 14.45],
+        "rotation": [90, 0, 0],
+        "scale": [0.03, 0.03, 0.09],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "key",
+            "material": "key"
+          }
+        ]
+      },
+      {
+        "name": "key2",
+        "position": [44.7, 10.1, 25.45],
+        "rotation": [90, 0, 0],
+        "scale": [0.03, 0.03, 0.09],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "key",
+            "material": "key"
+          }
+        ]
+      },
+      {
+        "name": "hummer",
+        "position": [54.8, 11.2, 18.7],
+        "rotation": [0, 0, 90],
+        "scale": [0.0003, 0.0003, 0.0003],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "hummer",
+            "material": "hummer"
+          }
+        ]
+      },
+      {
+        "name": "key3",
+        "position": [57.0, 10.8, 19.63],
+        "rotation": [90, 0, 0],
+        "scale": [0.03, 0.03, 0.06],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "key",
+            "material": "key"
+          }
+        ]
+      },
+      {
+        "name": "key4",
+        "position": [57.8, 7.16, 18.2],
+        "rotation": [90, 0, 0],
+        "scale": [0.03, 0.03, 0.06],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "key",
+            "material": "key"
+          }
+        ]
+      },
+      {
+        "name": "boy",
+        "position": [50.8, 3.7, 23.8],
+        "rotation": [0, -90, 0],
+        "scale": [0.01, 0.01, 0.01],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "boy",
+            "material": "boy"
+          },
+          {
+            "type": "Movement",
+            "linearVelocity": [25, 25, 25],
+            "angularVelocity": [0, 0, 0]
+          },
+          {
+            "type": "Collision"
+          }
+        ]
+      },
+      {
+        "name": "prison1",
+        "position": [54.8, 4.7, 28.4],
+        "rotation": [0, -90, 0],
+        "scale": [0.01, 0.01, 0.01],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "prison",
+            "material": "prison"
+          }
+        ]
+      },
+      {
+        "name": "prison",
+        "position": [49.8, 4.7, 28.4],
+        "rotation": [0, -90, 0],
+        "scale": [0.01, 0.01, 0.01],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "prison",
+            "material": "prison"
+          }
+        ]
+      },
+      {
+        "name": "key5",
+        "position": [47.7, 6.65, 21.45],
+        "rotation": [90, 0, 0],
+        "scale": [0.03, 0.03, 0.09],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "key",
+            "material": "key"
+          }
+        ]
+      },
+      {
+        "name": "key6",
+        "position": [50.7, 3.85, 23.45],
+        "rotation": [90, 0, 0],
+        "scale": [0.03, 0.03, 0.09],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "key",
+            "material": "key"
           }
         ]
       }

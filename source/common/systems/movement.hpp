@@ -39,6 +39,25 @@ namespace our
 
                         continue;
                     }
+                      if (entity->name == "granny")
+                    {
+                        glm::mat4 M = entity->localTransform.toMat4();
+                        glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
+
+                        entity->localTransform.position += deltaTime * movement->linearVelocity * front;
+
+                        continue;
+                    }
+
+                    if (entity->name == "boy")
+                    {
+                        glm::mat4 M = entity->localTransform.toMat4();
+                        glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, 1, 0));
+
+                        entity->localTransform.position += deltaTime * movement->linearVelocity * front;
+
+                        continue;
+                    }
 
                     entity->localTransform.position += deltaTime * movement->linearVelocity; // position +=0.005 * (x,y,z)
                     entity->localTransform.rotation += deltaTime * movement->angularVelocity;
