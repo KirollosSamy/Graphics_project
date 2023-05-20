@@ -154,9 +154,10 @@ namespace our
             return true;
         }
 
-        void update(World *world, float deltaTime, ForwardRenderer *renderer)
+        std::string update(World *world, float deltaTime, ForwardRenderer *renderer)
         {
             // For each entity in the world
+            std::string text = "";
 
             for (auto &entity : world->getEntities()) // [e1 e2 e3]
             {
@@ -282,6 +283,7 @@ namespace our
                                 if (otherEntity->name == "hand")
                                 {
                                     // notify(Event::TERRIFIED);
+                                    
                                     // renderer->changeApply(true);
                                 }
 
@@ -329,6 +331,7 @@ namespace our
                             }
                             if (otherEntity->name == "screw")
                             {
+                                text = "hii Nada";
                                 notify(Event::SCREW_FOUND);
                                 continue;
                             }
@@ -366,6 +369,7 @@ namespace our
                     }
                 }
             }
+            return text;
         }
     };
 }
