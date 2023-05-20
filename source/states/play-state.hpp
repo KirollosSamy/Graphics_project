@@ -51,7 +51,7 @@ class Playstate : public our::State {
         cameraController.enter(getApp());
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
-        renderer.initialize(size, config["renderer"]);
+        renderer.initialize(size, config["renderer"], &world);
 
         // search for the player once for efficiency
         // bool playerExist = playerSystem.setPlayer(&world);

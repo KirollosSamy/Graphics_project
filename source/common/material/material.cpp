@@ -2,6 +2,7 @@
 
 #include "../asset-loader.hpp"
 #include "deserialize-utils.hpp"
+#include "../texture/texture-utils.hpp"
 
 /*Materialclass represents a basic material that can be used to render objects in the game engine.
 It contains a PipelineState object that holds information about the rendering pipeline
@@ -20,13 +21,12 @@ namespace our
     }
 
     // This function read the material data from a json object
-    void Material::deserialize(const nlohmann::json &data)
+    void Material::deserialize(const nlohmann::json& data)
     {
         if (!data.is_object())
             return;
 
-        if (data.contains("pipelineState"))
-        {
+        if (data.contains("pipelineState")) {
             pipelineState.deserialize(data["pipelineState"]);
         }
         shader = AssetLoader<ShaderProgram>::get(data["shader"].get<std::string>());
@@ -48,7 +48,7 @@ namespace our
     }
 
     // This function read the material data from a json object
-    void TintedMaterial::deserialize(const nlohmann::json &data)
+    void TintedMaterial::deserialize(const nlohmann::json& data)
     {
         Material::deserialize(data);
         if (!data.is_object())
@@ -80,13 +80,71 @@ namespace our
     }
 
     // This function read the material data from a json object
-    void TexturedMaterial::deserialize(const nlohmann::json &data)
+    void TexturedMaterial::deserialize(const nlohmann::json& data)
     {
         TintedMaterial::deserialize(data);
         if (!data.is_object())
             return;
         alphaThreshold = data.value("alphaThreshold", 0.0f);
         texture = AssetLoader<Texture2D>::get(data.value("texture", ""));
+        sampler = AssetLoader<Sampler>::get(data.value("sampler", ""));
+    }
+
+
+    void LitMaterial::setup() const
+    {
+        Material::setup();
+
+        glActiveTexture(GL_TEXTURE0);
+        diffuse->bind();
+        sampler->bind(0);
+        shader->set("material.diffuse", 0);
+
+        glActiveTexture(GL_TEXTURE1);
+        specular->bind();
+        sampler->bind(1);
+        shader->set("material.specular", 1);
+
+        glActiveTexture(GL_TEXTURE2);
+        emissive->bind();
+        sampler->bind(2);
+        shader->set("material.emissive", 2);
+
+        glActiveTexture(GL_TEXTURE3);
+        roughness->bind();
+        sampler->bind(3);
+        shader->set("material.roughness", 3);
+    }
+
+    void LitMaterial::deserialize(const nlohmann::json& data)
+    {
+        Material::deserialize(data);
+        if (!data.is_object())
+            return;
+        diffuse = AssetLoader<Texture2D>::get(data.value("diffuse", ""));
+
+        if (data.contains("specular"))
+            specular = AssetLoader<Texture2D>::get(data.value("specular", ""));
+        else {
+            Color specularColor = data.value("specularColor", Color(255, 255, 255, 255));
+            specular = texture_utils::fromColor(specularColor);
+        }
+
+        if (data.contains("emissive"))
+            emissive = AssetLoader<Texture2D>::get(data.value("emissive", ""));
+        else {
+            Color emissiveColor = data.value("emissiveColor", Color(0, 0, 0, 255));
+            emissive = texture_utils::fromColor(emissiveColor);
+        }
+
+        if (data.contains("roughness"))
+            roughness = AssetLoader<Texture2D>::get(data.value("roughness", ""));
+        else {
+            Color roughnessColor = data.value("roughnessColor", Color(50, 0, 0, 255));
+            roughness = texture_utils::fromColor(roughnessColor);
+        }
+
+
         sampler = AssetLoader<Sampler>::get(data.value("sampler", ""));
     }
 
