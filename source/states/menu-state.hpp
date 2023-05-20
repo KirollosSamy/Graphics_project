@@ -179,12 +179,12 @@ class Menustate: public our::State {
         delete highlightMaterial;
     }
 
-    void onImmediateGui() override {
-        ImGui::Begin("test text",0,ImGuiWindowFlags_NoDecoration);
-        ImGui::SetWindowSize(ImVec2(400,100));
-        ImGui::SetWindowFontScale(5.0f);
-        ImGui::TextColored(ImVec4(1.0,1.0,1.0,1.0),"text renderer");
-        ImGui::End();
+    // void onImmediateGui() override {
+    //     ImGui::Begin("test text",0,ImGuiWindowFlags_NoDecoration);
+    //     ImGui::SetWindowSize(ImVec2(400,100));
+    //     ImGui::SetWindowFontScale(3.0f);
+    //     ImGui::TextColored(ImVec4(1.0,1.0,1.0,1.0),"text renderer");
+    //     ImGui::End();
 
-    }
+    // }
 };

@@ -75,11 +75,10 @@ class Playstate : public our::State {
         cameraController.update(&world, (float)deltaTime);  // p = p + delta x(z,y,w)  collision -> false  || collision -> true
         collisionSystem.update(&world, (float)deltaTime, &renderer);  //  == p - delta x
         soundSystem.update(&world);
-
         pickSystem.update(&world);
         dropSystem.Drop(&world);
         matchingSystem.Matching(&world);
-        grannySystem.update(&world,(float)deltaTime);
+        // grannySystem.update(&world,(float)deltaTime);
         // objectSystem.update(&world);
         // grannySystem.update(&world);
 
@@ -122,14 +121,19 @@ class Playstate : public our::State {
         playerSystem.listen(&collisionSystem);
         pickSystem.listen(&collisionSystem);
         matchingSystem.listen(&collisionSystem);
-        grannySystem.listen(&playerSystem);
         // TODO : 
         playerSystem.listen(&grannySystem);
 
         // soundSystem.listen(&collisionSystem);
         soundSystem.listen(&collisionSystem);
         
-        // playerSystem.listen(&grannySystem);
         // playerSystem.listen(&objectSystem);
+    }
+     void onImmediateGui() override {
+        ImGui::Begin("Box1",0,ImGuiWindowFlags_NoDecoration);
+        ImGui::SetWindowSize(ImVec2(400,100));
+        ImGui::SetWindowFontScale(3.0f);
+        ImGui::TextColored(ImVec4(1.0,1.0,1.0,1.0),"text renderer");
+        ImGui::End();
     }
 };

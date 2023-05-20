@@ -77,6 +77,9 @@ namespace our
                         position = glm::vec3(54.3, 11.2, 18.7);
                         scale = glm::vec3(0.000005 / (hand->localTransform.scale.x / 10), 0.000005 / (hand->localTransform.scale.y / 10), -0.0005); // for screw
                     }
+
+
+                    notify(Event::MADE_NOISE);  // for granny system
                 }
             }
         }
