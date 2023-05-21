@@ -49,10 +49,18 @@
         "boy": "assets/textures/boy.png",
         "prison": "assets/textures/prison.png",
         "masterKey": "assets/textures/masterKey.jpg",
-        "pointDiffuse": "assets/textures/DefaultMaterial_BaseColor.jpg",
-        "pointEmissive": "assets/textures/DefaultMaterial_Emissive.jpg",
-        "pointRoughness": "assets/textures/DefaultMaterial_Roughness.jpg",
-        "pointSpecular": "assets/textures/DefaultMaterial_Metallic.jpg"
+        "spotDiffuse": "assets/textures/DefaultMaterial_BaseColor.jpg",
+        "spotEmissive": "assets/textures/DefaultMaterial_Emissive.jpg",
+        "spotRoughness": "assets/textures/DefaultMaterial_Roughness.jpg",
+        "spotSpecular": "assets/textures/DefaultMaterial_Metallic.jpg",
+        "fluorescentDiffuse": "assets/textures/fluorescent/diffuse.png",
+        "fluorescentSpecular": "assets/textures/fluorescent/specular.png",
+        "fluorescentRoughness": "assets/textures/fluorescent/roughness.png",
+        "fluorescentEmissive": "assets/textures/fluorescent/emissive.png",
+        "pointDiffuse": "assets/textures/pointLight/diffuse.png",
+        "pointSpecular": "assets/textures/pointLight/specular.png",
+        "pointRoughness": "assets/textures/pointLight/roughness.png",
+        "pointEmissive": "assets/textures/pointLight/emissive.png"
       },
       "meshes": {
         "cube": "assets/models/cube.obj",
@@ -71,7 +79,9 @@
         "boy": "assets/models/boy.obj",
         "prison": "assets/models/prison.obj",
         "masterKey": "assets/models/monkey.obj",
-        "pointLight": "assets/models/pointLight.obj"
+        "spotLight": "assets/models/spotLight.obj",
+        "pointLight": "assets/models/pointLight.obj",
+        "fluorescent": "assets/models/fluorescent.obj"
       },
       "samplers": {
         "default": {},
@@ -398,6 +408,23 @@
 
           "sampler": "default"
         },
+        "spotLight": {
+          "type": "lit",
+          "shader": "light",
+          "diffuse": "spotDiffuse",
+          "emissive": "spotEmissive",
+          "specular": "spotSpecular",
+          "roughness": "spotRoughness",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "sampler": "default"
+        },
         "pointLight": {
           "type": "lit",
           "shader": "light",
@@ -405,6 +432,23 @@
           "emissive": "pointEmissive",
           "specular": "pointSpecular",
           "roughness": "pointRoughness",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "sampler": "default"
+        },
+        "fluorescent": {
+          "type": "lit",
+          "shader": "light",
+          "diffuse": "fluorescentDiffuse",
+          "emissive": "fluorescentEmissive",
+          "specular": "fluorescentSpecular",
+          "roughness": "fluorescentRoughness",
           "pipelineState": {
             "faceCulling": {
               "enabled": false
@@ -464,7 +508,8 @@
                 "type": "Spot Light",
                 "color": [0.2, 0.2, 0.2],
                 "attenuation": [0.03, 0.0, 0.0],
-                "innerCutoff": 0.91,
+                // "innerCutoff": 0.91,
+                "innerCutoff": 0.82,
                 "outerCutoff": 0.75
               }
             ]
@@ -628,6 +673,88 @@
             "type": "Mesh Renderer",
             "mesh": "house",
             "material": "house"
+          }
+        ],
+        "children": [
+          {
+            "name": "Spot 1",
+            "position": [0.14, 0.198, -0.05],
+            "rotation": [0, 0, 0],
+            "scale": [0.001, 0.001, 0.001],
+            "components": [
+              {
+                "type": "Mesh Renderer",
+                "mesh": "spotLight",
+                "material": "spotLight"
+              },
+              {
+                "type": "Spot Light",
+                "color": [0.5, 0.5, 0.5],
+                "direction": [0.0, -1.0, 0.0],
+                "attenuation": [0.03, 0.0, 0.0],
+                "innerCutoff": 0.91,
+                "outerCutoff": 0.75
+              }
+            ]
+          },
+          {
+            "name": "Spot 2",
+            "position": [-0.12, 0.198, -0.05],
+            "rotation": [0, 0, 0],
+            "scale": [0.001, 0.001, 0.001],
+            "components": [
+              {
+                "type": "Mesh Renderer",
+                "mesh": "spotLight",
+                "material": "spotLight"
+              },
+              {
+                "type": "Spot Light",
+                "color": [0.5, 0.5, 0.5],
+                "direction": [0.0, -1.0, 0.0],
+                "attenuation": [0.03, 0.0, 0.0],
+                "innerCutoff": 0.91,
+                "outerCutoff": 0.75
+              }
+            ]
+          },
+          {
+            "name": "fluorescent 1",
+            // "position": [-0.05, 0.22, -0.02],
+            "position": [0.006, 0.23, 0.135],
+            "rotation": [180, 0, 0],
+            "scale": [0.05, 0.05, 0.05],
+            "components": [
+              {
+                "type": "Mesh Renderer",
+                "mesh": "fluorescent",
+                "material": "fluorescent"
+              },
+              {
+                "type": "Point Light",
+                "color": [0.005, 0.005, 0.005],
+                "position": [0.006, 0.205, 0.135],
+                "attenuation": [0.03, 0.0, 0.0]
+              }
+            ]
+          },
+          {
+            "name": "point 1",
+            "position": [-0.1, 0.2, -0.1],
+            "rotation": [180, 0, 0],
+            "scale": [0.1, 0.1, 0.1],
+            "components": [
+              {
+                "type": "Mesh Renderer",
+                "mesh": "pointLight",
+                "material": "pointLight"
+              },
+              {
+                "type": "Point Light",
+                "color": [0.5, 0.5, 0.5],
+                "attenuation": [0.06, 0.0, 0.0]
+              }
+            ]
           }
         ]
       },
@@ -951,60 +1078,34 @@
           }
         ]
       },
-    //  {
-    //     "name": "Directional light",
-    //     "position": [40, 8, 25],
-    //     "rotation": [0, 0, 0],
-    //     "scale": [0.1, 0.1, 0.1],
-    //     "components": [
-    //       {
-    //         "type": "Mesh Renderer",
-    //         "mesh": "cube",
-    //         "material": "lightSource"
-    //       },
-    //       {
-    //         "type": "Directional Light",
-    //         "color": [0.4, 0.4, 0.4],
-    //         "direction": [-1.0, 0.0, 0.0]
-    //       }
-    //     ]
-    //   }
-      // {
-      //   "name": "Spot 1",
-      //   "position": [53, 9.9, 15],
-      //   "rotation": [0, 0, 0],
-      //   "scale": [0.02, 0.02, 0.02],
-      //   "components": [
-      //     {
-      //       "type": "Mesh Renderer",
-      //       "mesh": "pointLight",
-      //       "material": "pointLight"
-      //     },
-      //     {
-      //       "type": "Spot Light",
-      //       "color": [0.5, 0.5, 0.5],
-      //       "direction": [0.0, -1.0, 0.0],
-      //       "attenuation": [0.03, 0.0, 0.0],
-      //       "innerCutoff": 0.91,
-      //       "outerCutoff": 0.75
-      //     }
-          // {
-          //   "type": "Point Light",
-          //   "color": [0.2, 0.2, 0.2],
-          //   "attenuation": [0.03, 0.0, 0.0]
-          // }
-      //   ]
-      // },
       {
         "name": "masterdoor",
         "position": [50.25, 7.8, 27.0],
-        "rotation": [0,270, 180],
+        "rotation": [0, 270, 180],
         "scale": [0.03, 0.032, 0.03],
         "components": [
           {
             "type": "Mesh Renderer",
             "mesh": "door",
             "material": "door"
+          }
+        ]
+      },
+      {
+        "name": "Directional light",
+        "position": [40, 8, 25],
+        "rotation": [0, 0, 0],
+        "scale": [0.001, 0.001, 0.001],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "cube",
+            "material": "glass"
+          },
+          {
+            "type": "Directional Light",
+            "color": [0.8, 0.8, 0.8],
+            "direction": [1.0, 0.0, 0.0]
           }
         ]
       }
