@@ -689,19 +689,19 @@
           }
         ]
       },
-      {
-        "name": "wall",
-        "position": [50, 8, 19.1],
-        "rotation": [0, 0, 90],
-        "scale": [1, 2, 0.5],
-        "components": [
-          {
-            "type": "Mesh Renderer",
-            "mesh": "plane",
-            "material": "glass"
-          }
-        ]
-      },
+      // {
+      //   "name": "wall",
+      //   "position": [50, 8, 19.1],
+      //   "rotation": [0, 0, 90],
+      //   "scale": [1, 2, 0.5],
+      //   "components": [
+      //     {
+      //       "type": "Mesh Renderer",
+      //       "mesh": "plane",
+      //       "material": "glass"
+      //     }
+      //   ]
+      // },
       {
         "name": "door1",
         "position": [53.7, 11.4, 25.7],

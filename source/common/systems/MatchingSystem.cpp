@@ -37,6 +37,7 @@ namespace our
                     //    "position": [53.7, 11.4, 25.7],
                     position =  glm::vec3(52.8,11.4,26.5);
                     rotation.y = glm::radians(90.0f);
+                    door1->name = "collided";
                 }
                 break;
               case Event::DOOR2_COLLISION:
@@ -53,6 +54,7 @@ namespace our
                     position =  glm::vec3(45.85, 11.4, 21.2);
                     rotation.y = glm::radians(90.0f);
                     // rotation.z = glm::radians(90.0f);
+                    door1->name = "collided";
                 }
                 break;
                  case Event::DOOR3_COLLISION:
@@ -69,6 +71,7 @@ namespace our
                     position  =  glm::vec3(53, 11.4, 20);
                     // rotation.z = glm::radians(0.0f);  // the door is crazy about rotation 
                      rotation.y= glm::radians(180.0f); 
+                     door1->name = "collided";
                 }
                 break;
                  case Event::DOOR5_COLLISION:
@@ -84,6 +87,7 @@ namespace our
                     //    "position": [53.7, 11.4, 25.7],
                     position =  glm::vec3(49.2, 7.8, 21);
                     rotation.y = glm::radians(90.0f);
+                    door1->name = "collided";
                 }
                 break;
                  case Event::DOOR6_COLLISION:
@@ -99,6 +103,7 @@ namespace our
                     //    "position": [53.7, 11.4, 25.7],
                     position =  glm::vec3(53.5, 7.8, 24.2);
                     rotation.y= glm::radians(180.0f); 
+                    door1->name = "collided";
                 }
                 break;
                  case Event:: PRISON_COLLISION:
@@ -114,6 +119,7 @@ namespace our
                     //    "position": 50.8, 4.7, 28.4,
                     position =  glm::vec3(50.8, 4.7, 29.5);
                     // rotation.y = glm::radians(90.0f);
+                    door1->name = "collided";
 
                     // TODO :
                     // make the boy go out 

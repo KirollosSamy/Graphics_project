@@ -23,6 +23,8 @@ class Playstate : public our::State
 
     std::string text;
     our::World world;
+    std::pair<std::string, int> message;
+
     our::ForwardRenderer renderer;
     our::FreeCameraControllerSystem cameraController;
     our::MovementSystem movementSystem;
@@ -40,7 +42,7 @@ class Playstate : public our::State
 
     void onInitialize() override
     {
-        text = "";
+        text = "You thought you were alone... You were wrong.";
         // First of all, we get the scene configuration from the app config
         auto &config = getApp()->getConfig()["scene"];
         // If we have assets in the scene config, we deserialize them
@@ -76,9 +78,9 @@ class Playstate : public our::State
     void onDraw(double deltaTime) override
     {
         // Here, we just run a bunch of systems to control the world logic
-        movementSystem.update(&world, (float)deltaTime);                    // monkey up
-        cameraController.update(&world, (float)deltaTime);                  // p = p + delta x(z,y,w)  collision -> false  || collision -> true
-        text = collisionSystem.update(&world, (float)deltaTime, &renderer); //  == p - delta x
+        movementSystem.update(&world, (float)deltaTime);                       // monkey up
+        cameraController.update(&world, (float)deltaTime);                     // p = p + delta x(z,y,w)  collision -> false  || collision -> true
+        message = collisionSystem.update(&world, (float)deltaTime, &renderer); //  == p - delta x
         soundSystem.update(&world);
         pickSystem.update(&world);
         dropSystem.Drop(&world);
@@ -141,26 +143,26 @@ class Playstate : public our::State
         // Box 1
         ImGui::SetNextWindowPos(ImVec2(20, 20)); // Set position of Box 1
         ImGui::Begin("Box1", 0, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoBackground);
-        ImGui::SetWindowSize(ImVec2(130, 50));
+        ImGui::SetWindowSize(ImVec2(130, 80));
         ImGui::SetWindowFontScale(3.0f);
-        ImGui::TextColored(ImVec4(1.0, 1.0, 1.0, 1.0), "Lives : ");
+        ImGui::TextColored(ImVec4(1.0, 1.0, 1.0, 1.0), "Lives: ");
         ImGui::End();
 
         // // Box 2
-        // ImGui::SetNextWindowPos(ImVec2(300, 200)); // Set position of Box 2
-        // ImGui::Begin("Box2", 0, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoBackground);
-        // ImGui::SetWindowSize(ImVec2(100, 50));
-        // ImGui::SetWindowFontScale(3.0f);
-        // ImGui::TextColored(ImVec4(1.0, 1.0, 1.0, 1.0), "test 2");
-        // ImGui::End();
+        ImGui::SetNextWindowPos(ImVec2(150, 20)); // Set position of Box 2
+        ImGui::Begin("Box2", 0, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoBackground);
+        ImGui::SetWindowSize(ImVec2(100, 50));
+        ImGui::SetWindowFontScale(3.0f);
+        ImGui::TextColored(ImVec4(1.0, 1.0, 1.0, 1.0), std::to_string(message.second).c_str());
+        ImGui::End();
 
         // Box 3
         ImVec2 screenCenter = ImVec2(ImGui::GetIO().DisplaySize.x / 2, 0);
-       ImGui::SetNextWindowPos(screenCenter, ImGuiCond_Always, ImVec2(0.5f, 0.0f));
+        ImGui::SetNextWindowPos(screenCenter, ImGuiCond_Always, ImVec2(0.5f, 0.0f));
         ImGui::Begin("Box3", 0, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoBackground);
-        ImGui::SetWindowSize(ImVec2(300, 50));
-        ImGui::SetWindowFontScale(3.0f);
-        ImGui::TextColored(ImVec4(1.0, 1.0, 1.0, 1.0), text.c_str());
+        ImGui::SetWindowSize(ImVec2(800, 50));
+        ImGui::SetWindowFontScale(2.0f);
+        ImGui::TextColored(ImVec4(1.0, 1.0, 1.0, 1.0), message.first.c_str());
         ImGui::End();
 
         ImGui::PopStyleColor();

@@ -16,7 +16,6 @@ namespace our
         {
             Event event = eventQueue.front();
             eventQueue.pop();
-            std::cout << "inside while " << std::endl;
             if (app->getKeyboard().isPressed(GLFW_KEY_P)) // checking if P key is pressed
                 switch (event)
                 {

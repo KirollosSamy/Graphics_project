@@ -41,7 +41,7 @@ namespace our
 
             switch (event)
             {
-            std::cout << "reached here !";
+                std::cout << "reached here !";
             case Event::KEY_FOUND:
                 player->gameState.keyFound = true;
                 break;
@@ -61,4 +61,5 @@ namespace our
         }
         return status;
     }
+
 }

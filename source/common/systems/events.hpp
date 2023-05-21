@@ -31,6 +31,7 @@ namespace our {
         TERRIFIED,
         NORMAL_MUSIC,
         RUNNING,
+        DEAD,
     };
 }
 
