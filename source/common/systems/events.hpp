@@ -30,6 +30,10 @@ namespace our {
         COLLISION_WITH_WALL,
         TERRIFIED,
         NORMAL_MUSIC,
+        SCREAM,
+        BADROOM,
+        CRY,
+        WOODEN_STEPS,
         RUNNING,
         DEAD,
     };
