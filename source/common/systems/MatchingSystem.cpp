@@ -148,6 +148,13 @@ namespace our
                     // rotation.y = glm::radians(90.0f);
                 }
                 break;
+                 case Event:: MASTERDOOR_COLLISION:
+                      if (tool == "key6")
+                {
+                    //one of the conditions of winning is satisified
+                   notify(Event::MASTERDOOR_OPENED);
+                }
+                break;
 
 
                 // door 3 open coordinates [52.9, 11.4, 20]  rotation 180
