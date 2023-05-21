@@ -94,7 +94,7 @@ class Playstate : public our::State
         // check if the game has ended
         // we can modify menu state slightly to display gameover and won screen.
         if (gameStatus == our::GameStatus::WON)
-            getApp()->changeState("menu");
+            getApp()->changeState("win");
         else if (gameStatus == our::GameStatus::LOST)
             getApp()->changeState("end");
 
@@ -134,6 +134,8 @@ class Playstate : public our::State
 
         // soundSystem.listen(&collisionSystem);
         soundSystem.listen(&collisionSystem);
+        playerSystem.listen(&matchingSystem);
+        
 
         // playerSystem.listen(&objectSystem);
     }

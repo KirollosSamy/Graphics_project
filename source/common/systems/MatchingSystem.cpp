@@ -129,7 +129,6 @@ namespace our
                     boy_movement->linearVelocity = glm::vec3(0, 0, 0);
                     glm::vec3 &position_boy = boy->localTransform.position;
                     position_boy=glm::vec3(50, 6.65, 26.0);
-                    notify(Event::BOY_AT_MASTERDOOR);
 
                     // TODO :
                     // make the boy go out 
@@ -161,7 +160,7 @@ namespace our
                       if (tool == "key6")
                 {
                     //one of the conditions of winning is satisified
-                   notify(Event::MASTERDOOR_OPENED);
+                   notify(Event::PLAYER_AT_DOOR);
                 }
                 break;
 

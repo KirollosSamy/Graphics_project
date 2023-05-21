@@ -49,7 +49,7 @@ namespace our
 
     public:
         Application *app;
-        float time = 0.0;
+        float time, time1, time2, time3 = 0.0;
         bool postprocessEffect = false;
         int lives = 10;
 
@@ -161,6 +161,9 @@ namespace our
         std::pair<std::string, int> update(World *world, float deltaTime, ForwardRenderer *renderer)
         {
             time += deltaTime;
+            time1 += deltaTime;
+            time2 += deltaTime;
+            time3 += deltaTime;
             // For each entity in the world
             std::string text = "You thought you were alone... You were wrong.";
 
@@ -209,7 +212,6 @@ namespace our
                                 // here we are setting the object name the player hold so to use it in matching system
                                 Entity *player = world->GetEntity("player");
 
-                            
                                 PlayerComponent *playerComponent = player->getComponent<PlayerComponent>();
                                 if (playerComponent)
                                 {
@@ -346,29 +348,88 @@ namespace our
 
                             if (entity->name == "granny")
                             {
-                                const float a = -0.43f;
-                                const float b = 0.49f;
-                                const float c = -2.98f;
-                                const float d = 1.00f;
-                                // Define the initial point coordinates
-                                float x0 = -0.707f;
-                                float y0 = 0.417f;
-                                float z0 = 2.345f;
-                                // Define the step size for movement
-                                const float step_size = 0.1f;
-                                //-0.43x + 0.49y + -2.98z + 1.00 = 0
-                                glm::mat4 M = entity->localTransform.toMat4();
-                                glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
-                                entity->localTransform.position[0] -= movement->linearVelocity[0]  * (x0 + a * (d - a * x0 - b * y0 - c * z0) * step_size);
-                                entity->localTransform.position[1] -= movement->linearVelocity[1]  * (y0 + b * (d - a * x0 - b * y0 - c * z0) * step_size);
-                                entity->localTransform.position[2] -= movement->linearVelocity[2]  * (z0 + c * (d - a * x0 - b * y0 - c * z0) * step_size);
 
-                                x0 = entity->localTransform.position[0];
-                                y0 = entity->localTransform.position[1];
-                                z0 = entity->localTransform.position[2];
+                                if (time1 > 100.0f)
+                                {
+                                    time1 = 0;
+                                    const float a = 0.04f;
+                                    const float b = 4.11f;
+                                    const float c = -67.59f;
+                                    const float d = 1.00f;
+                                    // Define the initial point coordinates
+                                    float x0 = 1.0f;
+                                    float y0 = 2.0f;
+                                    float z0 = 3.0f;
+                                    // Define the step size for movement
+                                    const float step_size = 0.1f;
 
-                                rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
-                                // entity->localTransform.rotation.y += glm::radians((std::rand() % 181) * 1.0f);
+                                    glm::mat4 M = entity->localTransform.toMat4();
+                                    glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
+                                    entity->localTransform.position[0] -= movement->linearVelocity[0] * (x0 + a * (d - a * x0 - b * y0 - c * z0) * step_size);
+                                    entity->localTransform.position[1] -= movement->linearVelocity[1] * (y0 + b * (d - a * x0 - b * y0 - c * z0) * step_size);
+                                    entity->localTransform.position[2] -= movement->linearVelocity[2] * (z0 + c * (d - a * x0 - b * y0 - c * z0) * step_size);
+
+                                    x0 = entity->localTransform.position[0];
+                                    y0 = entity->localTransform.position[1];
+                                    z0 = entity->localTransform.position[2];
+
+                                    rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
+                                    // entity->localTransform.rotation.y += glm::radians((std::rand() % 181) * 1.0f);
+                                }
+                                if (time2 > 200)
+                                {
+                                    time2 = 0;
+
+                                    const float a = 0.14f;
+                                    const float b = -0.96f;
+                                    const float c = -21.60f;
+                                    const float d = 1.00f;
+                                    // Define the initial point coordinates
+                                    float x0 = 1.0f;
+                                    float y0 = 2.0f;
+                                    float z0 = 3.0f;
+                                    // Define the step size for movement
+                                    const float step_size = 0.1f;
+
+                                    glm::mat4 M = entity->localTransform.toMat4();
+                                    glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
+                                    entity->localTransform.position[0] -= movement->linearVelocity[0] * (x0 + a * (d - a * x0 - b * y0 - c * z0) * step_size);
+                                    entity->localTransform.position[1] -= movement->linearVelocity[1] * (y0 + b * (d - a * x0 - b * y0 - c * z0) * step_size);
+                                    entity->localTransform.position[2] -= movement->linearVelocity[2] * (z0 + c * (d - a * x0 - b * y0 - c * z0) * step_size);
+
+                                    x0 = entity->localTransform.position[0];
+                                    y0 = entity->localTransform.position[1];
+                                    z0 = entity->localTransform.position[2];
+
+                                    rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
+                                }
+
+                                if (time3 > 300)
+                                {
+                                    time3 = 0;
+                                    const float a = -0.55f;
+                                    const float b = -0.05f;
+                                    const float c = -0.01f;
+                                    const float d = 1.00f;
+                                    // Define the initial point coordinates
+                                    float x0 = 1.0f;
+                                    float y0 = 2.0f;
+                                    float z0 = 3.0f;
+                                    // Define the step size for movement
+                                    const float step_size = 0.1f;
+                                    glm::mat4 M = entity->localTransform.toMat4();
+                                    glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
+                                    entity->localTransform.position[0] -= movement->linearVelocity[0] * (x0 + a * (d - a * x0 - b * y0 - c * z0) * step_size);
+                                    entity->localTransform.position[1] -= movement->linearVelocity[1] * (y0 + b * (d - a * x0 - b * y0 - c * z0) * step_size);
+                                    entity->localTransform.position[2] -= movement->linearVelocity[2] * (z0 + c * (d - a * x0 - b * y0 - c * z0) * step_size);
+
+                                    x0 = entity->localTransform.position[0];
+                                    y0 = entity->localTransform.position[1];
+                                    z0 = entity->localTransform.position[2];
+
+                                    rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
+                                }
+
                                 continue;
                             }
 

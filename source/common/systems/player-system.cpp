@@ -37,13 +37,14 @@ namespace our
             eventQueue.pop();
 
             // Event e = static_cast<Event>();
-            // std::cout << " Event value " << static_cast<int>(event) << std::endl;
+            std::cout << " Event value " << static_cast<int>(event) << std::endl;
 
             switch (event)
             {
                 std::cout << "reached here !";
             case Event::KEY_FOUND:
                 player->gameState.keyFound = true;
+                status = GameStatus::WON;
                 break;
             case Event::PLAYER_CAUGHT_BY_GRANNY:
                 player->gameState.dead = true;
@@ -51,8 +52,7 @@ namespace our
                 status = GameStatus::LOST;
                 break;
             case Event::PLAYER_AT_DOOR:
-                if (player->gameState.keyFound)
-                    status = GameStatus::WON;
+                status = GameStatus::WON;
                 break;
             case Event::FOUND_COIN:
                 player->gameState.score += 1;
