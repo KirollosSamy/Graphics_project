@@ -16,7 +16,12 @@ namespace our {
         color = data.value("color", color);
 
         // Set the position using the model matrix of the owner entity
-        position = getOwner()->getLocalToWorldMatrix() * glm::vec4(0.0, 0.0, 0.0, 1);
+        if (data.contains("position")) {
+            position = data.value("position", glm::vec3(0.0, 0.0, 0.0));
+            position = getOwner()->parent->getLocalToWorldMatrix() * glm::vec4(position, 1);
+        }
+        else
+            position = getOwner()->getLocalToWorldMatrix() * glm::vec4(0.0, 0.0, 0.0, 1);
     }
 
 
