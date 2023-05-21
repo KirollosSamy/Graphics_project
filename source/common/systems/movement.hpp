@@ -18,6 +18,9 @@ namespace our
     class MovementSystem : public System
     {
     public:
+        float time1 = 0.0;
+        float time2 = 0.0;
+        float time3 = 0.0;
         // This should be called every frame to update all entities containing a MovementComponent.
         void update(World *world, float deltaTime)
         {
@@ -41,30 +44,44 @@ namespace our
                     }
                     if (entity->name == "granny")
                     {
+                            glm::mat4 M = entity->localTransform.toMat4();
+                            glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
 
-                        const float a = -0.43f;
-                        const float b = 0.49f;
-                        const float c = -2.98f;
-                        const float d = 1.00f;
-                        // Define the initial point coordinates
-                        float x0 = -0.707f;
-                        float y0 = 0.417f;
-                        float z0 = 2.345f;
-                        // Define the step size for movement
-                        const float step_size = 0.1f;
-                        //-0.43x + 0.49y + -2.98z + 1.00 = 0
-                        glm::mat4 M = entity->localTransform.toMat4();
-                        glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
-                        entity->localTransform.position[0] += movement->linearVelocity[0]  * (x0 + a * (d - a * x0 - b * y0 - c * z0) * step_size);
-                        entity->localTransform.position[1] += movement->linearVelocity[1]  * (y0 + b * (d - a * x0 - b * y0 - c * z0) * step_size);
-                        entity->localTransform.position[2] += movement->linearVelocity[2]  * (z0 + c * (d - a * x0 - b * y0 - c * z0) * step_size);
+                                // undo last move
+                                //
+                            entity->localTransform.position[0] += deltaTime * movement->linearVelocity[0] * front[0];
+                            entity->localTransform.position[1] += 10.4;
+                            
+                            entity->localTransform.position[2] += deltaTime * movement->linearVelocity[2] * front[2];
+                                continue;
+                        }
+                    //      if (time2 < 100)
+                    //     {
+                    //         time2= 0;
+                    //             glm::mat4 M = entity->localTransform.toMat4();
+                    // //             glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
 
-                        x0 = entity->localTransform.position[0];
-                        y0 = entity->localTransform.position[1];
-                        z0 = entity->localTransform.position[2];
-                        continue;
-                    }
+                    //             // undo last move
+                    //             //
+                    //         entity->localTransform.position[0] += deltaTime * movement->linearVelocity[0] * front[0];
+                    //         entity->localTransform.position[1]=7.5 ;
+                    //         entity->localTransform.position[2] += deltaTime * movement->linearVelocity[2] * front[2];
+                    //             continue;
+                    //     }
+                    //   if (time3 < 150)
+                    //     {
+                    //     time3= 0;
+                    //         glm::mat4 M = entity->localTransform.toMat4();
+                    //             glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
 
+                    //             // undo last move
+                    //             //
+                    //         entity->localTransform.position[0] += deltaTime * movement->linearVelocity[0] * front[0];
+                    //         entity->localTransform.position[1]=4.7 ;
+                    //         entity->localTransform.position[2] += deltaTime * movement->linearVelocity[2] * front[2];
+                    //             continue;
+                    // }
+                    //}
                     if (entity->name == "boy")
                     {
                         glm::mat4 M = entity->localTransform.toMat4();
