@@ -22,7 +22,7 @@ namespace our
     public:
         // This function is called only once to search for the player entity
         // If a player found it returns true, otherwise false
-        bool setPlayer(World *world);
+        PlayerComponent* setPlayer(World* world);
 
         // This should be called every frame to apply the game logic.
         GameStatus update(World *world);

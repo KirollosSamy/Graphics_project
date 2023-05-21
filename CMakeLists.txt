@@ -107,6 +107,8 @@ set(COMMON_SOURCES
         source/common/systems/MatchingSystem.cpp
         source/common/systems/granny-system.hpp
         source/common/systems/granny-system.cpp
+        source/common/systems/lighting.hpp
+        source/common/systems/lighting.cpp
 
 )
 
