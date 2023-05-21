@@ -106,21 +106,6 @@ namespace our {
             postprocessMaterial->pipelineState.depthMask = false;
         }
 
-        // //set the ambient value for the entire scene
-        // ambient = config.value("ambient", glm::vec3(0.1f, 0.1f, 0.1f));
-
-        // //get the light shader to use it to send global uniforms
-        // lightShader = AssetLoader<ShaderProgram>::get("light");
-
-        // // Find all ligh sources once for efficiency
-        // for (auto entity : world->getEntities()) {
-        //     // If this entity has a light component then it's a light source
-        //     if (auto light = entity->getComponent<Light>(); light) {
-        //         lights.push_back(light);
-        //         if (entity->name == "flash") flash = (SpotLight*)light;
-        //     }
-        // }
-
     }
 
     void ForwardRenderer::destroy() {
