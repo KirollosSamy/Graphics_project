@@ -3,6 +3,7 @@
 #include "MatchingSystem.hpp"
 #include "../ecs/entity.hpp"
 #include "../components/player.hpp"
+#include "../components/movement.hpp"
 
 #include <iostream>
 
@@ -120,6 +121,15 @@ namespace our
                     position =  glm::vec3(50.8, 4.7, 29.5);
                     // rotation.y = glm::radians(90.0f);
                     door1->name = "collided";
+                    
+                    // when the prison open move the boy to the master door
+                    Entity *boy = world->GetEntity("boy");
+
+                    MovementComponent *boy_movement = boy->getComponent<MovementComponent>();
+                    boy_movement->linearVelocity = glm::vec3(0, 0, 0);
+                    glm::vec3 &position_boy = boy->localTransform.position;
+                    position_boy=glm::vec3(50, 6.65, 26.0);
+                    notify(Event::BOY_AT_MASTERDOOR);
 
                     // TODO :
                     // make the boy go out 
@@ -130,7 +140,6 @@ namespace our
                  case Event:: DRAWER_COLLISION:
                 if (tool == "hummer")
                 {
-                  
                     // open door
                     //  1 - get entity with name door 1
                     //  2 - play with door transformations (position, rotation)

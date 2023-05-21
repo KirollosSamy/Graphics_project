@@ -30,6 +30,7 @@ namespace our {
         DRAWER_COLLISION,
         MASTERDOOR_COLLISION,
         MASTERDOOR_OPENED,
+        BOY_AT_MASTERDOOR,
         COLLISION_WITH_WALL,
         TERRIFIED,
         NORMAL_MUSIC,

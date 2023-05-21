@@ -126,15 +126,15 @@ namespace our
         grannyCheckesPlayer(world);
         moveGrannyRandomly(world, deltaTime);
 
-        //     while (!eventQueue.empty()) {
-        //         Event event = eventQueue.front();
-        //         eventQueue.pop();
-        //         switch (event) {
-        //         case Event::MADE_NOISE:
-        //             goPositions(world);
-        //             break;
-        //         }
-        //     }
-        // }
+    //         while (!eventQueue.empty()) {
+    //             Event event = eventQueue.front();
+    //             eventQueue.pop();
+    //             switch (event) {
+    //             case Event::MADE_NOISE:
+    //                 goPositions(world);
+    //                 break;
+    //             }
+    //         }
+    //     }
     }
 }

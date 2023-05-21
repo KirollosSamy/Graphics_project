@@ -209,6 +209,7 @@ namespace our
                                 // here we are setting the object name the player hold so to use it in matching system
                                 Entity *player = world->GetEntity("player");
 
+                            
                                 PlayerComponent *playerComponent = player->getComponent<PlayerComponent>();
                                 if (playerComponent)
                                 {
