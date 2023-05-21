@@ -345,12 +345,27 @@ namespace our
 
                             if (entity->name == "granny")
                             {
-                                //     notify(Event::TERRIFIED);
-                                // std::cout << "sherry" << std::endl;
+                                const float a = -0.43f;
+                                const float b = 0.49f;
+                                const float c = -2.98f;
+                                const float d = 1.00f;
+                                // Define the initial point coordinates
+                                float x0 = -0.707f;
+                                float y0 = 0.417f;
+                                float z0 = 2.345f;
+                                // Define the step size for movement
+                                const float step_size = 0.1f;
+                                //-0.43x + 0.49y + -2.98z + 1.00 = 0
                                 glm::mat4 M = entity->localTransform.toMat4();
                                 glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
-                                // undo last move
-                                position -= deltaTime * movement->linearVelocity * front;
+                                entity->localTransform.position[0] -= movement->linearVelocity[0]  * (x0 + a * (d - a * x0 - b * y0 - c * z0) * step_size);
+                                entity->localTransform.position[1] -= movement->linearVelocity[1]  * (y0 + b * (d - a * x0 - b * y0 - c * z0) * step_size);
+                                entity->localTransform.position[2] -= movement->linearVelocity[2]  * (z0 + c * (d - a * x0 - b * y0 - c * z0) * step_size);
+
+                                x0 = entity->localTransform.position[0];
+                                y0 = entity->localTransform.position[1];
+                                z0 = entity->localTransform.position[2];
+
                                 rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
                                 // entity->localTransform.rotation.y += glm::radians((std::rand() % 181) * 1.0f);
                                 continue;
@@ -404,6 +419,11 @@ namespace our
                             if (otherEntity->name == "hummer")
                             {
                                 notify(Event::HUMMER_FOUND);
+                                continue;
+                            }
+                            if (otherEntity->name == "key6")
+                            {
+                                notify(Event::KEY6_FOUND);
                                 continue;
                             }
                         }

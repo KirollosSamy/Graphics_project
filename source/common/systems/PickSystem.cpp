@@ -37,9 +37,11 @@ namespace our
                 case Event::HUMMER_FOUND:
                     Pick(world, "hummer");
                     break;
-
                 case Event::SCREW_FOUND:
                     Pick(world, "screw");
+                    break;
+                case Event::KEY6_FOUND:
+                    Pick(world, "key6");
                     break;
                 }
         }
