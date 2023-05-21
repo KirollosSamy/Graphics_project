@@ -87,7 +87,7 @@ class Playstate : public our::State
         pickSystem.update(&world);
         dropSystem.Drop(&world);
         matchingSystem.Matching(&world);
-        // grannySystem.update(&world,(float)deltaTime);
+        grannySystem.update(&world,(float)deltaTime);
         // objectSystem.update(&world);
         // grannySystem.update(&world);
 

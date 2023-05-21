@@ -15,7 +15,6 @@ namespace our
             switch (event)
             {
             case Event::TERRIFIED:
-                // std::cout << "event reached hereeeeeeeeeeee" << std::endl;
                 SoundEngine->stopAllSounds();
                 SoundEngine->play2D("assets/audio/14. Spotted.mp3", false);
                 break;
@@ -25,7 +24,7 @@ namespace our
                 break;
             case Event::BADROOM:
                 SoundEngine->stopAllSounds();
-                SoundEngine->play2D("assets/audio/29. Another Evil.mp3", false);
+                SoundEngine->play2D("assets/audio/baby_badroom.mp3", false);
                 break;
                 case Event::OPEN_DOOR:
                 std::cout << "reached here" << std::endl;

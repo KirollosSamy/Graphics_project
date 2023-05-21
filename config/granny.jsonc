@@ -14,7 +14,7 @@
       "postprocess": "assets/shaders/postprocess/distortion.frag",
       "addedTex": "assets/textures/water-normal.png",
       "effect_power": 0.05,
-      "ambient": [0.05, 0.05, 0.05]
+      "ambient": [0.1, 0.1, 0.1]
     },
     "assets": {
       "shaders": {
@@ -60,7 +60,8 @@
         "pointDiffuse": "assets/textures/pointLight/diffuse.png",
         "pointSpecular": "assets/textures/pointLight/specular.png",
         "pointRoughness": "assets/textures/pointLight/roughness.png",
-        "pointEmissive": "assets/textures/pointLight/emissive.png"
+        "pointEmissive": "assets/textures/pointLight/emissive.png",
+        "MK":"assets/textures/MK.jpg"
       },
       "meshes": {
         "cube": "assets/models/cube.obj",
@@ -202,6 +203,25 @@
           "tint": [1, 1, 1, 1],
           // "texture": "screw",
           "diffuse": "screw",
+
+          "sampler": "default"
+        },
+        "MK": {
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          // "texture": "screw",
+          "diffuse": "MK",
 
           "sampler": "default"
         },
@@ -458,6 +478,25 @@
             }
           },
           "sampler": "default"
+        },
+        "magicKey": {
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          // "texture": "key",
+          "diffuse": "key",
+
+          "sampler": "default"
         }
       }
     },
@@ -532,32 +571,32 @@
           },
           {
             "type": "Movement",
-            "linearVelocity": [1, 1, 1],
-            "angularVelocity": [0, 0, 0]
+            "linearVelocity": [5, 5, 5],
+            "angularVelocity": [0, 10, 0]
           },
           {
             "type": "Collision"
           }
         ]
       },
-      {
-        "name": "coins",
-        "position": [50, 5.1, 20],
-        "rotation": [0, 0, 0],
-        "scale": [3, 3, 3],
-        "components": [
-          {
-            "type": "Mesh Renderer",
-            "mesh": "coins",
-            "material": "coins"
-          },
-          {
-            "type": "Movement",
-            "linearVelocity": [250, 250, 250],
-            "angularVelocity": [0, 50, 0]
-          }
-        ]
-      },
+      // {
+      //   "name": "coins",
+      //   "position": [50, 5.1, 20],
+      //   "rotation": [0, 0, 0],
+      //   "scale": [3, 3, 3],
+      //   "components": [
+      //     {
+      //       "type": "Mesh Renderer",
+      //       "mesh": "coins",
+      //       "material": "coins"
+      //     },
+      //     {
+      //       "type": "Movement",
+      //       "linearVelocity": [250, 250, 250],
+      //       "angularVelocity": [0, 50, 0]
+      //     }
+      //   ]
+      // },
       {
         "name": "spider",
         "position": [47, 6.6, 15],
@@ -1074,7 +1113,7 @@
           {
             "type": "Mesh Renderer",
             "mesh": "key",
-            "material": "key"
+            "material": "MK"
           }
         ]
       },

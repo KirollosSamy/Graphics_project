@@ -129,6 +129,11 @@ namespace our
                     SoundEngine->stopAllSounds();
                     SoundEngine->play2D("assets/audio/menu.mp3", true);
                 }
+                else if (name == "end")
+                {
+                    SoundEngine->stopAllSounds();
+                    SoundEngine->play2D("assets/audio/scream.mp3", true);
+                }
 
                 nextState = it->second;
             }

@@ -38,11 +38,11 @@ namespace our
             {
                 std::cout << "reached here !";
             case Event::KEY_FOUND:
-                player->gameState.keyFound = true;
+                // player->gameState.keyFound = true;
                 status = GameStatus::WON;
                 break;
             case Event::PLAYER_CAUGHT_BY_GRANNY:
-                player->gameState.dead = true;
+                // player->gameState.dead = true;
                 std::cout << "Player is dead" << std::endl;
                 status = GameStatus::LOST;
                 break;
@@ -50,7 +50,7 @@ namespace our
                 status = GameStatus::WON;
                 break;
             case Event::FOUND_COIN:
-                player->gameState.score += 1;
+                // player->gameState.score += 1;
                 break;
             }
         }

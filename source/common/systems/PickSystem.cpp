@@ -3,6 +3,7 @@
 #include "PickSystem.hpp"
 #include "free-camera-controller.hpp"
 #include "../ecs/entity.hpp"
+#include "../components/movement.hpp"
 
 #include <iostream>
 
@@ -70,7 +71,7 @@ namespace our
             scale = glm::vec3(0.0001 / (hand->localTransform.scale.x / 10), 0.0001 / (hand->localTransform.scale.y / 10), -0.001); // for hummer
         }
         else // keys
-        { 
+        {
             rotation.x -= glm::radians(90.0f);
             scale = glm::vec3(-0.005 / (hand->localTransform.scale.x / 10), 0.005 / (hand->localTransform.scale.y / 10), -0.05);
         }
