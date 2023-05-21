@@ -48,7 +48,8 @@
         "hummer": "assets/textures/hummer.png",
         "boy": "assets/textures/boy.png",
         "prison": "assets/textures/prison.png",
-        "masterKey": "assets/textures/masterKey.jpg"
+        "masterKey": "assets/textures/masterKey.jpg",
+        "MK":"assets/textures/MK.jpg"
       },
       "meshes": {
         "cube": "assets/models/cube.obj",
@@ -66,7 +67,8 @@
         "hummer": "assets/models/hummer.obj",
         "boy": "assets/models/boy.obj",
         "prison": "assets/models/prison.obj",
-        "masterKey": "assets/models/monkey.obj"
+        "masterKey": "assets/models/monkey.obj",
+        "MK":"assets/models/MK.obj"
       },
       "samplers": {
         "default": {},
@@ -187,6 +189,24 @@
           "tint": [1, 1, 1, 1],
           // "texture": "screw",
           "diffuse": "screw",
+
+          "sampler": "default"
+        },"MK": {
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          // "texture": "screw",
+          "diffuse": "MK",
 
           "sampler": "default"
         },
@@ -407,6 +427,25 @@
             }
           },
           "sampler": "default"
+        },
+        "magicKey": {
+          // "type": "textured",
+          // "shader": "textured",
+          "type": "lit",
+          "shader": "light",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          // "texture": "key",
+          "diffuse": "key",
+
+          "sampler": "default"
         }
       }
     },
@@ -488,24 +527,24 @@
           }
         ]
       },
-      {
-        "name": "coins",
-        "position": [50, 5.1, 20],
-        "rotation": [0, 0, 0],
-        "scale": [3, 3, 3],
-        "components": [
-          {
-            "type": "Mesh Renderer",
-            "mesh": "coins",
-            "material": "coins"
-          },
-          {
-            "type": "Movement",
-            "linearVelocity": [250, 250, 250],
-            "angularVelocity": [0, 50, 0]
-          }
-        ]
-      },
+      // {
+      //   "name": "coins",
+      //   "position": [50, 5.1, 20],
+      //   "rotation": [0, 0, 0],
+      //   "scale": [3, 3, 3],
+      //   "components": [
+      //     {
+      //       "type": "Mesh Renderer",
+      //       "mesh": "coins",
+      //       "material": "coins"
+      //     },
+      //     {
+      //       "type": "Movement",
+      //       "linearVelocity": [250, 250, 250],
+      //       "angularVelocity": [0, 50, 0]
+      //     }
+      //   ]
+      // },
       {
         "name": "spider",
         "position": [47, 6.6, 15],
@@ -940,7 +979,7 @@
           {
             "type": "Mesh Renderer",
             "mesh": "key",
-            "material": "key"
+            "material": "MK"
           }
         ]
       },
@@ -975,6 +1014,24 @@
           }
         ]
       }
+      // {
+      //   "name": "MK",
+      //   "position": [50.25, 4.8, 24.5],
+      //   "rotation": [0,0, 0],
+      //   "scale": [0.003, 0.0032, 0.003],
+      //   "components": [
+      //     {
+      //       "type": "Mesh Renderer",
+      //       "mesh": "MK",
+      //       "material": "MK"
+      //     },
+      //     {
+      //       "type": "Movement",
+      //       "linearVelocity": [0, 0, 0],
+      //       "angularVelocity": [0, 40, 0]
+      //     }
+      //   ]
+      // }
     ]
   }
 }

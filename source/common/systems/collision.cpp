@@ -175,12 +175,6 @@ namespace our
                 // notify(Event::NORMAL_MUSIC);
             }
 
-            if (time > 500)
-            {
-                time = 0;
-                notify(Event::NORMAL_MUSIC);
-            }
-
             for (auto &entity : world->getEntities()) // [e1 e2 e3]
             {
                 // Get the position of the entity
@@ -236,37 +230,49 @@ namespace our
                             std::cout << "COLLISION  " << deltaTime << std::endl;
                             std::cout << "entity " << entity->name << " otherEntity " << otherEntity->name << std::endl;
                             if (entity->name == "hand")
-                                if ((otherEntity->name == "door1" || otherEntity->name == "wall") || otherEntity->name == "door2" || otherEntity->name == "door3" || otherEntity->name == "door4" || otherEntity->name == "door5" || otherEntity->name == "door6" || otherEntity->name == "prison" || otherEntity->name == "prison1")
+                                if ((otherEntity->name == "door1" || otherEntity->name == "wall") || otherEntity->name == "door2" || otherEntity->name == "door3" || otherEntity->name == "door4" || otherEntity->name == "door5" || otherEntity->name == "door6" || otherEntity->name == "prison" || otherEntity->name == "prison1" || otherEntity->name == "masterdoor")
                                 {
                                     if (otherEntity->name == "door1")
                                     {
                                         notify(Event::DOOR1_COLLISION);
+                                        notify(Event::OPEN_DOOR);
                                         text = "look in the living room";
                                     }
                                     else if (otherEntity->name == "door2")
                                     {
+                                        notify(Event::OPEN_DOOR);
                                         text = "look in the bedroom";
                                         notify(Event::DOOR2_COLLISION);
                                     }
                                     else if (otherEntity->name == "door3")
                                     {
+                                        notify(Event::OPEN_DOOR);
                                         text = "look in the second floor";
                                         notify(Event::DOOR3_COLLISION);
                                     }
                                     else if (otherEntity->name == "door4")
                                     {
+                                        notify(Event::OPEN_DOOR);
                                         text = "konck knock ... who is there !";
                                         notify(Event::DOOR4_COLLISION);
                                     }
                                     else if (otherEntity->name == "door5")
                                     {
+                                        notify(Event::OPEN_DOOR);
                                         text = "search around the TV";
                                         notify(Event::DOOR5_COLLISION);
                                     }
                                     else if (otherEntity->name == "door6")
                                     {
+                                        notify(Event::OPEN_DOOR);
                                         text = "the key may be hidden some where in the house.";
                                         notify(Event::DOOR6_COLLISION);
+                                        notify(Event::BADROOM);
+                                    }
+                                    else if (otherEntity->name == "masterdoor")
+                                    {
+                                        text = "be quick she is coming for you";
+                                        notify(Event::MASTERDOOR_COLLISION);
                                     }
                                     else if (otherEntity->name == "prison")
                                     {
@@ -309,7 +315,7 @@ namespace our
                                     // undo last move
                                     //
                                     position -= deltaTime * movement->linearVelocity * front;
-                                    rotation.y += glm::radians(180.0f);  
+                                    rotation.y += glm::radians(180.0f);
                                 }
                             }
 

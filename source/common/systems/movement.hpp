@@ -59,6 +59,7 @@ namespace our
                             // Define the step size for movement
                             const float step_size = 0.1f;
                             //-0.43x + 0.49y + -2.98z + 1.00 = 0
+                            std::cout << "before plane1 " << std::endl;
 
                             // 0.04x + 4.11y + -67.59z + 1.00 = 0
                             glm::mat4 M = entity->localTransform.toMat4();
@@ -97,7 +98,7 @@ namespace our
                             y0 = entity->localTransform.position[1];
                             z0 = entity->localTransform.position[2];
                         }
-                        if (time3 < 300 && time2 >200 && time1 > 100)
+                        else if (time3 < 300 && time2 >200)
                         {
                             time3 = 0;
                             const float a = -0.55f;
