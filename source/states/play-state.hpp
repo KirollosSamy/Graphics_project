@@ -14,7 +14,9 @@
 #include <systems/MatchingSystem.hpp>
 #include <systems/granny-system.hpp>
 
-// #include <systems/sound.hpp>
+#include "systems/lighting.hpp"
+#include "components/player.hpp"
+
 #include <systems/sound.hpp>
 
 // This state shows how to use the ECS framework and deserialization.
@@ -37,8 +39,8 @@ class Playstate : public our::State
     our::DropSystem dropSystem;
     our::MatchingSystem matchingSystem;
     our::GrannySystem grannySystem;
-    // our::SoundSystem soundSystem;
     our::SoundSystem soundSystem;
+    our::LightingSystem lightingSystem;
 
     void onInitialize() override
     {
@@ -62,10 +64,9 @@ class Playstate : public our::State
         renderer.initialize(size, config["renderer"], &world);
 
         // search for the player once for efficiency
-        // bool playerExist = playerSystem.setPlayer(&world);
-        // if(!playerExist) getApp()->changeState("menu");
-
-        // setting soundEngine pointer
+        our::PlayerComponent* player = playerSystem.setPlayer(&world);
+        // if(!player) getApp()->changeState("menu");
+        lightingSystem.initialize(&world, config["renderer"]);
 
         pickSystem.setApp(getApp());
         dropSystem.setApp(getApp());
@@ -78,14 +79,15 @@ class Playstate : public our::State
     void onDraw(double deltaTime) override
     {
         // Here, we just run a bunch of systems to control the world logic
-        movementSystem.update(&world, (float)deltaTime);                       // monkey up
-        cameraController.update(&world, (float)deltaTime);                     // p = p + delta x(z,y,w)  collision -> false  || collision -> true
-        message = collisionSystem.update(&world, (float)deltaTime, &renderer); //  == p - delta x
+        movementSystem.update(&world, (float)deltaTime);    // monkey up
+        cameraController.update(&world, (float)deltaTime);  // p = p + delta x(z,y,w)  collision -> false  || collision -> true
+        lightingSystem.update();
+        collisionSystem.update(&world, (float)deltaTime, &renderer);  //  == p - delta x
         soundSystem.update(&world);
         pickSystem.update(&world);
         dropSystem.Drop(&world);
         matchingSystem.Matching(&world);
-        // grannySystem.update(&world,(float)deltaTime);
+        grannySystem.update(&world,(float)deltaTime);
         // objectSystem.update(&world);
         // grannySystem.update(&world);
 

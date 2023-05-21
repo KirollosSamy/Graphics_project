@@ -1,4 +1,3 @@
-#pragma once
 
 #include "player-system.hpp"
 #include "free-camera-controller.hpp"
@@ -8,20 +7,16 @@ namespace our
 
     // This function is called only once to search for the player entity
     // If a player found it returns true, otherwise false
-    bool PlayerSystem::setPlayer(World *world)
-    {
-        for (Entity *entity : world->getEntities())
-        {
+    PlayerComponent* PlayerSystem::setPlayer(World* world) {
+        for (Entity* entity : world->getEntities()) {
             player = entity->getComponent<PlayerComponent>();
             // a player must have a free camera component
             Component *freeCamera = entity->getComponent<FreeCameraControllerComponent>();
 
-            if (player && freeCamera)
-                return true;
-            else
-                return false;
+            if (player && freeCamera) return player;
+            else return nullptr;
         }
-        return false;
+        return nullptr;
     }
 
     // This should be called every frame to apply the game logic.
