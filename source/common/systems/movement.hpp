@@ -45,7 +45,7 @@ namespace our
                     }
                     if (entity->name == "granny")
                     {
-                        if (time1 > 100.0f)
+                        if (time1 < 100.0f)
                         {
                             time1 = 0;
                             const float a = 0.04f;
@@ -72,7 +72,7 @@ namespace our
                             z0 = entity->localTransform.position[2];
                         }
 
-                        if (time2 > 200)
+                        if (time2 < 200 && time1 > 100)
                         {
                             time2 = 0;
 
@@ -97,7 +97,7 @@ namespace our
                             y0 = entity->localTransform.position[1];
                             z0 = entity->localTransform.position[2];
                         }
-                        if (time3 > 300)
+                        if (time3 < 300 && time2 >200 && time1 > 100)
                         {
                             time3 = 0;
                             const float a = -0.55f;

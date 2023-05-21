@@ -349,7 +349,7 @@ namespace our
                             if (entity->name == "granny")
                             {
 
-                                if (time1 > 100.0f)
+                                if (time1 < 100.0f)
                                 {
                                     time1 = 0;
                                     const float a = 0.04f;
@@ -376,7 +376,7 @@ namespace our
                                     rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
                                     // entity->localTransform.rotation.y += glm::radians((std::rand() % 181) * 1.0f);
                                 }
-                                if (time2 > 200)
+                                if (time2 < 200 && time1 > 100)
                                 {
                                     time2 = 0;
 
@@ -404,7 +404,7 @@ namespace our
                                     rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
                                 }
 
-                                if (time3 > 300)
+                                if (time3 < 300 && time2 > 200 && time1 > 100)
                                 {
                                     time3 = 0;
                                     const float a = -0.55f;
