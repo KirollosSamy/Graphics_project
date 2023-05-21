@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../components/light.hpp"
 #include "system.hpp"
 #include "../ecs/world.hpp"
 #include "../components/camera.hpp"
@@ -48,11 +47,6 @@ namespace our
         GLuint postprocessFrameBuffer, postProcessVertexArray;
         Texture2D *colorTarget, *depthTarget;
         TexturedMaterial *postprocessMaterial;
-
-        std::vector<Light*> lights;
-        SpotLight* flash;
-        glm::vec3 ambient;
-        ShaderProgram* lightShader;
 
         Texture2D *addedTex; // new texture for distortion effect. (wavy)
         float effect_power = 0.05f;

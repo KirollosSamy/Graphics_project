@@ -106,20 +106,20 @@ namespace our {
             postprocessMaterial->pipelineState.depthMask = false;
         }
 
-        //set the ambient value for the entire scene
-        ambient = config.value("ambient", glm::vec3(0.1f, 0.1f, 0.1f));
+        // //set the ambient value for the entire scene
+        // ambient = config.value("ambient", glm::vec3(0.1f, 0.1f, 0.1f));
 
-        //get the light shader to use it to send global uniforms
-        lightShader = AssetLoader<ShaderProgram>::get("light");
+        // //get the light shader to use it to send global uniforms
+        // lightShader = AssetLoader<ShaderProgram>::get("light");
 
-        // Find all ligh sources once for efficiency
-        for (auto entity : world->getEntities()) {
-            // If this entity has a light component then it's a light source
-            if (auto light = entity->getComponent<Light>(); light) {
-                lights.push_back(light);
-                if (entity->name == "flash") flash = (SpotLight*)light;
-            }
-        }
+        // // Find all ligh sources once for efficiency
+        // for (auto entity : world->getEntities()) {
+        //     // If this entity has a light component then it's a light source
+        //     if (auto light = entity->getComponent<Light>(); light) {
+        //         lights.push_back(light);
+        //         if (entity->name == "flash") flash = (SpotLight*)light;
+        //     }
+        // }
 
     }
 
@@ -246,27 +246,6 @@ namespace our {
 
         //the camera position is sent to the fragment shader to determine viewDir
         glm::vec3 cameraPos = M * glm::vec4(0.0, 0.0, 0.0, 1.0);
-
-        // The position & direction of the flash light should follow the camera
-        if (flash) {
-            flash->setDirection(cameraForward);
-            flash->setPosition(cameraPos);
-        }
-
-        // send global uniforms to light shader, that is uniforms that don't change with each mesh
-        lightShader->use();
-        
-        lightShader->set("cameraPos", cameraPos);
-        lightShader->set("ambientLight", ambient);
-
-        for (Light* light : lights)
-            light->send(lightShader);
-
-        // send the size for each type of light sources to the light shader
-        DirectionalLight::setSize(lightShader);
-        PointLight::setSize(lightShader);
-        SpotLight::setSize(lightShader);
-
 
         //TODO: (Req 9) Draw all the opaque commands
         // Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
