@@ -241,29 +241,36 @@ namespace our
                                     if (otherEntity->name == "door1")
                                     {
                                         notify(Event::DOOR1_COLLISION);
+                                        text = "look in the living room";
                                     }
                                     else if (otherEntity->name == "door2")
                                     {
+                                        text = "look in the bedroom";
                                         notify(Event::DOOR2_COLLISION);
                                     }
                                     else if (otherEntity->name == "door3")
                                     {
+                                        text = "look in the second floor";
                                         notify(Event::DOOR3_COLLISION);
                                     }
                                     else if (otherEntity->name == "door4")
                                     {
+                                        text = "konck knock ... who is there !";
                                         notify(Event::DOOR4_COLLISION);
                                     }
                                     else if (otherEntity->name == "door5")
                                     {
+                                        text = "search around the TV";
                                         notify(Event::DOOR5_COLLISION);
                                     }
                                     else if (otherEntity->name == "door6")
                                     {
+                                        text = "the key may be hidden some where in the house.";
                                         notify(Event::DOOR6_COLLISION);
                                     }
                                     else if (otherEntity->name == "prison")
                                     {
+                                        text = "Hurry up She can hear you is comming";
                                         notify(Event::PRISON_COLLISION);
                                     }
                                     Entity *player = world->GetEntity("player");
@@ -302,7 +309,7 @@ namespace our
                                     // undo last move
                                     //
                                     position -= deltaTime * movement->linearVelocity * front;
-                                    rotation.y += glm::radians(180.0f);
+                                    rotation.y += glm::radians(180.0f);  
                                 }
                             }
 
@@ -483,7 +490,7 @@ namespace our
                                 notify(Event::HUMMER_FOUND);
                                 continue;
                             }
-                            if (otherEntity->name == "key6")
+                            if (entity->name == "hand" && otherEntity->name == "key6")
                             {
                                 notify(Event::KEY6_FOUND);
                                 continue;

@@ -197,11 +197,11 @@ int our::Application::run(int run_for_frames)
     // ISoundEngine *SoundEngine = createIrrKlangDevice();
     // SoundEngine->play2D("assets/audio/granny_house_music.mp3", true);
     
-    // if (!this->playing)
-    // {
-    //     SoundEngine->play2D("assets/audio/menu.mp3", true);
-    //     this->playing = true;
-    // }
+    if (!this->playing)
+    {
+        SoundEngine->play2D("assets/audio/menu.mp3", true);
+        this->playing = true;
+    }
 
     glfwSetErrorCallback(glfw_error_callback);
 

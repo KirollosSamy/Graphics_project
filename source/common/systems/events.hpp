@@ -37,6 +37,7 @@ namespace our {
         CRY,
         WOODEN_STEPS,
         RUNNING,
+        OPEN_DOOR,
         DEAD,
     };
 }
