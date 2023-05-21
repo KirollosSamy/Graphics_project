@@ -356,13 +356,9 @@ namespace our
                                 continue;
                             }
 
-                            // if (entity->name == "hand")
-                            // {
-                            //     if (otherEntity->name == "granny")
-                            //         renderer->changeApply(true);
-                            // }
+                      
 
-                            if (entity->name == "granny")
+                            if (entity->name == "granny" && otherEntity->name == "wall")
                      {           
                       
                             time1 = 0;
@@ -372,52 +368,15 @@ namespace our
                                 // undo last move
                                 //
                             entity->localTransform.position[0] -= deltaTime * movement->linearVelocity[0] * front[0];
-                            entity->localTransform.position[1] =10.4;
-                            
+                            entity->localTransform.position[1] = 8.4;
                             entity->localTransform.position[2] -= deltaTime * movement->linearVelocity[2] * front[2];
                         
-                    //      if (time2 < 100)
-                    //     {
-                    //         time2= 0;
-                    //             glm::mat4 M = entity->localTransform.toMat4();    
-                            rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
+    
+                            rotation.y += glm::radians(66.0f) + glm::radians((std::rand() % 181) * 1.0f);
                                 // entity->localTransform.rotation.y += glm::radians((std::rand() % 181) * 1.0f);
                                 continue;
                         
-                        //  if (time2 > 200)
-                        // {
-                        //     time2= 0;
-
-                        //       glm::mat4 M = entity->localTransform.toMat4();
-                        //         glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
-
-                        //         // undo last move
-                        //         //
-                        //     entity->localTransform.position[0] -= deltaTime * movement->linearVelocity[0] * front[0];
-                        //     entity->localTransform.position[1]=7.5 ;
-                        //     entity->localTransform.position[2] -= deltaTime * movement->linearVelocity[2] * front[2];
-                                
-                        //     rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
-                        //         // entity->localTransform.rotation.y += glm::radians((std::rand() % 181) * 1.0f);
-                        //         continue;
-                        
-
-                        // if (time3 > 300)
-                        // {
-                        // time3= 0;
-                        //    glm::mat4 M = entity->localTransform.toMat4();
-                        //         glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
-
-                        //         // undo last move
-                        //         //
-                        //     entity->localTransform.position[0] -= deltaTime * movement->linearVelocity[0] * front[0];
-                        //     entity->localTransform.position[1]=4.7 ;
-                        //     entity->localTransform.position[2] -= deltaTime * movement->linearVelocity[2] * front[2];
-                                
-                        //     rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
-                        //         // entity->localTransform.rotation.y += glm::radians((std::rand() % 181) * 1.0f);
-                        //         continue;
-                        // } 
+       
 
                             }
                             if (otherEntity->name == "coins")

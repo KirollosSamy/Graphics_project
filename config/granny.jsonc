@@ -487,8 +487,8 @@
           },
           {
             "type": "Movement",
-            "linearVelocity": [1, 1, 1],
-            "angularVelocity": [0, 0, 0]
+            "linearVelocity": [5, 5, 5],
+            "angularVelocity": [0, 10, 0]
           },
           {
             "type": "Collision"
