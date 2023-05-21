@@ -70,7 +70,7 @@
         "key": "assets/models/key_low.obj",
         "hummer": "assets/models/hummer.obj",
         "boy": "assets/models/boy.obj",
-        "prison": "assets/models/prison.obj",
+        "prison": "assets/models/prison.obj"
 
       },
       "samplers": {
