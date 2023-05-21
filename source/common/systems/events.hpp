@@ -16,6 +16,7 @@ namespace our {
         KEY3_FOUND,
         KEY4_FOUND,
         KEY5_FOUND,
+        KEY6_FOUND,
         HUMMER_FOUND,
         SCREW_FOUND,
         KEY1_TAKEN,
@@ -27,10 +28,17 @@ namespace our {
         DOOR6_COLLISION,
         PRISON_COLLISION,
         DRAWER_COLLISION,
+        MASTERDOOR_COLLISION,
         COLLISION_WITH_WALL,
         TERRIFIED,
         NORMAL_MUSIC,
+        SCREAM,
+        BADROOM,
+        CRY,
+        WOODEN_STEPS,
         RUNNING,
+        OPEN_DOOR,
+        DEAD,
     };
 }
 

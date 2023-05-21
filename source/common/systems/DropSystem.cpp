@@ -72,11 +72,20 @@ namespace our
                         position = glm::vec3(47.7, 6.65, 21.45);
                         scale = glm::vec3(0.0005 / (hand->localTransform.scale.x / 10), 0.0005 / (hand->localTransform.scale.y / 10), -0.05); // for screw
                     }
+                    else if (Entity->name == "key6")
+                    {
+                        rotation.x += glm::radians(90.0f);
+                        position = glm::vec3(50.7, 3.85, 23.45);
+                        scale = glm::vec3(0.0005 / (hand->localTransform.scale.x / 10), 0.0005 / (hand->localTransform.scale.y / 10), -0.05); // for screw
+                    }
                     else if (Entity->name == "hummer")
                     {
                         position = glm::vec3(54.3, 11.2, 18.7);
                         scale = glm::vec3(0.000005 / (hand->localTransform.scale.x / 10), 0.000005 / (hand->localTransform.scale.y / 10), -0.0005); // for screw
                     }
+
+
+                    notify(Event::MADE_NOISE);  // for granny system
                 }
             }
         }

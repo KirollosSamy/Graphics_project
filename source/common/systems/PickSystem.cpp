@@ -16,7 +16,6 @@ namespace our
         {
             Event event = eventQueue.front();
             eventQueue.pop();
-            std::cout << "inside while " << std::endl;
             if (app->getKeyboard().isPressed(GLFW_KEY_P)) // checking if P key is pressed
                 switch (event)
                 {
@@ -38,9 +37,11 @@ namespace our
                 case Event::HUMMER_FOUND:
                     Pick(world, "hummer");
                     break;
-
                 case Event::SCREW_FOUND:
                     Pick(world, "screw");
+                    break;
+                case Event::KEY6_FOUND:
+                    Pick(world, "key6");
                     break;
                 }
         }

@@ -49,11 +49,15 @@ namespace our
 
     public:
         Application *app;
+        float time, time1, time2, time3 = 0.0;
+        bool postprocessEffect = false;
+        int lives = 10;
 
         void setApp(Application *app)
         {
             this->app = app;
         }
+
         std::pair<glm::vec3, glm::vec3> getCollisionBox(Entity *entity)
         {
             // get local to world matrix
@@ -154,9 +158,28 @@ namespace our
             return true;
         }
 
-        void update(World *world, float deltaTime, ForwardRenderer *renderer)
+        std::pair<std::string, int> update(World *world, float deltaTime, ForwardRenderer *renderer)
         {
+            time += deltaTime;
+            time1 += deltaTime;
+            time2 += deltaTime;
+            time3 += deltaTime;
             // For each entity in the world
+            std::string text = "You thought you were alone... You were wrong.";
+
+            if (time > 10.0f && postprocessEffect)
+            {
+                time = 0;
+                postprocessEffect = false;
+                renderer->changeApply(false);
+                // notify(Event::NORMAL_MUSIC);
+            }
+
+            if (time > 500)
+            {
+                time = 0;
+                notify(Event::NORMAL_MUSIC);
+            }
 
             for (auto &entity : world->getEntities()) // [e1 e2 e3]
             {
@@ -201,7 +224,7 @@ namespace our
                             continue;
                         }
 
-                        if (entity->name == otherEntity->name || otherEntity->name == "player" || otherEntity->name == "house") // skip me -> Note: this condition can be modified to ignore things also from collision system if needed
+                        if (entity->name == otherEntity->name || otherEntity->name == "player" || otherEntity->name == "house" || otherEntity->name == "collided") // skip me -> Note: this condition can be modified to ignore things also from collision system if needed
                             continue;
 
                         // general collision concept
@@ -213,23 +236,43 @@ namespace our
                             std::cout << "COLLISION  " << deltaTime << std::endl;
                             std::cout << "entity " << entity->name << " otherEntity " << otherEntity->name << std::endl;
                             if (entity->name == "hand")
-                                if ((otherEntity->name == "door1" || otherEntity->name == "wall") || otherEntity->name == "door2" || otherEntity->name == "door3" || otherEntity->name == "door4" || otherEntity->name == "door5" || otherEntity->name == "door6" || otherEntity->name == "prison" || otherEntity->name =="prison1")
+                                if ((otherEntity->name == "door1" || otherEntity->name == "wall") || otherEntity->name == "door2" || otherEntity->name == "door3" || otherEntity->name == "door4" || otherEntity->name == "door5" || otherEntity->name == "door6" || otherEntity->name == "prison" || otherEntity->name == "prison1")
                                 {
                                     if (otherEntity->name == "door1")
+                                    {
                                         notify(Event::DOOR1_COLLISION);
+                                        text = "look in the living room";
+                                    }
                                     else if (otherEntity->name == "door2")
+                                    {
+                                        text = "look in the bedroom";
                                         notify(Event::DOOR2_COLLISION);
+                                    }
                                     else if (otherEntity->name == "door3")
+                                    {
+                                        text = "look in the second floor";
                                         notify(Event::DOOR3_COLLISION);
+                                    }
                                     else if (otherEntity->name == "door4")
+                                    {
+                                        text = "konck knock ... who is there !";
                                         notify(Event::DOOR4_COLLISION);
+                                    }
                                     else if (otherEntity->name == "door5")
+                                    {
+                                        text = "search around the TV";
                                         notify(Event::DOOR5_COLLISION);
+                                    }
                                     else if (otherEntity->name == "door6")
+                                    {
+                                        text = "the key may be hidden some where in the house.";
                                         notify(Event::DOOR6_COLLISION);
+                                    }
                                     else if (otherEntity->name == "prison")
+                                    {
+                                        text = "Hurry up She can hear you is comming";
                                         notify(Event::PRISON_COLLISION);
-
+                                    }
                                     Entity *player = world->GetEntity("player");
 
                                     FreeCameraControllerComponent *controller = player->getComponent<FreeCameraControllerComponent>();
@@ -266,24 +309,32 @@ namespace our
                                     // undo last move
                                     //
                                     position -= deltaTime * movement->linearVelocity * front;
-                                    rotation.y += glm::radians(180.0f);
+                                    rotation.y += glm::radians(180.0f);  
                                 }
                             }
 
                             if (entity->name == "hand")
                                 if (otherEntity->name == "spider")
                                 {
-                                    // notify(Event::TERRIFIED);
-                                    // renderer->changeApply(true);
+                                    if (!postprocessEffect)
+                                    {
+                                        lives -= 1;
+                                        Entity *player = world->GetEntity("player");
+                                        PlayerComponent *playerComponent = player->getComponent<PlayerComponent>();
+
+                                        if (lives == 0)
+                                            notify(Event::PLAYER_CAUGHT_BY_GRANNY);
+
+                                        time = 0;
+                                        text = "spiders the may kill you....they smell your fear";
+                                        notify(Event::TERRIFIED);
+                                        postprocessEffect = true;
+                                        renderer->changeApply(true);
+                                    }
                                 }
 
                             if (entity->name == "spider")
                             {
-                                if (otherEntity->name == "hand")
-                                {
-                                    // notify(Event::TERRIFIED);
-                                    // renderer->changeApply(true);
-                                }
 
                                 glm::mat4 M = entity->localTransform.toMat4();
                                 glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
@@ -304,14 +355,88 @@ namespace our
 
                             if (entity->name == "granny")
                             {
-                                //     notify(Event::TERRIFIED);
-                                // std::cout << "sherry" << std::endl;
-                                glm::mat4 M = entity->localTransform.toMat4();
-                                glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
-                                // undo last move
-                                position -= deltaTime * movement->linearVelocity * front;
-                                rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
-                                // entity->localTransform.rotation.y += glm::radians((std::rand() % 181) * 1.0f);
+
+                                if (time1 < 100.0f)
+                                {
+                                    time1 = 0;
+                                    const float a = 0.04f;
+                                    const float b = 4.11f;
+                                    const float c = -67.59f;
+                                    const float d = 1.00f;
+                                    // Define the initial point coordinates
+                                    float x0 = 1.0f;
+                                    float y0 = 2.0f;
+                                    float z0 = 3.0f;
+                                    // Define the step size for movement
+                                    const float step_size = 0.1f;
+
+                                    glm::mat4 M = entity->localTransform.toMat4();
+                                    glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
+                                    entity->localTransform.position[0] -= movement->linearVelocity[0] * (x0 + a * (d - a * x0 - b * y0 - c * z0) * step_size);
+                                    entity->localTransform.position[1] -= movement->linearVelocity[1] * (y0 + b * (d - a * x0 - b * y0 - c * z0) * step_size);
+                                    entity->localTransform.position[2] -= movement->linearVelocity[2] * (z0 + c * (d - a * x0 - b * y0 - c * z0) * step_size);
+
+                                    x0 = entity->localTransform.position[0];
+                                    y0 = entity->localTransform.position[1];
+                                    z0 = entity->localTransform.position[2];
+
+                                    rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
+                                    // entity->localTransform.rotation.y += glm::radians((std::rand() % 181) * 1.0f);
+                                }
+                                if (time2 < 200 && time1 > 100)
+                                {
+                                    time2 = 0;
+
+                                    const float a = 0.14f;
+                                    const float b = -0.96f;
+                                    const float c = -21.60f;
+                                    const float d = 1.00f;
+                                    // Define the initial point coordinates
+                                    float x0 = 1.0f;
+                                    float y0 = 2.0f;
+                                    float z0 = 3.0f;
+                                    // Define the step size for movement
+                                    const float step_size = 0.1f;
+
+                                    glm::mat4 M = entity->localTransform.toMat4();
+                                    glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
+                                    entity->localTransform.position[0] -= movement->linearVelocity[0] * (x0 + a * (d - a * x0 - b * y0 - c * z0) * step_size);
+                                    entity->localTransform.position[1] -= movement->linearVelocity[1] * (y0 + b * (d - a * x0 - b * y0 - c * z0) * step_size);
+                                    entity->localTransform.position[2] -= movement->linearVelocity[2] * (z0 + c * (d - a * x0 - b * y0 - c * z0) * step_size);
+
+                                    x0 = entity->localTransform.position[0];
+                                    y0 = entity->localTransform.position[1];
+                                    z0 = entity->localTransform.position[2];
+
+                                    rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
+                                }
+
+                                if (time3 < 300 && time2 > 200 && time1 > 100)
+                                {
+                                    time3 = 0;
+                                    const float a = -0.55f;
+                                    const float b = -0.05f;
+                                    const float c = -0.01f;
+                                    const float d = 1.00f;
+                                    // Define the initial point coordinates
+                                    float x0 = 1.0f;
+                                    float y0 = 2.0f;
+                                    float z0 = 3.0f;
+                                    // Define the step size for movement
+                                    const float step_size = 0.1f;
+                                    glm::mat4 M = entity->localTransform.toMat4();
+                                    glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
+                                    entity->localTransform.position[0] -= movement->linearVelocity[0] * (x0 + a * (d - a * x0 - b * y0 - c * z0) * step_size);
+                                    entity->localTransform.position[1] -= movement->linearVelocity[1] * (y0 + b * (d - a * x0 - b * y0 - c * z0) * step_size);
+                                    entity->localTransform.position[2] -= movement->linearVelocity[2] * (z0 + c * (d - a * x0 - b * y0 - c * z0) * step_size);
+
+                                    x0 = entity->localTransform.position[0];
+                                    y0 = entity->localTransform.position[1];
+                                    z0 = entity->localTransform.position[2];
+
+                                    rotation.y += glm::radians(90.0f) + glm::radians((std::rand() % 181) * 1.0f);
+                                }
+
                                 continue;
                             }
 
@@ -324,16 +449,19 @@ namespace our
                             // firing event to notify key1 is found  (testing)
                             if (otherEntity->name == "drawer")
                             {
+                                text = "you may need a heavy tool to open it";
                                 notify(Event::DRAWER_COLLISION);
                                 continue;
                             }
                             if (otherEntity->name == "screw")
                             {
+                                text = "this screw might be helpfull for openning doors";
                                 notify(Event::SCREW_FOUND);
                                 continue;
                             }
                             if (otherEntity->name == "key1")
                             {
+                                text = "search for the required door";
                                 notify(Event::KEY1_FOUND);
                                 continue;
                             }
@@ -362,10 +490,16 @@ namespace our
                                 notify(Event::HUMMER_FOUND);
                                 continue;
                             }
+                            if (entity->name == "hand" && otherEntity->name == "key6")
+                            {
+                                notify(Event::KEY6_FOUND);
+                                continue;
+                            }
                         }
                     }
                 }
             }
+            return std::make_pair(text, lives);
         }
     };
 }
