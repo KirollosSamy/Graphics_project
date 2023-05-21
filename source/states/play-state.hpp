@@ -96,7 +96,7 @@ class Playstate : public our::State
         if (gameStatus == our::GameStatus::WON)
             getApp()->changeState("menu");
         else if (gameStatus == our::GameStatus::LOST)
-            getApp()->changeState("menu");
+            getApp()->changeState("end");
 
         // And finally we use the renderer system to draw the scene
         renderer.render(&world);

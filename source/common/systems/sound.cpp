@@ -23,11 +23,10 @@ namespace our
                 // SoundEngine->stopAllSounds();
                 // SoundEngine->play2D("assets/audio/29. Another Evil.mp3", true);
                 break;
-                case Event::BADROOM:
-                // SoundEngine->stopAllSounds();
-                // SoundEngine->play2D("assets/audio/29. Another Evil.mp3", false);
+            case Event::BADROOM:
+                SoundEngine->stopAllSounds();
+                SoundEngine->play2D("assets/audio/29. Another Evil.mp3", false);
                 break;
-
             }
         }
     }
