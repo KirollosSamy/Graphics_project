@@ -29,8 +29,6 @@ namespace our {
         PRISON_COLLISION,
         DRAWER_COLLISION,
         MASTERDOOR_COLLISION,
-        MASTERDOOR_OPENED,
-        BOY_AT_MASTERDOOR,
         COLLISION_WITH_WALL,
         TERRIFIED,
         NORMAL_MUSIC,
@@ -39,6 +37,7 @@ namespace our {
         CRY,
         WOODEN_STEPS,
         RUNNING,
+        OPEN_DOOR,
         DEAD,
     };
 }

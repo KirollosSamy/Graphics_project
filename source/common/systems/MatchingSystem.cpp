@@ -36,12 +36,13 @@ namespace our
                     glm::vec3 &rotation = door1->localTransform.rotation;
                     // (right left , up down , front back)
                     //    "position": [53.7, 11.4, 25.7],
-                    position =  glm::vec3(52.8,11.4,26.5);
+                    position = glm::vec3(52.8, 11.4, 26.5);
                     rotation.y = glm::radians(90.0f);
                     door1->name = "collided";
+                    notify(Event::OPEN_DOOR);
                 }
                 break;
-              case Event::DOOR2_COLLISION:
+            case Event::DOOR2_COLLISION:
                 if (tool == "key3")
                 {
                     // open door
@@ -52,13 +53,14 @@ namespace our
                     glm::vec3 &rotation = door1->localTransform.rotation;
                     // (right left , up down , front back)
                     //    "position": [46.85, 11.4, 20.5
-                    position =  glm::vec3(45.85, 11.4, 21.2);
+                    position = glm::vec3(45.85, 11.4, 21.2);
                     rotation.y = glm::radians(90.0f);
                     // rotation.z = glm::radians(90.0f);
                     door1->name = "collided";
+                    notify(Event::OPEN_DOOR);
                 }
                 break;
-                 case Event::DOOR3_COLLISION:
+            case Event::DOOR3_COLLISION:
                 if (tool == "key2")
                 {
                     // open door
@@ -69,13 +71,14 @@ namespace our
                     glm::vec3 &rotation = door1->localTransform.rotation;
                     // (right left , up down , front back)
                     //    "position": [53.7, 11.4, 25.7],
-                    position  =  glm::vec3(53, 11.4, 20);
-                    // rotation.z = glm::radians(0.0f);  // the door is crazy about rotation 
-                     rotation.y= glm::radians(180.0f); 
-                     door1->name = "collided";
+                    position = glm::vec3(53, 11.4, 20);
+                    // rotation.z = glm::radians(0.0f);  // the door is crazy about rotation
+                    rotation.y = glm::radians(180.0f);
+                    door1->name = "collided";
+                    notify(Event::OPEN_DOOR);
                 }
                 break;
-                 case Event::DOOR5_COLLISION:
+            case Event::DOOR5_COLLISION:
                 if (tool == "key4")
                 {
                     // open door
@@ -86,12 +89,13 @@ namespace our
                     glm::vec3 &rotation = door1->localTransform.rotation;
                     // (right left , up down , front back)
                     //    "position": [53.7, 11.4, 25.7],
-                    position =  glm::vec3(49.2, 7.8, 21);
+                    position = glm::vec3(49.2, 7.8, 21);
                     rotation.y = glm::radians(90.0f);
                     door1->name = "collided";
+                    notify(Event::OPEN_DOOR);
                 }
                 break;
-                 case Event::DOOR6_COLLISION:
+            case Event::DOOR6_COLLISION:
                 if (tool == "key1")
                 {
                     // open door
@@ -102,12 +106,13 @@ namespace our
                     glm::vec3 &rotation = door1->localTransform.rotation;
                     // (right left , up down , front back)
                     //    "position": [53.7, 11.4, 25.7],
-                    position =  glm::vec3(53.5, 7.8, 24.2);
-                    rotation.y= glm::radians(180.0f); 
+                    position = glm::vec3(53.5, 7.8, 24.2);
+                    rotation.y = glm::radians(180.0f);
                     door1->name = "collided";
+                    notify(Event::OPEN_DOOR);
                 }
                 break;
-                 case Event:: PRISON_COLLISION:
+            case Event::PRISON_COLLISION:
                 if (tool == "key5")
                 {
                     // open door
@@ -118,26 +123,24 @@ namespace our
                     glm::vec3 &rotation = door1->localTransform.rotation;
                     // (right left , up down , front back)
                     //    "position": 50.8, 4.7, 28.4,
-                    position =  glm::vec3(50.8, 4.7, 29.5);
+                    position = glm::vec3(50.8, 4.7, 29.5);
                     // rotation.y = glm::radians(90.0f);
                     door1->name = "collided";
-                    
+
                     // when the prison open move the boy to the master door
                     Entity *boy = world->GetEntity("boy");
 
                     MovementComponent *boy_movement = boy->getComponent<MovementComponent>();
                     boy_movement->linearVelocity = glm::vec3(0, 0, 0);
                     glm::vec3 &position_boy = boy->localTransform.position;
-                    position_boy=glm::vec3(50, 6.65, 26.0);
-                    notify(Event::BOY_AT_MASTERDOOR);
+                    position_boy = glm::vec3(50, 6.65, 26.0);
 
                     // TODO :
-                    // make the boy go out 
-
+                    // make the boy go out
                 }
                 break;
 
-                 case Event:: DRAWER_COLLISION:
+            case Event::DRAWER_COLLISION:
                 if (tool == "hummer")
                 {
                     // open door
@@ -149,22 +152,23 @@ namespace our
                     glm::vec3 &rotation = door1->localTransform.rotation;
 
                     glm::vec3 &key_position = key1->localTransform.position;
-                    
+
                     // (right left , up down , front back)
                     //    "position": [53.7, 11.4, 25.7],
                     key_position = glm::vec3(45.7, 11.25, 15);
-                    position =  glm::vec3(45.7, 11.2, 15);
+                    position = glm::vec3(45.7, 11.2, 15);
                     // rotation.y = glm::radians(90.0f);
                 }
                 break;
-                 case Event:: MASTERDOOR_COLLISION:
-                      if (tool == "key6")
+                
+            case Event::MASTERDOOR_COLLISION:
+                if (tool == "key6")
                 {
-                    //one of the conditions of winning is satisified
-                   notify(Event::MASTERDOOR_OPENED);
+                    // one of the conditions of winning is satisified
+                    notify(Event::OPEN_DOOR);
+                    notify(Event::PLAYER_AT_DOOR);
                 }
                 break;
-
 
                 // door 3 open coordinates [52.9, 11.4, 20]  rotation 180
 
@@ -173,7 +177,6 @@ namespace our
                 // door 6 open "position": [53.45, 7.8, 24.0], "rotation": [0, 180, 0],
 
                 // key position if not child "position": [45.7, 11.25, 14.45],
-        
             }
         }
     };

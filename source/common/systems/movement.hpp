@@ -25,6 +25,9 @@ namespace our
         void update(World *world, float deltaTime)
         {
             // For each entity in the world
+            time1 += deltaTime;
+            time2 += deltaTime;
+            time3 += deltaTime;
             for (auto entity : world->getEntities())
             {
                 // Get the movement component if it exists
