@@ -74,7 +74,33 @@ namespace our
                             entity->localTransform.position[2] += deltaTime * movement->linearVelocity[2] * front[2];
                                 continue;
                         }
+                    //      if (time2 < 100)
+                    //     {
+                    //         time2= 0;
+                    //             glm::mat4 M = entity->localTransform.toMat4();
+                    // //             glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
 
+                    //             // undo last move
+                    //             //
+                    //         entity->localTransform.position[0] += deltaTime * movement->linearVelocity[0] * front[0];
+                    //         entity->localTransform.position[1]=7.5 ;
+                    //         entity->localTransform.position[2] += deltaTime * movement->linearVelocity[2] * front[2];
+                    //             continue;
+                    //     }
+                    //   if (time3 < 150)
+                    //     {
+                    //     time3= 0;
+                    //         glm::mat4 M = entity->localTransform.toMat4();
+                    //             glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
+
+                    //             // undo last move
+                    //             //
+                    //         entity->localTransform.position[0] += deltaTime * movement->linearVelocity[0] * front[0];
+                    //         entity->localTransform.position[1]=4.7 ;
+                    //         entity->localTransform.position[2] += deltaTime * movement->linearVelocity[2] * front[2];
+                    //             continue;
+                    // }
+                    //}
                     if (entity->name == "boy")
                     {
                         glm::mat4 M = entity->localTransform.toMat4();
