@@ -951,24 +951,50 @@
           }
         ]
       },
-      {
-        "name": "light",
-        "position": [40, 8, 25],
-        "rotation": [0, 0, 0],
-        "scale": [0.1, 0.1, 0.1],
-        "components": [
-          {
-            "type": "Mesh Renderer",
-            "mesh": "cube",
-            "material": "lightSource"
-          },
-          {
-            "type": "Directional Light",
-            "color": [0.4, 0.4, 0.4],
-            "direction": [-1.0, 0.0, 0.0]
-          }
-        ]
-      },
+    //  {
+    //     "name": "Directional light",
+    //     "position": [40, 8, 25],
+    //     "rotation": [0, 0, 0],
+    //     "scale": [0.1, 0.1, 0.1],
+    //     "components": [
+    //       {
+    //         "type": "Mesh Renderer",
+    //         "mesh": "cube",
+    //         "material": "lightSource"
+    //       },
+    //       {
+    //         "type": "Directional Light",
+    //         "color": [0.4, 0.4, 0.4],
+    //         "direction": [-1.0, 0.0, 0.0]
+    //       }
+    //     ]
+    //   }
+      // {
+      //   "name": "Spot 1",
+      //   "position": [53, 9.9, 15],
+      //   "rotation": [0, 0, 0],
+      //   "scale": [0.02, 0.02, 0.02],
+      //   "components": [
+      //     {
+      //       "type": "Mesh Renderer",
+      //       "mesh": "pointLight",
+      //       "material": "pointLight"
+      //     },
+      //     {
+      //       "type": "Spot Light",
+      //       "color": [0.5, 0.5, 0.5],
+      //       "direction": [0.0, -1.0, 0.0],
+      //       "attenuation": [0.03, 0.0, 0.0],
+      //       "innerCutoff": 0.91,
+      //       "outerCutoff": 0.75
+      //     }
+          // {
+          //   "type": "Point Light",
+          //   "color": [0.2, 0.2, 0.2],
+          //   "attenuation": [0.03, 0.0, 0.0]
+          // }
+      //   ]
+      // },
       {
         "name": "masterdoor",
         "position": [50.25, 7.8, 27.0],
