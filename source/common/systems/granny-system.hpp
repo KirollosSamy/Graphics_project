@@ -11,21 +11,9 @@ namespace our
     {
         // stores a pointer to the unique instance of the granny component.
     public:
-        float time1 =0.0;
-        float time2 = 0.0;
-        float time3 = 0.0;
-        float time4 = 0.0;
-        float time5 = 0.0;
-        float time6 = 0.0;
-        float time7 = 0.0;
-        float time8 = 0.0;
-        float time9 = 0.0;
-        float time10 = 0.0;
-        float time11= 0.0;
-        float time12 = 0.0;
-        float time13 = 0.0;
-        float time14 = 0.0;
-        float time15 = 0.0;
+        float timer = 0.0;
+        float conditionDuration = 20.0;
+        
         bool gotCatched{false}; // gotCatched is a boolean to indicate whether granny catched the player or not, intially false.
 
         // This should be called every frame to apply the game logic.

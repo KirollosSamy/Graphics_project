@@ -50,9 +50,7 @@ namespace our
     public:
         Application *app;
         float time = 0.0;
-        float time1 = 0.0;
-        float time2 = 0.0;
-        float time3 = 0.0;
+        float timer = 0.0f;
         bool postprocessEffect = false;
         int lives = 10;
 
@@ -161,17 +159,15 @@ namespace our
             return true;
         }
 
-        /// @brief 
-        /// @param world 
-        /// @param deltaTime 
-        /// @param renderer 
-        /// @return 
+        /// @brief
+        /// @param world
+        /// @param deltaTime
+        /// @param renderer
+        /// @return
         std::pair<std::string, int> update(World *world, float deltaTime, ForwardRenderer *renderer)
         {
             time += deltaTime;
-            time1 += deltaTime;
-            time2 += deltaTime;
-            time3 += deltaTime;
+            timer += deltaTime;
             // For each entity in the world
             std::string text = "You thought you were alone... You were wrong.";
 
@@ -213,7 +209,6 @@ namespace our
                             {
                                 // here we are setting the object name the player hold so to use it in matching system
                                 Entity *player = world->GetEntity("player");
-
 
                                 PlayerComponent *playerComponent = player->getComponent<PlayerComponent>();
                                 if (playerComponent)
@@ -362,33 +357,50 @@ namespace our
                                 continue;
                             }
 
-                      
-
                             if (entity->name == "granny" && otherEntity->name == "wall")
-                     {           
-                      
-                            time1 = 0;
-                                glm::mat4 M = entity->localTransform.toMat4();
-                                glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
-
-                                // undo last move
-                                //
-                            entity->localTransform.position[0] -= deltaTime * movement->linearVelocity[0] * front[0];
-                            entity->localTransform.position[1] = 8.4;
-                            entity->localTransform.position[2] -= deltaTime * movement->linearVelocity[2] * front[2];
-                        
-    
-                            rotation.y += glm::radians(66.0f) + glm::radians((std::rand() % 181) * 1.0f);
-                                // entity->localTransform.rotation.y += glm::radians((std::rand() % 181) * 1.0f);
-                                continue;
-                        
-       
-
-                            }
-                            if (otherEntity->name == "coins")
                             {
-                                // notify player to increament counter
-                                continue;
+                                // 5.7->floor one
+                                // 2.7->el2arde
+                                // 9.4 eli fo2
+                                if (timer < 20.0)
+                                {
+                                    std::cout << "eldor 33333 eltalet aho " << std::endl;
+                                    glm::mat4 M = entity->localTransform.toMat4();
+                                    glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
+                                    entity->localTransform.position[0] += deltaTime * movement->linearVelocity[0] * front[0];
+                                    entity->localTransform.position[1] = 9.4;
+                                    entity->localTransform.position[2] += deltaTime * movement->linearVelocity[2] * front[2];
+                                    rotation.y += glm::radians(66.0f) + glm::radians((std::rand() % 181) * 1.0f);
+                                    continue;
+                                }
+                                else if (timer < 2 * 20.0)
+                                {
+                                    std::cout << "eldor 222222 eltane aho " << std::endl;
+                                    glm::mat4 M = entity->localTransform.toMat4();
+                                    glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
+                                    entity->localTransform.position[0] -= deltaTime * movement->linearVelocity[0] * front[0];
+                                    entity->localTransform.position[1] = 5.7;
+                                    entity->localTransform.position[2] -= deltaTime * movement->linearVelocity[2] * front[2];
+                                    rotation.y += glm::radians(66.0f) + glm::radians((std::rand() % 181) * 1.0f);
+                                    continue;
+                                }
+                                else if (timer < 3 * 20.0)
+                                {
+                                    std::cout << "eldor 11111111 elawel aho " << std::endl;
+                                    glm::mat4 M = entity->localTransform.toMat4();
+                                    glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
+                                    entity->localTransform.position[0] -= deltaTime * movement->linearVelocity[0] * front[0];
+                                    entity->localTransform.position[1] = 2.7;
+                                    entity->localTransform.position[2] -= deltaTime * movement->linearVelocity[2] * front[2];
+                                    rotation.y += glm::radians(66.0f) + glm::radians((std::rand() % 181) * 1.0f);
+                                    continue;
+                                }
+
+                                // Reset timer after the third condition
+                                if (timer >= 3 * 20.0)
+                                {
+                                    timer = 0.0;
+                                }
                             }
 
                             // firing event to notify key1 is found  (testing)

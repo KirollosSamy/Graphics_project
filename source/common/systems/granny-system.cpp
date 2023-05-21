@@ -25,7 +25,7 @@ namespace our
 
         // Check if the distance is less than 3
           std::cout << "distance  " << distance << std::endl;
-        if (distance < 4.0f)
+        if (distance < 3.0f)
         {
             // fire the PLAYER_CAUGHT_BY_GRANNY event
             // std::cout << "gotCatched  " << gotCatched << std::endl;
@@ -36,10 +36,9 @@ namespace our
     /*
     on moving tools granny go to check this Positions sequentially
     */
-     void GrannySystem::goPositions(World* world,float deltaTime) {
-        time1 += deltaTime; time2 += deltaTime; time3 += deltaTime; time4 += deltaTime;time5 += deltaTime; time6 += deltaTime;
-        time7 += deltaTime;time8 += deltaTime; time9 += deltaTime;time10 += deltaTime;time11 += deltaTime;time12 += deltaTime;
-        time13 += deltaTime;time14 += deltaTime;time15 += deltaTime;
+void GrannySystem::goPositions(World* world,float deltaTime) {
+        timer += deltaTime;
+        
         glm::vec3 p7=glm::vec3(0.0f, 0.0f, 0.0f);glm::vec3 p5=glm::vec3(48.45f, 7.8f, 20.2f);
         glm::vec3 p6=glm::vec3(53.0f, 7.8f, 23.3f);glm::vec3 p10=glm::vec3(57.8f, 7.16f, 18.2f);
         glm::vec3 p11=glm::vec3(47.7f, 6.65f, 21.45f);glm::vec3 p14=glm::vec3(54.0f, 7.3f, 23.0f);
@@ -54,65 +53,36 @@ namespace our
         at first move granny 100 steps and check every itiration whether granny's position become = the position of the first tool
         if true, break from the loop and ask if gotCatched=0 which means granny does not catch the player yet.
         */
-        if( time1 <50.0f){
-            time1=0.0f;
-            position=p1;}
-        if( time2 < 100.0f && gotCatched!=1){
-            time2=0.0f;
-            position=p2;}
-        if( time3 < 150.0f && gotCatched!=1){
-            time3=0.0f;
-            position=p3;}
-        if( time4< 200.0f && gotCatched!=1){
-            time4=0.0f;
-            position=p4;}
-        if( time5 < 250.0f && gotCatched!=1){
-            time5=0.0f;
-            position=p5;}
-        if( time6 < 300.0f && gotCatched!=1){
-            time6=0.0f;
-            position=p6;}
-        if( time7 < 350.0f && gotCatched!=1){
-            time7=0.0f;
-            position=p7;}          
-        if( time8 < 400.0f && gotCatched!=1){
-            time8=0.0f;
-            position=p8;}
-        if( time9 < 450.0f && gotCatched!=1){
-            time9=0.0f;
-            position=p9;}
-        if( time10 < 500.0f && gotCatched!=1){
-            time10=0.0f;
-            position=p10;}
-        if( time11 < 550.0f && gotCatched!=1){
-            time11=0.0f;
-            position=p11;}
-        if( time12 < 600.0f && gotCatched!=1){
-            time12=0.0f;
-            position=p12;}
-        if( time13 < 650.0f && gotCatched!=1){
-            time13=0.0f;
-            position=p13;}
-        if( time14 < 700.0f && gotCatched!=1){
-            time14=0.0f;
-            position=p14;}
-        if( time15 < 750.0f && gotCatched!=1){
-            time15=0.0f;
-            position=p15;}
-                   
+   if (timer < conditionDuration ) {position=p1;}
+   else if (timer < 2 * conditionDuration && gotCatched!=1) {position=p2;}
+   else if (timer < 3 * conditionDuration && gotCatched!=1) {position=p3;}
+   else if (timer < 4 * conditionDuration && gotCatched!=1) {position=p4;}
+   else if (timer < 5 * conditionDuration && gotCatched!=1) {position=p5;}
+   else if (timer < 6 * conditionDuration && gotCatched!=1) {position=p6;}
+   else if (timer < 7 * conditionDuration && gotCatched!=1) {position=p7;}
+   else if (timer < 8 * conditionDuration && gotCatched!=1) {position=p8;}
+   else if (timer < 9 * conditionDuration && gotCatched!=1) {position=p9;}
+   else if (timer < 10 * conditionDuration && gotCatched!=1) {position=p10;}
+   else if (timer < 11 * conditionDuration && gotCatched!=1) {position=p11;}
+   else if (timer < 12 * conditionDuration && gotCatched!=1) {position=p12;}
+   else if (timer < 13 * conditionDuration && gotCatched!=1) {position=p13;}
+   else if (timer < 14 * conditionDuration && gotCatched!=1) {position=p14;}
+   else if (timer < 15 * conditionDuration && gotCatched!=1) {position=p15;}
+   // Reset timer after the third condition
+   if (timer >= 15 * conditionDuration) {timer = 0.0;}
 }
 
     // This should be called every frame to apply the game logic. 
     void GrannySystem::update(World* world,float deltaTime) {
-        //grannyCheckesPlayer(world);
-        // while (!eventQueue.empty()) {
-        //     Event event = eventQueue.front();
-        //     eventQueue.pop();
-        //     switch (event) {
-        //     case Event::MADE_NOISE:
-        //         goPositions(world,deltaTime);
-        //         break;
-        //     }
-        // }
+       grannyCheckesPlayer(world);
+        while (!eventQueue.empty()) {
+            Event event = eventQueue.front();
+            eventQueue.pop();
+            switch (event) {
+            case Event::MADE_NOISE:
+                goPositions(world,deltaTime);
+                break;
+            }
+        }
     }
 }

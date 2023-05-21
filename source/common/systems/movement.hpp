@@ -18,16 +18,13 @@ namespace our
     class MovementSystem : public System
     {
     public:
-        float time1 = 0.0;
-        float time2 = 0.0;
-        float time3 = 0.0;
+        float timer = 0.0;
         // This should be called every frame to update all entities containing a MovementComponent.
         void update(World *world, float deltaTime)
         {
             // For each entity in the world
-            time1 += deltaTime;
-            time2 += deltaTime;
-            time3 += deltaTime;
+            timer += deltaTime;
+
             for (auto entity : world->getEntities())
             {
                 // Get the movement component if it exists
@@ -47,60 +44,46 @@ namespace our
                     }
                     if (entity->name == "granny")
                     {
-                        if (time1 < 100.0f)
+                        // 5.7->floor one
+                        // 2.7->el2arde
+                        // 9.4 eli fo2
+                        if (timer < 20.0)
                         {
-                            time1 = 0;
-                            const float a = 0.04f;
-                            const float b = 4.11f;
-                            const float c = -67.59f;
-                            const float d = 1.00f;
-                            // Define the initial point coordinates
-                            float x0 = 1.0f;
-                            float y0 = 2.0f;
-                            float z0 = 3.0f;
-                            // Define the step size for movement
-                            const float step_size = 0.1f;
-                            //-0.43x + 0.49y + -2.98z + 1.00 = 0
-                            std::cout << "before plane1 " << std::endl;
-
-                            // 0.04x + 4.11y + -67.59z + 1.00 = 0
+                            std::cout << "eldor 33333 eltalet aho " << std::endl;
                             glm::mat4 M = entity->localTransform.toMat4();
                             glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
-
-    
                             entity->localTransform.position[0] += deltaTime * movement->linearVelocity[0] * front[0];
-                            entity->localTransform.position[1] = 8.4;
-                            
+                            entity->localTransform.position[1] = 9.4;
                             entity->localTransform.position[2] += deltaTime * movement->linearVelocity[2] * front[2];
-                                continue;
+                            continue;
                         }
-                    //      if (time2 < 100)
-                    //     {
-                    //         time2= 0;
-                    //             glm::mat4 M = entity->localTransform.toMat4();
-                    // //             glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
+                        else if (timer < 2 * 20.0)
+                        {
+                            std::cout << "eldor 222222 eltane aho " << std::endl;
+                            glm::mat4 M = entity->localTransform.toMat4();
+                            glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
+                            entity->localTransform.position[0] += deltaTime * movement->linearVelocity[0] * front[0];
+                            entity->localTransform.position[1] = 5.7;
+                            entity->localTransform.position[2] += deltaTime * movement->linearVelocity[2] * front[2];
+                            continue;
+                        }
+                        else if (timer < 3 * 20.0)
+                        {
+                            std::cout << "eldor 11111111 elawel aho " << std::endl;
+                            glm::mat4 M = entity->localTransform.toMat4();
+                            glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
+                            entity->localTransform.position[0] += deltaTime * movement->linearVelocity[0] * front[0];
+                            entity->localTransform.position[1] = 2.7;
+                            entity->localTransform.position[2] += deltaTime * movement->linearVelocity[2] * front[2];
+                            continue;
+                        }
 
-                    //             // undo last move
-                    //             //
-                    //         entity->localTransform.position[0] += deltaTime * movement->linearVelocity[0] * front[0];
-                    //         entity->localTransform.position[1]=7.5 ;
-                    //         entity->localTransform.position[2] += deltaTime * movement->linearVelocity[2] * front[2];
-                    //             continue;
-                    //     }
-                    //   if (time3 < 150)
-                    //     {
-                    //     time3= 0;
-                    //         glm::mat4 M = entity->localTransform.toMat4();
-                    //             glm::vec3 front = glm::vec3(M * glm::vec4(0, 0, -1, 0));
-
-                    //             // undo last move
-                    //             //
-                    //         entity->localTransform.position[0] += deltaTime * movement->linearVelocity[0] * front[0];
-                    //         entity->localTransform.position[1]=4.7 ;
-                    //         entity->localTransform.position[2] += deltaTime * movement->linearVelocity[2] * front[2];
-                    //             continue;
-                    // }
-                    //}
+                        // Reset timer after the third condition
+                        if (timer >= 3 * 20.0)
+                        {
+                            timer = 0.0;
+                        }
+                    }
                     if (entity->name == "boy")
                     {
                         glm::mat4 M = entity->localTransform.toMat4();
@@ -117,5 +100,5 @@ namespace our
             }
         }
     };
-    };
-}
+};
+
