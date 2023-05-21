@@ -82,7 +82,7 @@ class Playstate : public our::State
         movementSystem.update(&world, (float)deltaTime);    // monkey up
         cameraController.update(&world, (float)deltaTime);  // p = p + delta x(z,y,w)  collision -> false  || collision -> true
         lightingSystem.update();
-        collisionSystem.update(&world, (float)deltaTime, &renderer);  //  == p - delta x
+        message = collisionSystem.update(&world, (float)deltaTime, &renderer);  //  == p - delta x
         soundSystem.update(&world);
         pickSystem.update(&world);
         dropSystem.Drop(&world);
