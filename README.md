@@ -10,6 +10,7 @@
 - [Getting Started](#started)
 - [Controls](#controls)
 - [Game Demo](#demo)
+- [To be done](#extensions)
 - [Contributors](#contributors)
 
 ## 📙 About <a name = "about"></a>
@@ -110,6 +111,12 @@ https://github.com/KirollosSamy/Graphics_project/assets/75990647/fd910597-fb3c-4
 ![Screenshot 2023-05-21 235026](https://github.com/KirollosSamy/Graphics_project/assets/75990647/85b8512a-ed3a-4cfb-9249-adf53abeab30)
 
 ![Screenshot 2023-05-21 235347](https://github.com/KirollosSamy/Graphics_project/assets/75990647/62a1a960-4377-48d7-9357-2886a6aca72b)
+
+## To be done <a name = "extensions"></a>
+- Each source of light can be toggled (flashing) 
+- At the beggining , the torch will be hidden and the player will search for it 
+- The player can hide in the dark from granny so she can't catch him 
+- In case granny sees the player , she runs after him then game over
 
 ## Contributors <a name = "contributors"></a>
 
