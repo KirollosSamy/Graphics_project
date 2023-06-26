@@ -318,7 +318,7 @@ namespace our
 
                                     // undo last move
                                     //
-                                    position -= deltaTime * movement->linearVelocity * front;
+                                    // position -= deltaTime * movement->linearVelocity * front;
                                     rotation.y += glm::radians(180.0f);
                                 }
                             }

@@ -61,7 +61,7 @@
         "pointSpecular": "assets/textures/pointLight/specular.png",
         "pointRoughness": "assets/textures/pointLight/roughness.png",
         "pointEmissive": "assets/textures/pointLight/emissive.png",
-        "MK":"assets/textures/MK.jpg"
+        "MK": "assets/textures/MK.jpg"
       },
       "meshes": {
         "cube": "assets/models/cube.obj",
@@ -1057,7 +1057,7 @@
           },
           {
             "type": "Movement",
-            "linearVelocity": [25, 25, 25],
+            "linearVelocity": [0, 0, 0],
             "angularVelocity": [0, 0, 0]
           },
           {

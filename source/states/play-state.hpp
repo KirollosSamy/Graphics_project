@@ -83,7 +83,7 @@ class Playstate : public our::State
         cameraController.update(&world, (float)deltaTime);  // p = p + delta x(z,y,w)  collision -> false  || collision -> true
         lightingSystem.update();
         message = collisionSystem.update(&world, (float)deltaTime, &renderer);  //  == p - delta x
-        soundSystem.update(&world);
+        // soundSystem.update(&world);
         pickSystem.update(&world);
         dropSystem.Drop(&world);
         matchingSystem.Matching(&world);
@@ -95,10 +95,10 @@ class Playstate : public our::State
 
         // check if the game has ended
         // we can modify menu state slightly to display gameover and won screen.
-        if (gameStatus == our::GameStatus::WON)
-            getApp()->changeState("win");
-        else if (gameStatus == our::GameStatus::LOST)
-            getApp()->changeState("end");
+        // if (gameStatus == our::GameStatus::WON)
+        //     getApp()->changeState("win");
+        // else if (gameStatus == our::GameStatus::LOST)
+        //     getApp()->changeState("end");
 
         // And finally we use the renderer system to draw the scene
         renderer.render(&world);

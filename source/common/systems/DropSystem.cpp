@@ -40,52 +40,51 @@ namespace our
                     if (Entity->name == "screw")
                     {
                         position = glm::vec3(54, 7.3, 23.0);
-                        scale = glm::vec3(0.0005 / (hand->localTransform.scale.x / 10), 0.0005 / (hand->localTransform.scale.y / 10), -0.05); // for screw
+                        scale = glm::vec3(0.0005 / (hand->localTransform.scale.x / 10), 0.0005 / (hand->localTransform.scale.y / 10), -0.05);
                     }
                     else if (Entity->name == "key1")
                     {
                         rotation.x += glm::radians(90.0f);
                         position = glm::vec3(45.7, 11.25, 15);
-                        scale = glm::vec3(0.00045 / (hand->localTransform.scale.x / 10), 0.00045 / (hand->localTransform.scale.y / 10), -0.045); // for screw
+                        scale = glm::vec3(0.0002 / (hand->localTransform.scale.x / 10), 0.0002 / (hand->localTransform.scale.y / 10), -0.03);
                     }
                     else if (Entity->name == "key2")
                     {
                         rotation.x += glm::radians(90.0f);
                         position = glm::vec3(44.7, 10.1, 25.45);
-                        scale = glm::vec3(0.0005 / (hand->localTransform.scale.x / 10), 0.0005 / (hand->localTransform.scale.y / 10), -0.05); // for screw
+                        scale = glm::vec3(0.0002 / (hand->localTransform.scale.x / 10), 0.0002 / (hand->localTransform.scale.y / 10), -0.03);
                     }
                     else if (Entity->name == "key3")
                     {
                         rotation.x += glm::radians(90.0f);
                         position = glm::vec3(57, 10.8, 19.63);
-                        scale = glm::vec3(0.0005 / (hand->localTransform.scale.x / 10), 0.0005 / (hand->localTransform.scale.y / 10), -0.05); // for screw
+                        scale = glm::vec3(0.0002 / (hand->localTransform.scale.x / 10), 0.0002 / (hand->localTransform.scale.y / 10), -0.03);
                     }
                     else if (Entity->name == "key4")
                     {
                         rotation.x += glm::radians(90.0f);
                         position = glm::vec3(57.8, 7.16, 18.2);
-                        scale = glm::vec3(0.0005 / (hand->localTransform.scale.x / 10), 0.0005 / (hand->localTransform.scale.y / 10), -0.05); // for screw
+                        scale = glm::vec3(0.0002 / (hand->localTransform.scale.x / 10), 0.0002 / (hand->localTransform.scale.y / 10), -0.03);
                     }
                     else if (Entity->name == "key5")
                     {
                         rotation.x += glm::radians(90.0f);
-                        position = glm::vec3(47.7, 6.65, 21.45);
-                        scale = glm::vec3(0.0005 / (hand->localTransform.scale.x / 10), 0.0005 / (hand->localTransform.scale.y / 10), -0.05); // for screw
+                        position = glm::vec3(47.7, 6.75, 21.45);
+                        scale = glm::vec3(0.0002 / (hand->localTransform.scale.x / 10), 0.0002 / (hand->localTransform.scale.y / 10), -0.03);
                     }
                     else if (Entity->name == "key6")
                     {
                         rotation.x += glm::radians(90.0f);
                         position = glm::vec3(50.7, 3.85, 23.45);
-                        scale = glm::vec3(0.0005 / (hand->localTransform.scale.x / 10), 0.0005 / (hand->localTransform.scale.y / 10), -0.05); // for screw
+                        scale = glm::vec3(0.0002 / (hand->localTransform.scale.x / 10), 0.0002 / (hand->localTransform.scale.y / 10), -0.03);
                     }
                     else if (Entity->name == "hummer")
                     {
                         position = glm::vec3(54.3, 11.2, 18.7);
-                        scale = glm::vec3(0.000005 / (hand->localTransform.scale.x / 10), 0.000005 / (hand->localTransform.scale.y / 10), -0.0005); // for screw
+                        scale = glm::vec3(0.000002 / (hand->localTransform.scale.x / 10), 0.000002 / (hand->localTransform.scale.y / 10), -0.0003);
                     }
 
-
-                    notify(Event::MADE_NOISE);  // for granny system
+                    notify(Event::MADE_NOISE); // for granny system
                 }
             }
         }
