@@ -189,11 +189,11 @@ our::WindowConfiguration our::Application::getWindowConfiguration()
 int our::Application::run(int run_for_frames)
 {
     
-    // if (!this->playing)
-    // {
-    //     SoundEngine->play2D("assets/audio/menu.mp3", true);
-    //     this->playing = true;
-    // }
+    if (!this->playing)
+    {
+        SoundEngine->play2D("assets/audio/menu.mp3", true);
+        this->playing = true;
+    }
 
     glfwSetErrorCallback(glfw_error_callback);
 
