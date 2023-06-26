@@ -15,24 +15,7 @@
 
 ## 📙 About <a name = "about"></a>
 
-"Al Makrmsha" is an engaging single-player game that offers players a thrilling and immersive
-experience set in a spooky house. The objective of the game is to find a hidden key within a specified
-time limit to rescue a trapped person and escape from the house. The game features the Granny
-character, who can hear any sounds made by the player and will pursue them if they are detected.
-The game offers several interactive elements to make the gameplay more interesting and challenging.
-
-The player can collect coins scattered throughout the house to gain extra time and participate in mini-
-games or puzzles to earn additional time. The game includes traps such as the lights going out or a
-
-scary face appearing, which can cause the player to lose time or be caught by Granny. The game also
-features physics, with objects in the house moving and reacting to the player's actions.
-The game offers different levels of difficulty, catering to players of varying skill levels. As the difficulty
-level increases, the game becomes more challenging with additional objects, lighting, scary faces,
-faster Granny speed, time reduction, an extended house, and immersive music.
-"Al-Makrmsha" provides an immersive and engaging experience for players who enjoy puzzle-solving,
-exploration, and suspenseful gameplay. The ultimate goal of finding the key, rescuing a trapped
-person, and escaping from the house adds to the thrill of the gameplay, making it a must-play for
-gamers who enjoy a challenging and immersive experience.
+"Al Makrmsha" game 💀which is a single-player game set in a spooky house🏚️. The objective of the game is to find a hidden key🗝️ and rescue a trapped person🙍. The player takes on the role of a character navigating through the house, filled with spiders 🕷️and many locked doors🔐 need to be open. One of the main challenges in the game is Granny, a character who can hear the sounds made by the player. If Granny detects the player when he is close enough, he will lose. The house is designed with physics-based interactions, allowing the player to interact with various objects. These objects can be used strategically to overcome obstacles and progress through the game. The player starts with 10 lives❤️, which are reduced each time they are hit by moving spiders💔 found in the house. The spiders serve as an additional threat🕸️, adding difficulty to the game. To achieve the winning state🥇, the player needs to collect different objects such as a hammer🔨, screw🪛, and keys🗝️. These objects are used to unlock closed doors and ultimately rescue the trapped person. After rescuing the person, the player must search for the master key to open the house's main door🚪, marking the completion of the game. On the other hand, the losing state 😭is reached if the player is caught by Granny💀 or if they are hit by spiders 10 times. The game's atmosphere is enhanced by different types of lighting and scary music🎵, creating a spooky and tense ambiance throughout the gameplay. The game was built using our game engine, created with OpenGL and C++, it also includes many features such as movement, collision, sound and lightning system where we implemented 3 different types of lights [spot, directional and point]🔦
 
 ## 💻 Technology <a name = "technolgies"></a>
 
